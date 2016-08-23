@@ -1,8 +1,12 @@
 #include "Sort.h"
 
-// best = teta(n), worst = teta(n^2) (p 48)
+// --------------------INSERTION SORT (p 48)---------------
+// Brief description: sorting like in a gambling
+// --------------------------------------------------------
+// best = teta(n) 
+// avg = teta(n^2)
+// worst = teta(n^2) 
 //---------------------------------------------------------
-// sorting like in a gambling =))
 void so::Sort::insertionSort(std::vector<int>& A) {
 	for (int j = 1; j < A.size(); j++) {
 		int key = A[j];
@@ -17,10 +21,14 @@ void so::Sort::insertionSort(std::vector<int>& A) {
 	}
 }
 
-// without additional information (p 52)
-//-----------------------------------------------------------
-// get minimum and put to 1st element, get leftover elements, 
-// get min and put to the 2nd element and etc.
+//---------------------SELECTION SORT (p 52)------------------------
+// Brief description: get minimum and put to 1st element.
+// Put left elements, find min and place to the 2nd position and etc
+//------------------------------------------------------------------
+// best = teta(n^2)
+// avg = teta(n^2)
+// worst = teta(n^2)
+//------------------------------------------------------------------ 
 void so::Sort::selectionSort(std::vector<int>& A) {
 	for (int i = 0; i < A.size() - 1; i++) {
 
@@ -40,9 +48,12 @@ void so::Sort::selectionSort(std::vector<int>& A) {
 	}
 }
 
-// procedure MERGE for mergeSort(), complexity = teta(n), (p 54)
-//-----------------------------------------------------------
-// sorting two sorted sequences 
+//--------ADDITIONAL FUNCTION FOR MERGE-SORT (p 54)--------
+// Brief description: allows to join two sorted vectors to 
+// one sorted vector 
+//---------------------------------------------------------
+// worst = teta(n)
+//---------------------------------------------------------
 void so::Sort::merge(std::vector<int>& A, int p, int q, int r) {
 
 	const int lSize = q - p + 1;
@@ -67,9 +78,12 @@ void so::Sort::merge(std::vector<int>& A, int p, int q, int r) {
 	}
 }
 
-// mergeSort, complexity = teta(n * log(n) ), (p 56)
+//----------------------MERGE-SORT (p 56)--------------------
+// Brief description: separate sequence parts recursievly and 
+// merge sorted parts by merge() function
 // ----------------------------------------------------------
-// separate sequence parts recursievly and merge sorted parts 
+// worst = teta(n * log(n) )
+// ----------------------------------------------------------
 void so::Sort::mergeSort(std::vector<int>& A, int p, int r) {
 	if (p < r) {
 		int q = (p + r) / 2;
