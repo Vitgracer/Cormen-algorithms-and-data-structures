@@ -18,7 +18,6 @@ void so::Sort::insertionSort(std::vector<int>& A) {
 			A[i + 1] = A[i];
 			i--;
 		}
-
 		A[i + 1] = key;
 	}
 }
@@ -33,13 +32,17 @@ void so::Sort::insertionSort(std::vector<int>& A) {
 //---------------------------------------------------------
 void so::Sort::bubbleSort(std::vector<int>& A) {
 	for (int i = 0; i < A.size() - 1; i++) {
-		for (int j = 0; j < A.size() - 1; j++) {
+		bool swapped = false;
+
+		for (int j = 0; j < A.size() - i - 1; j++) {
 			if (A[j] > A[j + 1]) {
 				int tmp = A[j + 1];
 				A[j + 1] = A[j];
 				A[j] = tmp;
+				swapped = true;
 			}
 		}
+		if (!swapped) break;
 	}
 }
 

@@ -1,7 +1,6 @@
 #include <vector>
 
 namespace so {
-
 	class Sort {
 	private:
 		static void merge(std::vector<int>& A, int p, int q, int r);
@@ -13,5 +12,4 @@ namespace so {
 	public:
 		static void launchAllSortingAlgorithms();
 	};
-
 }
