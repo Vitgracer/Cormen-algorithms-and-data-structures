@@ -1,3 +1,5 @@
+#include <iostream>
+#include <time.h>
 #include "Sort.h"
 
 // --------------------INSERTION SORT (p 48)---------------
@@ -111,4 +113,47 @@ void so::Sort::mergeSort(std::vector<int>& A, int p, int r) {
 		mergeSort(A, q + 1, r);
 		merge(A, p, q, r);
 	}
+}
+
+// ----------------- LAUNCHER ----------------------------
+// Brief description: use all available sorting algorithms
+// and compare their timings in console output 
+// -------------------------------------------------------
+void so::Sort::launchAllSortingAlgorithms() {
+	//-------------------------------------------------
+	std::vector<int> A;
+	for (int i = 0; i < 1000; i++) A.push_back(rand());
+
+	//-------------------------------------------------
+	auto insStart = clock();
+	auto ins = A;
+	so::Sort::insertionSort(ins);
+	auto insEnd = clock() - insStart;
+	std::cout << "Insertion sort: " << insEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	auto selStart = clock();
+	auto sel = A;
+	so::Sort::selectionSort(sel);
+	auto selEnd = clock() - selStart;
+	std::cout << "Selection sort: " << selEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	auto merStart = clock();
+	auto mer = A;
+	so::Sort::mergeSort(mer, 0, mer.size() - 1);
+	auto merEnd = clock() - merStart;
+	std::cout << "Merge sort: " << merEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	auto bubStart = clock();
+	auto bub = A;
+	so::Sort::bubbleSort(bub);
+	auto bubEnd = clock() - bubStart;
+	std::cout << "Bubble sort: " << bubEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	bool check = (sel == ins) && (sel == mer) && (sel == bub);
+	if (check) std::cout << "All sortings algorithms are correct" << std::endl;
+	else std::cout << "Error!" << std::endl;
 }
