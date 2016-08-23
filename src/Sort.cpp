@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 #include <time.h>
 #include "Sort.h"
 
@@ -56,10 +57,9 @@ void so::Sort::bubbleSort(std::vector<int>& A) {
 //------------------------------------------------------------------ 
 void so::Sort::selectionSort(std::vector<int>& A) {
 	for (int i = 0; i < A.size() - 1; i++) {
-
-		int minVal = 2147483647;
+		int minVal = INT_MAX;
 		int minInd = 0;
-
+		
 		for (int j = i; j < A.size(); j++) {
 			if (A[j] < minVal) {
 				minVal = A[j];
@@ -90,8 +90,8 @@ void so::Sort::merge(std::vector<int>& A, int p, int q, int r) {
 	auto R = std::vector<int>(begA + lSize, begA + lSize + rSize);
 
 	// signal card!
-	L.push_back(2147483647);
-	R.push_back(2147483647);
+	L.push_back(INT_MAX);
+	R.push_back(INT_MAX);
 
 	int kl = 0;
 	int kr = 0;
