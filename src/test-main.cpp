@@ -13,21 +13,33 @@ int main() {
 	auto ins = A;
 	so::Sort::insertionSort(ins);
 	auto insEnd = clock() - insStart;
+	std::cout << "Insertion sort: " << insEnd  << " ms" << std::endl;
 
 	//-------------------------------------------------
 	auto selStart = clock();
 	auto sel = A;
 	so::Sort::selectionSort(sel);
-	auto selEnd = clock() - insEnd;
+	auto selEnd = clock() - selStart;
+	std::cout << "Selection sort: " << selEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
 	auto merStart = clock();
 	auto mer = A;
 	so::Sort::mergeSort(mer, 0, mer.size() - 1);
 	auto merEnd = clock() - merStart;
+	std::cout << "Merge sort: " << merEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
-	bool check = (sel == ins) && (sel == mer);
+	auto bubStart = clock();
+	auto bub = A;
+	so::Sort::bubbleSort(bub);
+	auto bubEnd = clock() - bubStart;
+	std::cout << "Bubble sort: " << bubEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	bool check = (sel == ins) && (sel == mer) && (sel == bub);
+	if (check) std::cout << "All sortings algorithms are correct" << std::endl;
+	else std::cout << "Error!" << std::endl;
 
 	return 0;
 }

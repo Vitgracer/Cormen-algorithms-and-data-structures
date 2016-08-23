@@ -21,6 +21,26 @@ void so::Sort::insertionSort(std::vector<int>& A) {
 	}
 }
 
+// --------------------BUBBLE SORT---------------------------
+// Brief description: elements' pair replacement, 
+// when minimal element goes to the beginning like a "bubble"
+// ----------------------------------------------------------
+// best = teta(n^2) 
+// avg = teta(n^2)
+// worst = teta(n^2) 
+//---------------------------------------------------------
+void so::Sort::bubbleSort(std::vector<int>& A) {
+	for (int i = 0; i < A.size() - 1; i++) {
+		for (int j = 0; j < A.size() - 1; j++) {
+			if (A[j] > A[j + 1]) {
+				int tmp = A[j + 1];
+				A[j + 1] = A[j];
+				A[j] = tmp;
+			}
+		}
+	}
+}
+
 //---------------------SELECTION SORT (p 52)------------------------
 // Brief description: get minimum and put to 1st element.
 // Put left elements, find min and place to the 2nd position and etc
