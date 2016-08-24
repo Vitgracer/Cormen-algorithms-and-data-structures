@@ -23,6 +23,27 @@ void so::Sort::insertionSort(std::vector<int>& A) {
 	}
 }
 
+// ---------------INSERTION SORT (RECURSIVE)--------
+// Brief description: insertion sort using recursion 
+// -------------------------------------------------
+// best = teta(n) 
+// avg = teta(n^2)
+// worst = teta(n^2) 
+//--------------------------------------------------
+void so::Sort::insertionSortRecursive(std::vector<int>& A, int n) {
+	if (n > 1)
+		insertionSortRecursive(A, n - 1);
+	
+	int key = A[n];
+	int i = n - 1;
+
+	while (i >= 0 && A[i] > key) {
+		A[i + 1] = A[i];
+		i--;
+	}
+	A[i + 1] = key;
+}
+
 // --------------------BUBBLE SORT---------------------------
 // Brief description: elements' pair replacement, 
 // when minimal element goes to the beginning like a "bubble"
@@ -135,6 +156,13 @@ void so::Sort::launchAllSortingAlgorithms() {
 	std::cout << "Insertion sort: " << insEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto insRStart = clock();
+	auto insR = A;
+	so::Sort::insertionSortRecursive(insR, insR.size() - 1);
+	auto insREnd = clock() - insRStart;
+	std::cout << "Insertion resursive sort: " << insREnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	auto selStart = clock();
 	auto sel = A;
 	so::Sort::selectionSort(sel);
@@ -156,7 +184,11 @@ void so::Sort::launchAllSortingAlgorithms() {
 	std::cout << "Bubble sort: " << bubEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
-	bool check = (sel == ins) && (sel == mer) && (sel == bub);
+	bool check = (sel == ins) && 
+				 (sel == mer) && 
+				 (sel == bub) && 
+				 (sel == insR);
+	
 	if (check) std::cout << "All sortings algorithms are correct" << std::endl;
 	else std::cout << "Error!" << std::endl;
 }
