@@ -77,7 +77,7 @@ void launchAllOtherAlgorithms() {
 
 	//---------------------------------------------------------------------------------------
 	auto maxArStart = clock();
-	Array::findMaxSubarray(A, 0, A.size() - 1);
+	std::vector<int> maxSubarray = Array::findMaxSubarray(A, 0, A.size() - 1);
 	auto maxArEnd = clock() - maxArStart;
 	std::cout << std::endl << "Find maximal subarray: " << maxArEnd << " ms" << std::endl;
 }
