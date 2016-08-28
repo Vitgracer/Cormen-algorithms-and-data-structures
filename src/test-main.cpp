@@ -7,6 +7,7 @@ int main() {
 	Sort::launchAllSortingAlgorithms();
 
 	// launch all algorithms without certain category
+	launchAllOtherAlgorithms();
 
 	return 0;
 }
