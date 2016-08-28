@@ -1,5 +1,6 @@
 #include <vector>
 #include <climits>
+#include <algorithm>
 #include "Other.h"
 
 // ----------------FIND-MAX-CROSSING-SUBARAAY-------------------------
@@ -96,6 +97,23 @@ std::vector<int> Array::findMaxSubarrayBF(std::vector<int>& A) {
 	return{ left, right, maxSum };
 }
 
+// ------------------FIND-MAX-SUBARAAY-KADANE------------------------
+// Brief description: main goal is to find subarray with maximal sum 
+// of elements in current array A (using Kadane algorithm based on DP) 
+// -------------------------------------------------------------------
+// avg = teta(n)
+//--------------------------------------------------------------------
+std::vector<int> Array::findMaxSubarrayKadane(std::vector<int>& A) {
+	int maxEnding = 0;
+	int maxRes = 0;
+
+	for (int i = 0; i < A.size(); i++) {
+		maxEnding = std::max(0, maxEnding + A[i]);
+		maxRes = std::max(maxRes, maxEnding);
+	}
+	return { maxRes };
+}
+
 // ------------------------ LAUNCHER ----------------------------
 // Brief description: laucnh all algorithms without any category
 // --------------------------------------------------------------
@@ -117,8 +135,16 @@ void launchAllOtherAlgorithms() {
 	auto maxArBFEnd = clock() - maxArBFStart;
 	std::cout << "Find maximal subarray (brute force): " << maxArBFEnd << " ms" << std::endl;
 
+	//---------------------------------------------------------------------------------------
+	auto maxArKadStart = clock();
+	std::vector<int> maxSubarrayKad = Array::findMaxSubarrayKadane(A);
+	auto maxArKadEnd = clock() - maxArKadStart;
+	maxSubarrayKad = { maxSubarray[0], maxSubarrayBF[1], maxSubarrayKad[0] };
+	std::cout << "Find maximal subarray (Kadane algorithm): " << maxArKadEnd << " ms" << std::endl;
+
 	//-------------------------------------------------
-	bool check = (maxSubarray == maxSubarrayBF);
+	bool check = (maxSubarray == maxSubarrayBF) && 
+				 (maxSubarray == maxSubarrayKad);
 
 	if (check) std::cout << "All maximal subarray algorithms are correct" << std::endl;
 	else std::cout << "Error!" << std::endl;
