@@ -189,6 +189,6 @@ void Sort::launchAllSortingAlgorithms() {
 				 (sel == bub) && 
 				 (sel == insR);
 	
-	if (check) std::cout << "All sortings algorithms are correct" << std::endl;
-	else std::cout << "Error!" << std::endl;
+	if (check) std::cout << "All sortings algorithms are correct" << std::endl << std::endl;
+	else std::cout << "Error!" << std::endl << std::endl;
 }

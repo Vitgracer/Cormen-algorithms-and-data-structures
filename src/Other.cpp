@@ -8,7 +8,7 @@
 // -------------------------------------------------------------------
 // avg = teta(n)
 //---------------------------------------------------------
-std::vector<int> Array::findMaxCrossingSubarray(std::vector<int> A, int low, int mid, int high) {
+std::vector<int> Array::findMaxCrossingSubarray(std::vector<int>& A, int low, int mid, int high) {
 	int leftSum = INT_MIN;
 	int maxLeft = high;
 	int sum = 0;
@@ -42,7 +42,7 @@ std::vector<int> Array::findMaxCrossingSubarray(std::vector<int> A, int low, int
 // -------------------------------------------------------------------
 // avg = teta(n * log(n) )
 //---------------------------------------------------------
-std::vector<int> Array::findMaxSubarray(std::vector<int> A, int low, int high) {
+std::vector<int> Array::findMaxSubarray(std::vector<int>& A, int low, int high) {
 	if (high == low) return{ low, high, A[low] };
 	else {
 		int mid = (high + low) / 2;
@@ -68,16 +68,58 @@ std::vector<int> Array::findMaxSubarray(std::vector<int> A, int low, int high) {
 	}
 }
 
+
+// ------------------FIND-MAX-SUBARAAY-BRUTE_FORCE--------------------
+// Brief description: main goal is to find subarray with maximal sum 
+// of elements in current array A (using brute brute force) 
+// -------------------------------------------------------------------
+// avg = teta(n ^ 2)
+//--------------------------------------------------------------------
+std::vector<int> Array::findMaxSubarrayBF(std::vector<int>& A) {
+	int left = 0;
+	int right = 0;
+	int maxSum = 0;
+
+	for (int i = 0; i < A.size(); i++) {
+		int sum = A[i];
+
+		for (int j = i + 1; j < A.size(); j++) {
+			sum = sum + A[j];
+			if (sum > maxSum) {
+				maxSum = sum;
+				left = i;
+				right = j;
+			}
+		}
+	}
+
+	return{ left, right, maxSum };
+}
+
 // ------------------------ LAUNCHER ----------------------------
 // Brief description: laucnh all algorithms without any category
 // --------------------------------------------------------------
 void launchAllOtherAlgorithms() {
 	//---------------------------------------------------------------------------------------
-	std::vector<int> A = { 13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7 };
+	//std::vector<int> A = { 13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7 };
+	std::vector<int> A;
+	for (int i = 0; i < 1000; i++) A.push_back(rand() % 1000 - 500);
 
 	//---------------------------------------------------------------------------------------
 	auto maxArStart = clock();
 	std::vector<int> maxSubarray = Array::findMaxSubarray(A, 0, A.size() - 1);
 	auto maxArEnd = clock() - maxArStart;
-	std::cout << std::endl << "Find maximal subarray: " << maxArEnd << " ms" << std::endl;
+	std::cout << "Find maximal subarray: " << maxArEnd << " ms" << std::endl;
+	
+	//---------------------------------------------------------------------------------------
+	auto maxArBFStart = clock();
+	std::vector<int> maxSubarrayBF = Array::findMaxSubarrayBF(A);
+	auto maxArBFEnd = clock() - maxArBFStart;
+	std::cout << "Find maximal subarray (brute force): " << maxArBFEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	bool check = (maxSubarray == maxSubarrayBF);
+
+	if (check) std::cout << "All maximal subarray algorithms are correct" << std::endl;
+	else std::cout << "Error!" << std::endl;
 }
