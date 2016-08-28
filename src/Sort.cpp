@@ -10,7 +10,7 @@
 // avg = teta(n^2)
 // worst = teta(n^2) 
 //---------------------------------------------------------
-void so::Sort::insertionSort(std::vector<int>& A) {
+void Sort::insertionSort(std::vector<int>& A) {
 	for (int j = 1; j < A.size(); j++) {
 		int key = A[j];
 		int i = j - 1;
@@ -30,7 +30,7 @@ void so::Sort::insertionSort(std::vector<int>& A) {
 // avg = teta(n^2)
 // worst = teta(n^2) 
 //--------------------------------------------------
-void so::Sort::insertionSortRecursive(std::vector<int>& A, int n) {
+void Sort::insertionSortRecursive(std::vector<int>& A, int n) {
 	if (n > 1)
 		insertionSortRecursive(A, n - 1);
 	
@@ -52,7 +52,7 @@ void so::Sort::insertionSortRecursive(std::vector<int>& A, int n) {
 // avg = teta(n^2)
 // worst = teta(n^2) 
 //---------------------------------------------------------
-void so::Sort::bubbleSort(std::vector<int>& A) {
+void Sort::bubbleSort(std::vector<int>& A) {
 	for (int i = 0; i < A.size() - 1; i++) {
 		bool swapped = false;
 
@@ -76,7 +76,7 @@ void so::Sort::bubbleSort(std::vector<int>& A) {
 // avg = teta(n^2)
 // worst = teta(n^2)
 //------------------------------------------------------------------ 
-void so::Sort::selectionSort(std::vector<int>& A) {
+void Sort::selectionSort(std::vector<int>& A) {
 	for (int i = 0; i < A.size() - 1; i++) {
 		int minVal = INT_MAX;
 		int minInd = 0;
@@ -100,7 +100,7 @@ void so::Sort::selectionSort(std::vector<int>& A) {
 //---------------------------------------------------------
 // worst = teta(n)
 //---------------------------------------------------------
-void so::Sort::merge(std::vector<int>& A, int p, int q, int r) {
+void Sort::merge(std::vector<int>& A, int p, int q, int r) {
 
 	const int lSize = q - p + 1;
 	const int rSize = r - q;
@@ -130,7 +130,7 @@ void so::Sort::merge(std::vector<int>& A, int p, int q, int r) {
 // ----------------------------------------------------------
 // worst = teta(n * log(n) )
 // ----------------------------------------------------------
-void so::Sort::mergeSort(std::vector<int>& A, int p, int r) {
+void Sort::mergeSort(std::vector<int>& A, int p, int r) {
 	if (p < r) {
 		int q = (p + r) / 2;
 		mergeSort(A, p, q);
@@ -143,7 +143,7 @@ void so::Sort::mergeSort(std::vector<int>& A, int p, int r) {
 // Brief description: use all available sorting algorithms
 // and compare their timings in console output 
 // -------------------------------------------------------
-void so::Sort::launchAllSortingAlgorithms() {
+void Sort::launchAllSortingAlgorithms() {
 	//-------------------------------------------------
 	std::vector<int> A;
 	for (int i = 0; i < 1000; i++) A.push_back(rand());
@@ -151,35 +151,35 @@ void so::Sort::launchAllSortingAlgorithms() {
 	//-------------------------------------------------
 	auto insStart = clock();
 	auto ins = A;
-	so::Sort::insertionSort(ins);
+	Sort::insertionSort(ins);
 	auto insEnd = clock() - insStart;
 	std::cout << "Insertion sort: " << insEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
 	auto insRStart = clock();
 	auto insR = A;
-	so::Sort::insertionSortRecursive(insR, insR.size() - 1);
+	Sort::insertionSortRecursive(insR, insR.size() - 1);
 	auto insREnd = clock() - insRStart;
 	std::cout << "Insertion resursive sort: " << insREnd << " ms" << std::endl;
 
 	//-------------------------------------------------
 	auto selStart = clock();
 	auto sel = A;
-	so::Sort::selectionSort(sel);
+	Sort::selectionSort(sel);
 	auto selEnd = clock() - selStart;
 	std::cout << "Selection sort: " << selEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
 	auto merStart = clock();
 	auto mer = A;
-	so::Sort::mergeSort(mer, 0, mer.size() - 1);
+	Sort::mergeSort(mer, 0, mer.size() - 1);
 	auto merEnd = clock() - merStart;
 	std::cout << "Merge sort: " << merEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
 	auto bubStart = clock();
 	auto bub = A;
-	so::Sort::bubbleSort(bub);
+	Sort::bubbleSort(bub);
 	auto bubEnd = clock() - bubStart;
 	std::cout << "Bubble sort: " << bubEnd << " ms" << std::endl;
 

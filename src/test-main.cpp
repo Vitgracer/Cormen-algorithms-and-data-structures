@@ -3,7 +3,7 @@
 
 int main() {
 	// compare sorting algorithms 
-	so::Sort::launchAllSortingAlgorithms();
+	Sort::launchAllSortingAlgorithms();
 
 	return 0;
 }
