@@ -1,9 +1,13 @@
 #include <iostream>
+#include "Other.h"
 #include "Sort.h"
 
 int main() {
 	// compare sorting algorithms 
-	so::Sort::launchAllSortingAlgorithms();
+	Sort::launchAllSortingAlgorithms();
+
+	// launch all algorithms without certain category
+	launchAllOtherAlgorithms();
 
 	return 0;
 }
