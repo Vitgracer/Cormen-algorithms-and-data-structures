@@ -35,3 +35,14 @@ std::vector<int> Array::findMaxCrossingSubarray(std::vector<int> A, int low, int
 
 	return { maxLeft, maxRight, leftSum + rightSum };
 }
+
+// ----------------------FIND-MAX-SUBARAAY-------------------------
+// Brief description: main goal is to find subarray with maximal sum 
+// of elements in current array A 
+// -------------------------------------------------------------------
+// avg = n * log(n)
+//---------------------------------------------------------
+std::vector<int> Array::findMaxSubarray(std::vector<int> A, int low, int high) {
+	
+	return{};
+}
