@@ -108,7 +108,7 @@ std::vector<int> Array::findMaxSubarrayKadane(std::vector<int>& A) {
 	int maxRes = 0;
 
 	for (int i = 0; i < A.size(); i++) {
-		maxEnding = std::max(maxEnding, maxEnding + A[i]);
+		maxEnding = std::max(0, maxEnding + A[i]);
 		maxRes = std::max(maxRes, maxEnding);
 	}
 	return { maxRes };
