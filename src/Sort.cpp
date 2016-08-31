@@ -184,7 +184,7 @@ void Sort::maxHeapify(std::vector<int>& A, int i) {
 // worst = teta(n * log(n) )
 // ---------------------------------------------------------------------
 void Sort::buildMaxHeap(std::vector<int>& A) {
-	for (int i = A.size() / 2; i > 0; i--) {
+	for (int i = (A.size() - 1) / 2; i > 0; i--) {
 		maxHeapify(A, i);
 	}
 }
@@ -205,6 +205,13 @@ void undummyVector(std::vector<int>& A) {
 
 void Sort::heapSort(std::vector<int>& A) {
 	dummyVector(A);
+
+	buildMaxHeap(A);
+	for (int i = A.size() - 1; i > 1; i--) {
+		int tmp = A[1];
+		A[1] = A[i];
+		A[i] = tmp;
+	}
 
 	undummyVector(A);
 }
