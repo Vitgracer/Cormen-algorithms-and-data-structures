@@ -206,8 +206,9 @@ void undummyVector(std::vector<int>& A) {
 void Sort::heapSort(std::vector<int>& A) {
 	dummyVector(A);
 
-	int heapSize = A.size() - 1;
+	int heapSize = A.size();
 	buildMaxHeap(A);
+
 	for (int i = A.size() - 1; i > 1; i--) {
 		int tmp = A[1];
 		A[1] = A[i];
@@ -267,7 +268,7 @@ void Sort::launchAllSortingAlgorithms() {
 	//-------------------------------------------------
 	auto pyrStart = clock();
 	auto pyr = A;
-	Sort::heapSort(bub);
+	Sort::heapSort(pyr);
 	auto pyrEnd = clock() - pyrStart;
 	std::cout << "Heap sort: " << pyrEnd << " ms" << std::endl;
 
