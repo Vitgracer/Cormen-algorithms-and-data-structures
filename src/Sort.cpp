@@ -158,27 +158,33 @@ int Sort::parent(int i) { return i / 2; }
 // Brief description: get A-array, represent it as pyramid (binary tree),
 // and transform it to non-increasing case
 // ---------------------------------------------------------------------
-// worst = teta(n * log(n) )
+// worst = teta(log(n) )
 // ---------------------------------------------------------------------
 void Sort::maxHeapify(std::vector<int>& A, int i) {
 	int l = left(i);
 	int r = right(i);
 	int largest = i;
 
-	if (A[l] < A.size() && A[i] < A[l]) largest = l;
-	if (A[r] < A.size() && A[largest] < A[r]) largest = r;
+	if (l < A.size() && A[i] < A[l]) largest = l;
+	if (r < A.size() && A[largest] < A[r]) largest = r;
 
 	if (largest != i) {
 		int tmp = A[i];
-		A[i] = largest;
+		A[i] = A[largest];
 		A[largest] = tmp;
 
 		maxHeapify(A, largest);
 	}
 }
 
-static void heapSort(std::vector<int>& A) {
+void Sort::buildMaxHeap(std::vector<int>& A) {
+	for (int i = A.size() / 2; i > 0; i--) {
+		maxHeapify(A, i);
+	}
+}
 
+void Sort::heapSort(std::vector<int>& A) {
+	
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -188,7 +194,7 @@ static void heapSort(std::vector<int>& A) {
 void Sort::launchAllSortingAlgorithms() {
 	//-------------------------------------------------
 	std::vector<int> A;
-	for (int i = 0; i < 1000; i++) A.push_back(rand());
+	for (int i = 0; i < 10; i++) A.push_back(rand());
 
 	//-------------------------------------------------
 	auto insStart = clock();
