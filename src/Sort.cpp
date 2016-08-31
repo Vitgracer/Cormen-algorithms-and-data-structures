@@ -156,7 +156,7 @@ int Sort::parent(int i) { return i / 2; }
 
 //----------------------MAX-HEAPIFY (p 183)-----------------------------
 // Brief description: get A-array, represent it as pyramid (binary tree),
-// and transform it to non-increasing case
+// and transform it to non-increasing case for i-node and all its childs 
 // ---------------------------------------------------------------------
 // worst = teta(log(n) )
 // ---------------------------------------------------------------------
@@ -177,14 +177,36 @@ void Sort::maxHeapify(std::vector<int>& A, int i) {
 	}
 }
 
+//----------------------MAX-HEAPIFY (p 185)-----------------------------
+// Brief description: get A-array, represent it as pyramid (binary tree),
+// and transform it to non-increasing pyramid 
+// ---------------------------------------------------------------------
+// worst = teta(n * log(n) )
+// ---------------------------------------------------------------------
 void Sort::buildMaxHeap(std::vector<int>& A) {
 	for (int i = A.size() / 2; i > 0; i--) {
 		maxHeapify(A, i);
 	}
 }
 
+//----------------------DUMMY-VECTOR-----------------
+// Brief description: crutch to apply indexing from 1
+// --------------------------------------------------
+void dummyVector(std::vector<int>& A) {
+	A.insert(A.begin(), -1);
+}
+
+//--------------UNDUMMY-VECTOR---------
+// Brief description: remove crutch :) 
+// ------------------------------------
+void undummyVector(std::vector<int>& A) {
+	A.erase(A.begin());
+}
+
 void Sort::heapSort(std::vector<int>& A) {
-	
+	dummyVector(A);
+
+	undummyVector(A);
 }
 
 // ----------------- LAUNCHER ----------------------------
