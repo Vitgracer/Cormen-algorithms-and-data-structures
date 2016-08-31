@@ -8,10 +8,15 @@ private:
 	static void insertionSortRecursive(std::vector<int>& A, int n);
 	static void selectionSort(std::vector<int>& A);
 
-	// merge sort 
+	// merge-sort 
 	static void merge(std::vector<int>& A, int p, int q, int r);
 	static void mergeSort(std::vector<int>& A, int p, int r);
 
+	// heap-sort
+	static int left(int i);
+	static int right(int i);
+	static int parent(int i);
+	static void maxHeapify(std::vector<int>& A, int i);
 public:
 	static void launchAllSortingAlgorithms();
 };

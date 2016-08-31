@@ -139,6 +139,31 @@ void Sort::mergeSort(std::vector<int>& A, int p, int r) {
 	}
 }
 
+//----------------------LEFT (p 180)--------------------
+// Brief description: get left child of the current node
+// -----------------------------------------------------
+int Sort::left(int i) { return 2 * i; }
+
+//----------------------RIGHT (p 180)--------------------
+// Brief description: get right child of the current node
+// -----------------------------------------------------
+int Sort::right(int i) { return 2 * i + 1; }
+
+//----------------------PARENT (p 180)----------------------
+// Brief description: get parent node of the current child
+// -------------------------------------------------------
+int Sort::parent(int i) { return i / 2; }
+
+//----------------------MAX-HEAPIFY (p 183)-----------------------------
+// Brief description: get A-array, represent it as pyramid (binary tree),
+// and transform it to non-increasing case
+// ---------------------------------------------------------------------
+// worst = teta(n * log(n) )
+// ---------------------------------------------------------------------
+void Sort::maxHeapify(std::vector<int>& A, int i) {
+
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available sorting algorithms
 // and compare their timings in console output 
