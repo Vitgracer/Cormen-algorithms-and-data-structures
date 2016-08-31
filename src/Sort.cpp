@@ -206,7 +206,7 @@ void undummyVector(std::vector<int>& A) {
 void Sort::heapSort(std::vector<int>& A) {
 	dummyVector(A);
 
-	int heapSize = A.size();
+	int heapSize = A.size() - 1;
 	buildMaxHeap(A);
 	for (int i = A.size() - 1; i > 1; i--) {
 		int tmp = A[1];
@@ -214,7 +214,7 @@ void Sort::heapSort(std::vector<int>& A) {
 		A[i] = tmp;
 		
 		heapSize--;
-		maxHeapify(A, i, heapSize);
+		maxHeapify(A, 1, heapSize);
 	}
 
 	undummyVector(A);
