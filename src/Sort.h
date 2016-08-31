@@ -16,7 +16,7 @@ private:
 	static int left(int i);
 	static int right(int i);
 	static int parent(int i);
-	static void maxHeapify(std::vector<int>& A, int i);
+	static void maxHeapify(std::vector<int>& A, int i, int heapSize);
 	static void buildMaxHeap(std::vector<int>& A);
 	static void heapSort(std::vector<int>& A);
 public:

@@ -160,20 +160,20 @@ int Sort::parent(int i) { return i / 2; }
 // ---------------------------------------------------------------------
 // worst = teta(log(n) )
 // ---------------------------------------------------------------------
-void Sort::maxHeapify(std::vector<int>& A, int i) {
+void Sort::maxHeapify(std::vector<int>& A, int i, int heapSize) {
 	int l = left(i);
 	int r = right(i);
 	int largest = i;
 
-	if (l < A.size() && A[i] < A[l]) largest = l;
-	if (r < A.size() && A[largest] < A[r]) largest = r;
+	if (l < heapSize && A[i] < A[l]) largest = l;
+	if (r < heapSize && A[largest] < A[r]) largest = r;
 
 	if (largest != i) {
 		int tmp = A[i];
 		A[i] = A[largest];
 		A[largest] = tmp;
 
-		maxHeapify(A, largest);
+		maxHeapify(A, largest, heapSize);
 	}
 }
 
@@ -185,7 +185,7 @@ void Sort::maxHeapify(std::vector<int>& A, int i) {
 // ---------------------------------------------------------------------
 void Sort::buildMaxHeap(std::vector<int>& A) {
 	for (int i = (A.size() - 1) / 2; i > 0; i--) {
-		maxHeapify(A, i);
+		maxHeapify(A, i, A.size());
 	}
 }
 
@@ -206,11 +206,15 @@ void undummyVector(std::vector<int>& A) {
 void Sort::heapSort(std::vector<int>& A) {
 	dummyVector(A);
 
+	int heapSize = A.size();
 	buildMaxHeap(A);
 	for (int i = A.size() - 1; i > 1; i--) {
 		int tmp = A[1];
 		A[1] = A[i];
 		A[i] = tmp;
+		
+		heapSize--;
+		maxHeapify(A, i, heapSize);
 	}
 
 	undummyVector(A);
