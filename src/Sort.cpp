@@ -139,6 +139,88 @@ void Sort::mergeSort(std::vector<int>& A, int p, int r) {
 	}
 }
 
+//----------------------LEFT (p 180)--------------------
+// Brief description: get left child of the current node
+// -----------------------------------------------------
+int Sort::left(int i) { return 2 * i; }
+
+//----------------------RIGHT (p 180)--------------------
+// Brief description: get right child of the current node
+// -----------------------------------------------------
+int Sort::right(int i) { return 2 * i + 1; }
+
+//----------------------PARENT (p 180)----------------------
+// Brief description: get parent node of the current child
+// -------------------------------------------------------
+int Sort::parent(int i) { return i / 2; }
+
+//----------------------MAX-HEAPIFY (p 183)-----------------------------
+// Brief description: get A-array, represent it as pyramid (binary tree),
+// and transform it to non-increasing case for i-node and all its childs 
+// ---------------------------------------------------------------------
+// worst = teta(log(n) )
+// ---------------------------------------------------------------------
+void Sort::maxHeapify(std::vector<int>& A, int i, int heapSize) {
+	int l = left(i);
+	int r = right(i);
+	int largest = i;
+
+	if (l < heapSize && A[i] < A[l]) largest = l;
+	if (r < heapSize && A[largest] < A[r]) largest = r;
+
+	if (largest != i) {
+		int tmp = A[i];
+		A[i] = A[largest];
+		A[largest] = tmp;
+
+		maxHeapify(A, largest, heapSize);
+	}
+}
+
+//----------------------MAX-HEAPIFY (p 185)-----------------------------
+// Brief description: get A-array, represent it as pyramid (binary tree),
+// and transform it to non-increasing pyramid 
+// ---------------------------------------------------------------------
+// worst = teta(n * log(n) )
+// ---------------------------------------------------------------------
+void Sort::buildMaxHeap(std::vector<int>& A) {
+	for (int i = (A.size() - 1) / 2; i > 0; i--) {
+		maxHeapify(A, i, A.size());
+	}
+}
+
+//----------------------DUMMY-VECTOR-----------------
+// Brief description: crutch to apply indexing from 1
+// --------------------------------------------------
+void dummyVector(std::vector<int>& A) {
+	A.insert(A.begin(), -1);
+}
+
+//--------------UNDUMMY-VECTOR---------
+// Brief description: remove crutch :) 
+// ------------------------------------
+void undummyVector(std::vector<int>& A) {
+	A.erase(A.begin());
+}
+
+void Sort::heapSort(std::vector<int>& A) {
+	dummyVector(A);
+
+	int heapSize = A.size();
+	buildMaxHeap(A);
+
+	for (int i = A.size() - 1; i > 1; i--) {
+		int tmp = A[1];
+		A[1] = A[i];
+		A[i] = tmp;
+		
+		heapSize--;
+		maxHeapify(A, 1, heapSize);
+	}
+
+	undummyVector(A);
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available sorting algorithms
 // and compare their timings in console output 
@@ -184,9 +266,17 @@ void Sort::launchAllSortingAlgorithms() {
 	std::cout << "Bubble sort: " << bubEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto pyrStart = clock();
+	auto pyr = A;
+	Sort::heapSort(pyr);
+	auto pyrEnd = clock() - pyrStart;
+	std::cout << "Heap sort: " << pyrEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (sel == ins) && 
 				 (sel == mer) && 
-				 (sel == bub) && 
+				 (sel == bub) &&
+				 (sel == pyr) &&
 				 (sel == insR);
 	
 	if (check) std::cout << "All sortings algorithms are correct" << std::endl << std::endl;
