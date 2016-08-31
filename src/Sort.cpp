@@ -228,7 +228,7 @@ void Sort::heapSort(std::vector<int>& A) {
 void Sort::launchAllSortingAlgorithms() {
 	//-------------------------------------------------
 	std::vector<int> A;
-	for (int i = 0; i < 10; i++) A.push_back(rand());
+	for (int i = 0; i < 1000; i++) A.push_back(rand());
 
 	//-------------------------------------------------
 	auto insStart = clock();
