@@ -177,6 +177,10 @@ void Sort::maxHeapify(std::vector<int>& A, int i) {
 	}
 }
 
+static void heapSort(std::vector<int>& A) {
+
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available sorting algorithms
 // and compare their timings in console output 
@@ -222,9 +226,17 @@ void Sort::launchAllSortingAlgorithms() {
 	std::cout << "Bubble sort: " << bubEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto pyrStart = clock();
+	auto pyr = A;
+	Sort::heapSort(bub);
+	auto pyrEnd = clock() - pyrStart;
+	std::cout << "Heap sort: " << pyrEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (sel == ins) && 
 				 (sel == mer) && 
-				 (sel == bub) && 
+				 (sel == bub) &&
+				 (sel == pyr) &&
 				 (sel == insR);
 	
 	if (check) std::cout << "All sortings algorithms are correct" << std::endl << std::endl;
