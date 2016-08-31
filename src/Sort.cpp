@@ -161,7 +161,20 @@ int Sort::parent(int i) { return i / 2; }
 // worst = teta(n * log(n) )
 // ---------------------------------------------------------------------
 void Sort::maxHeapify(std::vector<int>& A, int i) {
+	int l = left(i);
+	int r = right(i);
+	int largest = i;
 
+	if (A[l] < A.size() && A[i] < A[l]) largest = l;
+	if (A[r] < A.size() && A[largest] < A[r]) largest = r;
+
+	if (largest != i) {
+		int tmp = A[i];
+		A[i] = largest;
+		A[largest] = tmp;
+
+		maxHeapify(A, largest);
+	}
 }
 
 // ----------------- LAUNCHER ----------------------------
