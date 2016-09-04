@@ -240,7 +240,7 @@ int Sort::partition(std::vector<int>& A, int p, int r) {
 	int i = p - 1;
 
 	for (int j = p; j < r; j++) {
-		if (A[j] < x) {
+		if (A[j] <= x) {
 			i++;
 			swap(A, i, j);
 		}
@@ -260,7 +260,7 @@ int Sort::partition(std::vector<int>& A, int p, int r) {
 void Sort::quickSort(std::vector<int>& A, int p, int r) {
 	if (p < r) {
 		int q = partition(A, p, r);
-		quickSort(A, p, q);
+		quickSort(A, p, q - 1);
 		quickSort(A, q + 1, r);
 	}
 }
