@@ -10,6 +10,12 @@
 // avg = teta(n^2)
 // worst = teta(n^2) 
 //---------------------------------------------------------
+void swap(std::vector<int>& A, int i, int j) {
+	int tmp = A[i];
+	A[i] = A[j];
+	A[j] = tmp;
+}
+
 void Sort::insertionSort(std::vector<int>& A) {
 	for (int j = 1; j < A.size(); j++) {
 		int key = A[j];
@@ -58,9 +64,7 @@ void Sort::bubbleSort(std::vector<int>& A) {
 
 		for (int j = 0; j < A.size() - i - 1; j++) {
 			if (A[j] > A[j + 1]) {
-				int tmp = A[j + 1];
-				A[j + 1] = A[j];
-				A[j] = tmp;
+				swap(A, j, j + 1);
 				swapped = true;
 			}
 		}
@@ -169,10 +173,7 @@ void Sort::maxHeapify(std::vector<int>& A, int i, int heapSize) {
 	if (r < heapSize && A[largest] < A[r]) largest = r;
 
 	if (largest != i) {
-		int tmp = A[i];
-		A[i] = A[largest];
-		A[largest] = tmp;
-
+		swap(A, i, largest);
 		maxHeapify(A, largest, heapSize);
 	}
 }
@@ -218,10 +219,7 @@ void Sort::heapSort(std::vector<int>& A) {
 	buildMaxHeap(A);
 
 	for (int i = A.size() - 1; i > 1; i--) {
-		int tmp = A[1];
-		A[1] = A[i];
-		A[i] = tmp;
-		
+		swap(A, 1, i);
 		heapSize--;
 		maxHeapify(A, 1, heapSize);
 	}
@@ -237,19 +235,14 @@ void Sort::heapSort(std::vector<int>& A) {
 int Sort::partition(std::vector<int>& A, int p, int r) {
 	int x = A[r];
 	int i = p - 1;
+
 	for (int j = p; j < r; j++) {
 		if (A[j] < x) {
 			i++;
-
-			int tmp = A[i];
-			A[i] = A[j];
-			A[j] = tmp;
+			swap(A, i, j);
 		}
 	}
-
-	int tmp = A[i + 1];
-	A[i + 1] = A[r];
-	A[r] = tmp;
+	swap(A, r, i + 1);
 
 	return i + 1;
 }
