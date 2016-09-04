@@ -317,10 +317,18 @@ void Sort::launchAllSortingAlgorithms() {
 	std::cout << "Heap sort: " << pyrEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto qStart = clock();
+	auto qui = A;
+	Sort::quickSort(qui, 0, qui.size() - 1);
+	auto qEnd = clock() - qStart;
+	std::cout << "Quick sort: " << qEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (sel == ins) && 
 				 (sel == mer) && 
 				 (sel == bub) &&
 				 (sel == pyr) &&
+				 (sel == qui) &&
 				 (sel == insR);
 	
 	if (check) std::cout << "All sortings algorithms are correct" << std::endl << std::endl;
