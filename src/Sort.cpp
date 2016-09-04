@@ -203,6 +203,14 @@ void undummyVector(std::vector<int>& A) {
 	A.erase(A.begin());
 }
 
+//------------------------------------HEAPSORT-----------------------------
+// Brief description: get A-array, represent it as pyramid (binary tree),
+// and transform it to non-increasing pyramid, using buildMaxHeap procedure.
+// After that, extract the max pyramid element and put it to the end of tree,
+// decrasing heap size.
+// -------------------------------------------------------------------------
+// worst = teta(n * log(n) )
+// ---------------------------------------------------------------------
 void Sort::heapSort(std::vector<int>& A) {
 	dummyVector(A);
 
@@ -219,6 +227,17 @@ void Sort::heapSort(std::vector<int>& A) {
 	}
 
 	undummyVector(A);
+}
+
+//---------------------- QUICKSORT (p 198)-----------------------------
+// Brief description: use procedure "partition" to determine separation 
+// element q. Next, use quicksort for 0 -> q, q + 1 -> p arrays. 
+// ---------------------------------------------------------------------
+// avg = teta(n * log(n) )
+// worst = teta( n ^ 2 )
+// ---------------------------------------------------------------------
+void Sort::quickSort(std::vector<int>& A, int p, int r) {
+
 }
 
 // ----------------- LAUNCHER ----------------------------
