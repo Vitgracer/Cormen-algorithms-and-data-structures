@@ -229,6 +229,15 @@ void Sort::heapSort(std::vector<int>& A) {
 	undummyVector(A);
 }
 
+//------------PARTITION (p 199)----------------
+// Brief description: find reliable element q.
+// --------------------------------------------
+// avg = teta(n)
+// --------------------------------------------
+int Sort::partition(std::vector<int>& A, int p, int r) {
+	return 0;
+}
+
 //---------------------- QUICKSORT (p 198)-----------------------------
 // Brief description: use procedure "partition" to determine separation 
 // element q. Next, use quicksort for 0 -> q, q + 1 -> p arrays. 
@@ -237,7 +246,11 @@ void Sort::heapSort(std::vector<int>& A) {
 // worst = teta( n ^ 2 )
 // ---------------------------------------------------------------------
 void Sort::quickSort(std::vector<int>& A, int p, int r) {
-
+	if (p < r) {
+		int q = partition(A, p, r);
+		quickSort(A, p, q);
+		quickSort(A, q + 1, r);
+	}
 }
 
 // ----------------- LAUNCHER ----------------------------
