@@ -235,7 +235,23 @@ void Sort::heapSort(std::vector<int>& A) {
 // avg = teta(n)
 // --------------------------------------------
 int Sort::partition(std::vector<int>& A, int p, int r) {
-	return 0;
+	int x = A[r];
+	int i = p - 1;
+	for (int j = p; j < r; j++) {
+		if (A[j] < x) {
+			i++;
+
+			int tmp = A[i];
+			A[i] = A[j];
+			A[j] = tmp;
+		}
+	}
+
+	int tmp = A[i + 1];
+	A[i + 1] = A[r];
+	A[r] = tmp;
+
+	return i + 1;
 }
 
 //---------------------- QUICKSORT (p 198)-----------------------------
