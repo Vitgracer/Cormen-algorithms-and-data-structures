@@ -3,6 +3,15 @@
 #include <time.h>
 #include "Sort.h"
 
+// ---------------------- SWAP ----------------
+// Brief description: replace i and j elements
+// --------------------------------------------
+void swap(std::vector<int>& A, int i, int j) {
+	int tmp = A[i];
+	A[i] = A[j];
+	A[j] = tmp;
+}
+
 // --------------------INSERTION SORT (p 48)---------------
 // Brief description: sorting like in a gambling
 // --------------------------------------------------------
@@ -10,12 +19,6 @@
 // avg = teta(n^2)
 // worst = teta(n^2) 
 //---------------------------------------------------------
-void swap(std::vector<int>& A, int i, int j) {
-	int tmp = A[i];
-	A[i] = A[j];
-	A[j] = tmp;
-}
-
 void Sort::insertionSort(std::vector<int>& A) {
 	for (int j = 1; j < A.size(); j++) {
 		int key = A[j];
