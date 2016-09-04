@@ -19,6 +19,10 @@ private:
 	static void maxHeapify(std::vector<int>& A, int i, int heapSize);
 	static void buildMaxHeap(std::vector<int>& A);
 	static void heapSort(std::vector<int>& A);
+
+	// quick-sort 
+	static int partition(std::vector<int>& A, int p, int r);
+	static void quickSort(std::vector<int>& A, int p, int r);
 public:
 	static void launchAllSortingAlgorithms();
 };

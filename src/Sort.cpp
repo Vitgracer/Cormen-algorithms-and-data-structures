@@ -3,6 +3,15 @@
 #include <time.h>
 #include "Sort.h"
 
+// ---------------------- SWAP ----------------
+// Brief description: replace i and j elements
+// --------------------------------------------
+void swap(std::vector<int>& A, int i, int j) {
+	int tmp = A[i];
+	A[i] = A[j];
+	A[j] = tmp;
+}
+
 // --------------------INSERTION SORT (p 48)---------------
 // Brief description: sorting like in a gambling
 // --------------------------------------------------------
@@ -58,9 +67,7 @@ void Sort::bubbleSort(std::vector<int>& A) {
 
 		for (int j = 0; j < A.size() - i - 1; j++) {
 			if (A[j] > A[j + 1]) {
-				int tmp = A[j + 1];
-				A[j + 1] = A[j];
-				A[j] = tmp;
+				swap(A, j, j + 1);
 				swapped = true;
 			}
 		}
@@ -169,10 +176,7 @@ void Sort::maxHeapify(std::vector<int>& A, int i, int heapSize) {
 	if (r < heapSize && A[largest] < A[r]) largest = r;
 
 	if (largest != i) {
-		int tmp = A[i];
-		A[i] = A[largest];
-		A[largest] = tmp;
-
+		swap(A, i, largest);
 		maxHeapify(A, largest, heapSize);
 	}
 }
@@ -203,6 +207,14 @@ void undummyVector(std::vector<int>& A) {
 	A.erase(A.begin());
 }
 
+//------------------------------------HEAPSORT-----------------------------
+// Brief description: get A-array, represent it as pyramid (binary tree),
+// and transform it to non-increasing pyramid, using buildMaxHeap procedure.
+// After that, extract the max pyramid element and put it to the end of tree,
+// decrasing heap size.
+// -------------------------------------------------------------------------
+// worst = teta(n * log(n) )
+// ---------------------------------------------------------------------
 void Sort::heapSort(std::vector<int>& A) {
 	dummyVector(A);
 
@@ -210,15 +222,47 @@ void Sort::heapSort(std::vector<int>& A) {
 	buildMaxHeap(A);
 
 	for (int i = A.size() - 1; i > 1; i--) {
-		int tmp = A[1];
-		A[1] = A[i];
-		A[i] = tmp;
-		
+		swap(A, 1, i);
 		heapSize--;
 		maxHeapify(A, 1, heapSize);
 	}
 
 	undummyVector(A);
+}
+
+//------------PARTITION (p 199)----------------
+// Brief description: find reliable element q.
+// --------------------------------------------
+// avg = teta(n)
+// --------------------------------------------
+int Sort::partition(std::vector<int>& A, int p, int r) {
+	int x = A[r];
+	int i = p - 1;
+
+	for (int j = p; j < r; j++) {
+		if (A[j] <= x) {
+			i++;
+			swap(A, i, j);
+		}
+	}
+	swap(A, r, i + 1);
+
+	return i + 1;
+}
+
+//---------------------- QUICKSORT (p 198)-----------------------------
+// Brief description: use procedure "partition" to determine separation 
+// element q. Next, use quicksort for 0 -> q, q + 1 -> p arrays. 
+// ---------------------------------------------------------------------
+// avg = teta(n * log(n) )
+// worst = teta( n ^ 2 )
+// ---------------------------------------------------------------------
+void Sort::quickSort(std::vector<int>& A, int p, int r) {
+	if (p < r) {
+		int q = partition(A, p, r);
+		quickSort(A, p, q - 1);
+		quickSort(A, q + 1, r);
+	}
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -273,10 +317,18 @@ void Sort::launchAllSortingAlgorithms() {
 	std::cout << "Heap sort: " << pyrEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto qStart = clock();
+	auto qui = A;
+	Sort::quickSort(qui, 0, qui.size() - 1);
+	auto qEnd = clock() - qStart;
+	std::cout << "Quick sort: " << qEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (sel == ins) && 
 				 (sel == mer) && 
 				 (sel == bub) &&
 				 (sel == pyr) &&
+				 (sel == qui) &&
 				 (sel == insR);
 	
 	if (check) std::cout << "All sortings algorithms are correct" << std::endl << std::endl;
