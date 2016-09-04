@@ -23,6 +23,9 @@ private:
 	// quick-sort 
 	static int partition(std::vector<int>& A, int p, int r);
 	static void quickSort(std::vector<int>& A, int p, int r);
+
+	// teta(n) sorting algorithms  
+	static void countingSort(std::vector<int>& A);
 public:
 	static void launchAllSortingAlgorithms();
 };

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <climits>
 #include <time.h>
 #include "Sort.h"
@@ -265,6 +266,33 @@ void Sort::quickSort(std::vector<int>& A, int p, int r) {
 	}
 }
 
+//---------------------- COUNTING-SORT (p 224)-----------------------------
+// Brief description: plot a histogram C, find a number of less elements in 
+// each cell, and put elements in B using information from C
+// ---------------------------------------------------------------------
+// avg = teta( n )
+// ---------------------------------------------------------------------
+void Sort::countingSort(std::vector<int>& A) {
+	// find size of a histogram 
+	std::vector<int>::iterator maxIter = std::max_element(A.begin(), A.end());
+	std::vector<int> C((int) *maxIter + 1);
+	
+	// result vector 
+	std::vector<int> B(A.size());
+
+	// plot a histogram 
+	for (int i = 0; i < A.size(); i++) C[A[i]]++;
+
+	// find a number of less elements 
+	for (int i = 1; i < C.size(); i++) C[i] += C[i - 1];
+
+	for (int i = A.size(); i > 0; i--) {
+		B[C[A[i - 1]] - 1] = A[i - 1];
+		C[A[i - 1]]--;
+	}
+	A = B;
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available sorting algorithms
 // and compare their timings in console output 
@@ -324,11 +352,19 @@ void Sort::launchAllSortingAlgorithms() {
 	std::cout << "Quick sort: " << qEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto countStart = clock();
+	auto count = A;
+	Sort::countingSort(count);
+	auto countEnd = clock() - countStart;
+	std::cout << "Counting sort: " << countEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (sel == ins) && 
 				 (sel == mer) && 
 				 (sel == bub) &&
 				 (sel == pyr) &&
 				 (sel == qui) &&
+				 (sel == count) &&
 				 (sel == insR);
 	
 	if (check) std::cout << "All sortings algorithms are correct" << std::endl << std::endl;
