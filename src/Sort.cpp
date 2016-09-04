@@ -284,11 +284,11 @@ void Sort::countingSort(std::vector<int>& A) {
 	for (int i = 0; i < A.size(); i++) C[A[i]]++;
 
 	// find a number of less elements 
-	for (int i = 1; i < A.size(); i++) C[i] += C[i - 1];
+	for (int i = 1; i < C.size(); i++) C[i] += C[i - 1];
 
-	for (int i = 0; i < A.size(); i++) {
-		B[C[A[i]]] = A[i];
-		C[A[i]]--;
+	for (int i = A.size(); i > 0; i--) {
+		B[C[A[i - 1]] - 1] = A[i - 1];
+		C[A[i - 1]]--;
 	}
 	A = B;
 }
