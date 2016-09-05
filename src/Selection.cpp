@@ -9,6 +9,7 @@
 // Brief description: find i-ordinal element in the current array
 // ---------------------------------------------------------------
 // avg = teta( n )
+// worst = teta( n ^ n )
 //----------------------------------------------------------------
 int Selection::randomizedSelect(std::vector<int> A, int p, int r, int i) {
 	if (p == r) return A[p];
