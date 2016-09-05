@@ -22,10 +22,12 @@ private:
 
 	// quick-sort 
 	static int partition(std::vector<int>& A, int p, int r);
+	static int randomizedPartition(std::vector<int>& A, int p, int r);
 	static void quickSort(std::vector<int>& A, int p, int r);
 
 	// teta(n) sorting algorithms  
 	static void countingSort(std::vector<int>& A);
 public:
 	friend void launchAllSortingAlgorithms();
+	friend int getResultFromRandomizedPartition(std::vector<int>& A, int p, int r);
 };

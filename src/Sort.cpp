@@ -251,6 +251,26 @@ int Sort::partition(std::vector<int>& A, int p, int r) {
 	return i + 1;
 }
 
+//----------------- PARTITION (p 207) ----------------
+// Brief description: randomization helps to achieve 
+// better perfomance for a quicksort
+// ---------------------------------------------------
+// avg = teta(n)
+// ---------------------------------------------------
+int Sort::randomizedPartition(std::vector<int>& A, int p, int r) {
+	int i = rand() % (r - p + 1) + p;
+	swap(A, i, r);
+
+	return partition(A, p, r);
+}
+
+//----------------- PARTITION-GETTER -------------------------
+// Brief description: get result from partition for Selection
+// ----------------------------------------------------------
+int getResultFromRandomizedPartition(std::vector<int>& A, int p, int r) {
+	return Sort::randomizedPartition(A, p, r);
+}
+
 //---------------------- QUICKSORT (p 198)-----------------------------
 // Brief description: use procedure "partition" to determine separation 
 // element q. Next, use quicksort for 0 -> q, q + 1 -> p arrays. 
