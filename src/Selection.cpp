@@ -31,7 +31,7 @@ int Selection::randomizedSelect(std::vector<int> A, int p, int r, int i) {
 // ---------------------------------------------------------------------
 void launchAllSelectionAlgorithms() {
 	//-------------------------------------------------
-	const int iStatistic = 2;
+	const int iStatistic = 1;
 	std::vector<int> A;
 	for (int i = 0; i < 10; i++) A.push_back(rand());
 
@@ -42,4 +42,9 @@ void launchAllSelectionAlgorithms() {
 	auto rSelEnd = clock() - rSelStart;
 	std::cout << "Randomized selection: " << rSelEnd << " ms" << std::endl;
 
+	//-------------------------------------------------
+	bool check = (rSelResult == *(std::min_element(A.begin(), A.end())));
+
+	if (check) std::cout << "All selection algorithms are correct" << std::endl << std::endl;
+	else std::cout << "Error!" << std::endl << std::endl;
 }
