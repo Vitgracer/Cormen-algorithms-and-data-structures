@@ -148,6 +148,6 @@ void launchAllMaxSubarrayAlgorithms() {
 	bool check = (maxSubarray == maxSubarrayBF) && 
 				 (maxSubarray == maxSubarrayKad);
 
-	if (check) std::cout << "All maximal subarray algorithms are correct" << std::endl;
-	else std::cout << "Error!" << std::endl;
+	if (check) std::cout << "All maximal subarray algorithms are correct" << std::endl << std::endl;
+	else std::cout << "Error!" << std::endl << std::endl;
 }
