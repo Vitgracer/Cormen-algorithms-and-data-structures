@@ -29,4 +29,5 @@ private:
 	static void countingSort(std::vector<int>& A);
 public:
 	friend void launchAllSortingAlgorithms();
+	friend int getResultFromRandomizedPartition(std::vector<int>& A, int p, int r);
 };

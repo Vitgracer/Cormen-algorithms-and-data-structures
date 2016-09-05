@@ -258,10 +258,17 @@ int Sort::partition(std::vector<int>& A, int p, int r) {
 // avg = teta(n)
 // ---------------------------------------------------
 int Sort::randomizedPartition(std::vector<int>& A, int p, int r) {
-	int i = rand() / (r - p + 1) + p;
+	int i = rand() % (r - p + 1) + p;
 	swap(A, i, r);
 
 	return partition(A, p, r);
+}
+
+//----------------- PARTITION-GETTER -------------------------
+// Brief description: get result from partition for Selection
+// ----------------------------------------------------------
+int getResultFromRandomizedPartition(std::vector<int>& A, int p, int r) {
+	return Sort::randomizedPartition(A, p, r);
 }
 
 //---------------------- QUICKSORT (p 198)-----------------------------
