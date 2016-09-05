@@ -2,7 +2,7 @@
 
 class Selection {
 private:
-	static std::vector<int> templaefunc;
+	static int randomizedSelect(std::vector<int> A, int p, int r, int i);
 public:
 	friend void launchAllSelectionAlgorithms();
 };
