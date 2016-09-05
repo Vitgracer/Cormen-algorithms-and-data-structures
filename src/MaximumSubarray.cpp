@@ -1,5 +1,7 @@
+#include <time.h>
 #include <vector>
 #include <climits>
+#include <iostream>
 #include <algorithm>
 #include "MaximumSubarray.h"
 
@@ -117,7 +119,7 @@ std::vector<int> Array::findMaxSubarrayKadane(std::vector<int>& A) {
 // ------------------------ LAUNCHER ----------------------------
 // Brief description: laucnh all algorithms without any category
 // --------------------------------------------------------------
-void launchAllOtherAlgorithms() {
+void launchAllMaxSubarrayAlgorithms() {
 	//---------------------------------------------------------------------------------------
 	//std::vector<int> A = { 13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7 };
 	std::vector<int> A;

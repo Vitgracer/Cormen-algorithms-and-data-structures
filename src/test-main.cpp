@@ -1,13 +1,18 @@
 #include <iostream>
 #include "MaximumSubarray.h"
+#include "Selection.h"
 #include "Sort.h"
 
 int main() {
 	// compare sorting algorithms 
-	Sort::launchAllSortingAlgorithms();
+	launchAllSortingAlgorithms();
 
-	// launch all algorithms without certain category
-	launchAllOtherAlgorithms();
+	// launch all algorithms with maximum 
+	// subarray search 
+	launchAllMaxSubarrayAlgorithms();
+
+	// launch all selection algorithms 
+	launchAllSelectionAlgorithms();
 
 	return 0;
 }

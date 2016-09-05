@@ -1,6 +1,4 @@
 #include <vector>
-#include <time.h>
-#include <iostream>
 
 class Array {
 private:
@@ -9,5 +7,5 @@ private:
 	static std::vector<int> findMaxSubarrayBF(std::vector<int>& A);
 	static std::vector<int> findMaxSubarrayKadane(std::vector<int>& A);
 public:
-	friend void launchAllOtherAlgorithms();
+	friend void launchAllMaxSubarrayAlgorithms();
 };

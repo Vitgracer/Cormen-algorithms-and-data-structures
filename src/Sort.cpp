@@ -297,7 +297,7 @@ void Sort::countingSort(std::vector<int>& A) {
 // Brief description: use all available sorting algorithms
 // and compare their timings in console output 
 // -------------------------------------------------------
-void Sort::launchAllSortingAlgorithms() {
+void launchAllSortingAlgorithms() {
 	//-------------------------------------------------
 	std::vector<int> A;
 	for (int i = 0; i < 1000; i++) A.push_back(rand());

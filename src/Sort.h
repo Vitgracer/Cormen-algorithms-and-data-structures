@@ -27,5 +27,5 @@ private:
 	// teta(n) sorting algorithms  
 	static void countingSort(std::vector<int>& A);
 public:
-	static void launchAllSortingAlgorithms();
+	friend void launchAllSortingAlgorithms();
 };
