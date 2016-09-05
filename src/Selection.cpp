@@ -4,12 +4,13 @@
 #include <algorithm>
 #include "Selection.h"
 
-// ------------------ RANDOMIZED-SELECT --------------------------
+// ----------------RANDOMIZED-SELECT (246) -----------------------
 // Brief description: find i-ordinal element in the current array
 // ---------------------------------------------------------------
 // avg = teta( n )
-//--------------------------------------------------------------------
+//----------------------------------------------------------------
 int Selection::randomizedSelect(std::vector<int> A, int p, int r, int i) {
+	
 	return 0;
 }
 
