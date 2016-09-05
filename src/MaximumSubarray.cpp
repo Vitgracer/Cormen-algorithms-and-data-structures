@@ -1,7 +1,7 @@
 #include <vector>
 #include <climits>
 #include <algorithm>
-#include "Other.h"
+#include "MaximumSubarray.h"
 
 // ----------------FIND-MAX-CROSSING-SUBARAAY-------------------------
 // Brief description: we have "low", "mid", "high" positions in 

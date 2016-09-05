@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Other.h"
+#include "MaximumSubarray.h"
 #include "Sort.h"
 
 int main() {
