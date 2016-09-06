@@ -23,15 +23,18 @@ int DP::cutRod(std::vector<int> p, int n) {
 	return q;
 }
 
-//---------------------- MEMOIZED-CUT-ROD (p 396) ----------------------------
-// Brief description: the same as a previoius task, but now we use DP to store
-// tree values in additional arrat to avoid multiple recomputatation.
+//---------------------MEMOIZED-CUT-ROD-AUX (WRAPPER) ------------------------
+// Brief description: wrapper for memoizedCutRodAux() function
 // ---------------------------------------------------------------------------
 int DP::memoizedCutRod(std::vector<int> p, int n) {
 	std::vector<int> r(n + 1, -1);
 	return memoizedCutRodAux(p, r, n);
 }
 
+//---------------------- MEMOIZED-CUT-ROD-AUX (p 396) ------------------------
+// Brief description: the same as a previoius task, but now we use DP to store
+// tree values in additional arrat to avoid multiple recomputatation.
+// ---------------------------------------------------------------------------
 int DP::memoizedCutRodAux(std::vector<int> p, std::vector<int> r, int n) {
 	// check if the cutRod for n was computed 
 	if (r[n] >= 0) return r[n];
@@ -49,6 +52,14 @@ int DP::memoizedCutRodAux(std::vector<int> p, std::vector<int> r, int n) {
 	r[n] = q;
 
 	return q;
+}
+
+//---------------------- BOTTOM-UP-CUT-ROD (p 399) ----------------------------
+// Brief description: one more effective DP algorithm with another technique 
+// of calculated elements storage 
+// ---------------------------------------------------------------------------
+int DP::bottomUpCutRod(std::vector<int> p, int n) {
+
 }
 
 // ----------------- LAUNCHER ----------------------------
