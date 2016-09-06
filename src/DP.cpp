@@ -79,8 +79,8 @@ int DP::bottomUpCutRod(std::vector<int> p, int n) {
 // -------------------------------------------------------
 void launchDPAlgorithms() {
 	//-------------------------------------------------
-	std::vector<int> A = {0, 1, 5, 8, 9};
-	//for (int i = 0; i < 1000; i++) A.push_back(rand());
+	std::vector<int> A;
+	for (int i = 0; i < 10; i++) A.push_back(rand());
 
 	//-------------------------------------------------
 	auto crStart = clock();
@@ -105,7 +105,7 @@ void launchDPAlgorithms() {
 
 	//-------------------------------------------------
 	bool check = (crResult == crmResult) &&
-			     (crResult = bucrResult);
+			     (crResult == bucrResult);
 
 	if (check) std::cout << "All DP algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
