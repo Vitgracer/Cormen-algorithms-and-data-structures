@@ -16,9 +16,11 @@ int DP::cutRod(std::vector<int> p, int n) {
 	if (n == 0) return 0;
 	
 	int q = 0;
-	for (int i = 0; i < p.size(); i++) {
+	for (int i = 1; i <= n; i++) {
 		q = std::max(q, p[i] + cutRod(p, n - i));
 	}
+	
+	return q;
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -27,7 +29,7 @@ int DP::cutRod(std::vector<int> p, int n) {
 // -------------------------------------------------------
 void launchDPAlgorithms() {
 	//-------------------------------------------------
-	std::vector<int> A = {1, 5, 8, 9, 0, 17, 17, 20, 24, 30};
+	std::vector<int> A = {0, 1, 5, 8, 9};
 	//for (int i = 0; i < 1000; i++) A.push_back(rand());
 
 	//-------------------------------------------------
