@@ -59,7 +59,18 @@ int DP::memoizedCutRodAux(std::vector<int> p, std::vector<int> r, int n) {
 // of calculated elements storage 
 // ---------------------------------------------------------------------------
 int DP::bottomUpCutRod(std::vector<int> p, int n) {
+	std::vector<int> r(n + 1, -1);
+	r[0] = 0;
 
+	for (int j = 1; j <= n; j++) {
+		int q = -1;
+
+		for (int i = 1; i <= j; j++) {
+			q = std::max(q, p[i] + r[j - i]);
+		}
+		r[j] = q;
+	}
+	return r[n];
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -86,7 +97,15 @@ void launchDPAlgorithms() {
 	std::cout << "Memoized Cut-Rod DP procedure: " << crmEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
-	bool check = (crResult == crmResult);
+	auto bucrStart = clock();
+	auto bucr = A;
+	int bucrResult = DP::bottomUpCutRod(A, A.size() - 1);
+	auto bucrEnd = clock() - bucrStart;
+	std::cout << "Bottom-up Cut-Rod DP procedure: " << bucrEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	bool check = (crResult == crmResult) &&
+			     (crResult = bucrResult);
 
 	if (check) std::cout << "All DP algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
