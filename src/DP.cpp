@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <algorithm>
 #include "DP.h"
 
 //---------------------- CUT-ROD (p 396) -----------------------------------
@@ -12,7 +13,12 @@
 // Price  (p_i) | 1 | 5 | 8 | ... | p_n
 // -------------------------------------------------------------------------
 int DP::cutRod(std::vector<int> p, int n) {
-
+	if (n == 0) return 0;
+	
+	int q = 0;
+	for (int i = 0; i < p.size(); i++) {
+		q = std::max(q, p[i] + cutRod(p, n - i));
+	}
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -20,5 +26,20 @@ int DP::cutRod(std::vector<int> p, int n) {
 // algorithms and compare their timings in console output 
 // -------------------------------------------------------
 void launchDPAlgorithms() {
-	
+	//-------------------------------------------------
+	std::vector<int> A = {1, 5, 8, 9, 0, 17, 17, 20, 24, 30};
+	//for (int i = 0; i < 1000; i++) A.push_back(rand());
+
+	//-------------------------------------------------
+	auto crStart = clock();
+	auto cr = A;
+	int crResult = DP::cutRod(A, A.size() - 1);
+	auto crEnd = clock() - crStart;
+	std::cout << "Cut-Rod DP procedure: " << crEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	bool check = (crResult == crResult);
+
+	if (check) std::cout << "All DP algorithms are correct" << std::endl << std::endl;
+	else std::cout << "Error!" << std::endl << std::endl;
 }
