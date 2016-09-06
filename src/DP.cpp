@@ -65,7 +65,7 @@ int DP::bottomUpCutRod(std::vector<int> p, int n) {
 	for (int j = 1; j <= n; j++) {
 		int q = -1;
 
-		for (int i = 1; i <= j; j++) {
+		for (int i = 1; i <= j; i++) {
 			q = std::max(q, p[i] + r[j - i]);
 		}
 		r[j] = q;
