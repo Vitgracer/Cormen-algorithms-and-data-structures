@@ -15,11 +15,39 @@
 int DP::cutRod(std::vector<int> p, int n) {
 	if (n == 0) return 0;
 	
-	int q = 0;
+	int q = -1;
 	for (int i = 1; i <= n; i++) {
 		q = std::max(q, p[i] + cutRod(p, n - i));
 	}
 	
+	return q;
+}
+
+//---------------------- MEMOIZED-CUT-ROD (p 396) ----------------------------
+// Brief description: the same as a previoius task, but now we use DP to store
+// tree values in additional arrat to avoid multiple recomputatation.
+// ---------------------------------------------------------------------------
+int DP::memoizedCutRod(std::vector<int> p, int n) {
+	std::vector<int> r(n + 1, -1);
+	return memoizedCutRodAux(p, r, n);
+}
+
+int DP::memoizedCutRodAux(std::vector<int> p, std::vector<int> r, int n) {
+	// check if the cutRod for n was computed 
+	if (r[n] >= 0) return r[n];
+	
+	int q;
+	if (n == 0) q = 0; // crutch for convinient writing to "r"
+	else {
+		q == -1;
+		for (int i = 1; i <= n; i++) {
+			q = std::max(q, p[i] + memoizedCutRodAux(p, r, n - i));
+		}
+	}
+
+	// write computed value 
+	r[n] = q;
+
 	return q;
 }
 
@@ -40,7 +68,14 @@ void launchDPAlgorithms() {
 	std::cout << "Cut-Rod DP procedure: " << crEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
-	bool check = (crResult == crResult);
+	auto crmStart = clock();
+	auto crm = A;
+	int crmResult = DP::memoizedCutRod(A, A.size() - 1);
+	auto crmEnd = clock() - crmStart;
+	std::cout << "Memoized Cut-Rod DP procedure: " << crmEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	bool check = (crResult == crmResult);
 
 	if (check) std::cout << "All DP algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
