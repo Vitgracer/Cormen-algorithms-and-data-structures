@@ -73,6 +73,17 @@ int DP::bottomUpCutRod(std::vector<int> p, int n) {
 	return r[n];
 }
 
+//---------------------- LCS-LENGTH (p 428)---------------------------------
+// Brief description: main goal is to find the longest common subsequence of 
+// two sequences.
+// -------------------------------------------------------------------------
+// Input : X = 1 2 0 2 1, Y = 1 3 0 2 1, Result = 1 0 2
+// avg = O( m * n )
+// -------------------------------------------------------------------------
+std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>> DP::LCSlength(std::vector<int>& X, std::vector<int>& Y) {
+
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available dynamic programming 
 // algorithms and compare their timings in console output 
