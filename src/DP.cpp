@@ -109,6 +109,11 @@ std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>> DP::LCSl
 	return std::make_pair(c, b);
 }
 
+//---------------------- PRINT-LCS (p 429)--------------
+// Brief description: recursively print all LCS 
+// -----------------------------------------------------
+// avg = O( m + n )
+// -----------------------------------------------------
 void printLCS(std::vector<std::vector<int>> b, std::vector<int> X, int i, int j) {
 	if (i == 0 || j == 0) return;
 	if (b[i][j] == -1) {
