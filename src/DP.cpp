@@ -81,7 +81,44 @@ int DP::bottomUpCutRod(std::vector<int> p, int n) {
 // avg = O( m * n )
 // -------------------------------------------------------------------------
 std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>> DP::LCSlength(std::vector<int>& X, std::vector<int>& Y) {
+	const int m = X.size();
+	const int n = Y.size();
+	
+	std::vector<int> cN(n + 1, 0);
+	std::vector<std::vector<int>> c(m + 1, cN);
 
+	std::vector<int> bN(n + 1, 0);
+	std::vector<std::vector<int>> b(m + 1, bN);
+	
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			if (X[i] == Y[j]) {
+				c[i + 1][j + 1] = c[i][j] + 1;
+				b[i + 1][j + 1] = -1; // /
+			}
+			else if (c[i][j + 1] >= c[i + 1][j]) {
+				c[i + 1][j + 1] = c[i][j + 1];
+				b[i + 1][j + 1] = -2; // |
+			}
+			else {
+				c[i+1][j+1] = c[i+1][j];
+				b[i+1][j+1] = -3; // -
+			}
+		}
+	}
+	return std::make_pair(c, b);
+}
+
+void printLCS(std::vector<std::vector<int>> b, std::vector<int> X, int i, int j) {
+	if (i == 0 || j == 0) return;
+	if (b[i][j] == -1) {
+		printLCS(b, X, i - 1, j - 1);
+		std::cout << X[i - 1] << " ";
+	}
+	else if (b[i][j] == -2) {
+		printLCS(b, X, i - 1, j);
+	}
+	else if (b[i][j] == -3) printLCS(b, X, i, j - 1);
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -113,6 +150,17 @@ void launchDPAlgorithms() {
 	int bucrResult = DP::bottomUpCutRod(A, A.size() - 1);
 	auto bucrEnd = clock() - bucrStart;
 	std::cout << "Bottom-up Cut-Rod DP procedure: " << bucrEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	auto lcsStart = clock();
+	std::vector<int> Y = { 1, 3, 2, 0, 1, 0};
+	std::vector<int> X = { 0, 1, 2, 1, 3, 0, 1 };
+	auto lcsResult = DP::LCSlength(X, Y);
+	std::cout << "algorithm result: ";
+	printLCS(lcsResult.second, X, X.size(), Y.size());
+	std::cout << std::endl << "GT result: " << "1 2 1 0" << std::endl;
+	auto lcsEnd = clock() - lcsStart;
+	std::cout << "LCS-length DP procedure: " << lcsEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
 	bool check = (crResult == crmResult) &&
