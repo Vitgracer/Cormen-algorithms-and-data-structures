@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MaximumSubarray.h"
 #include "Selection.h"
+#include "Greedy.h"
 #include "Sort.h"
 #include "DP.h"
 
@@ -17,6 +18,9 @@ int main() {
 
 	// launch all DP algorithms 
 	launchDPAlgorithms();
+
+	// launch all greedy algorithms 
+	launchAllGreedyAlgorithms();
 
 	return 0;
 }
