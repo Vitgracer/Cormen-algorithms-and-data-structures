@@ -33,7 +33,18 @@ std::vector<int> Greedy::recursiveActivitySelector(std::vector<int> s, std::vect
 // avg = teta (n)
 // ---------------------------------------------------------------
 std::vector<int> Greedy::greedyActivitySelector(std::vector<int> s, std::vector<int> f) {
-	
+	const int n = s.size() - 1;
+	std::vector<int> A = { 1 };
+	int k = 1;
+
+	for (int m = 2; m <= n; m++) {
+		if (s[m] > f[k]) {
+			k = m;
+			A.push_back(m);
+		}
+	}
+
+	return A;
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -46,6 +57,7 @@ void launchAllGreedyAlgorithms() {
 	std::vector<int> s = { 0/*fictive*/, 1, 3, 0, 5, 3, 5, 6,  8,  8,  2,  12 };
 	std::vector<int> f = { 0/*fictive*/, 4, 5, 6, 7, 9, 9, 10, 11, 12, 14, 16 };
 	auto gResult = Greedy::recursiveActivitySelector(s, f, 0, f.size() - 1);
+	std::reverse(gResult.begin(), gResult.end());
 	auto gEnd = clock() - gStart;
 	std::cout << "Recursive Activity selector procedure: " << gEnd << " ms" << std::endl;
 
