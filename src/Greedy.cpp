@@ -13,6 +13,8 @@
 // f_i   | 4 | 5 | 6 | 7 |
 // answer: 1-4, 5-7
 // -------------------------------------------------------------------------
+// avg = teta (n)
+// -------------------------------------------------------------------------
 std::vector<int> Greedy::recursiveActivitySelector(std::vector<int> s, std::vector<int> f, int k, int n) {
 	int m = k + 1;
 
