@@ -27,6 +27,15 @@ std::vector<int> Greedy::recursiveActivitySelector(std::vector<int> s, std::vect
 	else return {};
 }
 
+//---------- GREEDY-ACTIVITY-SELECTOR (p 455) --------------------
+// Brief description: the same as above, but using iterative mode 
+// ---------------------------------------------------------------
+// avg = teta (n)
+// ---------------------------------------------------------------
+std::vector<int> Greedy::greedyActivitySelector(std::vector<int> s, std::vector<int> f) {
+	
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available greedy
 // algorithms and compare their timings in console output 
@@ -38,10 +47,16 @@ void launchAllGreedyAlgorithms() {
 	std::vector<int> f = { 0/*fictive*/, 4, 5, 6, 7, 9, 9, 10, 11, 12, 14, 16 };
 	auto gResult = Greedy::recursiveActivitySelector(s, f, 0, f.size() - 1);
 	auto gEnd = clock() - gStart;
-	std::cout << "Greedy Activity selector procedure: " << gEnd << " ms" << std::endl;
+	std::cout << "Recursive Activity selector procedure: " << gEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
-	bool check = gResult[0];
+	auto iStart = clock();
+	auto iResult = Greedy::greedyActivitySelector(s, f);
+	auto iEnd = clock() - iStart;
+	std::cout << "Greedy Activity selector procedure: " << iEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	bool check = (gResult == iResult);
 
 	if (check) std::cout << "All Greedy algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
