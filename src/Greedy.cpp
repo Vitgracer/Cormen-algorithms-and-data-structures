@@ -13,8 +13,16 @@
 // f_i   | 4 | 5 | 6 | 7 |
 // answer: 1-4, 5-7
 // -------------------------------------------------------------------------
-std::vector<int> recursiveActivitySelector(std::vector<int> s, std::vector<int> f, int k, int n) {
+std::vector<int> Greedy::recursiveActivitySelector(std::vector<int> s, std::vector<int> f, int k, int n) {
+	int m = k + 1;
 
+	while (m <= n && s[m] < f[k]) m++;
+	if (m <= n) {
+		auto res = recursiveActivitySelector(s, f, m, n);
+		res.push_back(k);
+		return res;
+	}
+	else return {};
 }
 
 // ----------------- LAUNCHER ----------------------------
