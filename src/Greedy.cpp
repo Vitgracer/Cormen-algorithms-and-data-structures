@@ -10,7 +10,7 @@
 // -------------------------------------------------------------------------
 // Input : 
 // s_i   | 1 | 3 | 0 | 5 | 
-// f_i   | 4 | 5 | 6 | 7 |
+// f_i   | 4 | 5 | 6 | 7 | - SHOULD BE SORTED!!!!!!!
 // answer: 1-4, 5-7
 // -------------------------------------------------------------------------
 // avg = teta (n)
@@ -21,7 +21,7 @@ std::vector<int> Greedy::recursiveActivitySelector(std::vector<int> s, std::vect
 	while (m <= n && s[m] < f[k]) m++;
 	if (m <= n) {
 		auto res = recursiveActivitySelector(s, f, m, n);
-		res.push_back(k);
+		res.push_back(m);
 		return res;
 	}
 	else return {};
@@ -34,9 +34,9 @@ std::vector<int> Greedy::recursiveActivitySelector(std::vector<int> s, std::vect
 void launchAllGreedyAlgorithms() {
 	//-------------------------------------------------
 	auto gStart = clock();
-	std::vector<int> s = { 1, 3, 0, 5, 3, 5, 6,  8,  8,  2,  12 };
-	std::vector<int> f = { 4, 5, 6, 7, 9, 9, 10, 11, 12, 14, 16 };
-	auto gResult = Greedy::recursiveActivitySelector(s, f, 0, f.size());
+	std::vector<int> s = { 0/*fictive*/, 1, 3, 0, 5, 3, 5, 6,  8,  8,  2,  12 };
+	std::vector<int> f = { 0/*fictive*/, 4, 5, 6, 7, 9, 9, 10, 11, 12, 14, 16 };
+	auto gResult = Greedy::recursiveActivitySelector(s, f, 0, f.size() - 1);
 	auto gEnd = clock() - gStart;
 	std::cout << "Greedy Activity selector procedure: " << gEnd << " ms" << std::endl;
 
