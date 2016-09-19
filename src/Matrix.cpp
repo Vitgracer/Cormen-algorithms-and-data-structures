@@ -3,7 +3,7 @@
 #include <algorithm>
 #include "Matrix.h"
 
-// --------------------------- LU-decomposition -------------------------------------------
+// --------------------------- LU-decomposition (p 860) -----------------------------------
 // Brief description: compute A = LU, where L - lower triangle, U - upper triangle matrices
 //-----------------------------------------------------------------------------------------
 // avg = teta (n ^ 3)
@@ -11,8 +11,8 @@
 std::pair<std::vector<std::vector<double>>, 
 std::vector<std::vector<double>>> Matrix::LUdecomposition(std::vector<std::vector<double>> A) {
 	const int n = A.size();
-	decltype(A) L(n, std::vector<double>(0));
-	decltype(A) U(n, std::vector<double>(0));
+	decltype(A) L(n, std::vector<double>(n, 0));
+	decltype(A) U(n, std::vector<double>(n, 0));
 
 	for (int k = 0; k < n; k++) {
 		U[k][k] = A[k][k];
@@ -32,22 +32,43 @@ std::vector<std::vector<double>>> Matrix::LUdecomposition(std::vector<std::vecto
 	return std::make_pair(L, U);
 }
 
+std::vector<double> Matrix::solveLowerUpperMatrices(std::vector<std::vector<double>> L,
+													std::vector<std::vector<double>> U,
+													std::vector<double> b) {
+	
+}
+
+// --------------------------- SOLVE-LU (p 860) ------------------------------
+// Brief description: solve system of linear equations using LU-decomposition.
+//----------------------------------------------------------------------------
+// avg = teta (n ^ 3)
+//----------------------------------------------------------------------------
+std::vector<double> Matrix::solveLU(std::vector<std::vector<double>> A, std::vector<double> b) {
+	auto LU = LUdecomposition(A);
+	auto x = solveLowerUpperMatrices(LU.first, LU.second, b);
+
+	return x;
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available matrix
 // algorithms and compare their timings in console output 
 // -------------------------------------------------------
 void launchAllMatrixAlgorithms() {
 	//-------------------------------------------------
-	std::vector<std::vector<double>> A(1000, std::vector<double>(0));
-	for (int i = 0; i < 1000; i++) {
-		for (int j = 0; j < 1000; j++) {
+	const int matrixSize = 5;
+	std::vector<std::vector<double>> A(matrixSize, std::vector<double>(matrixSize, 0));
+	std::vector<double> b(matrixSize, 0);
+	for (int i = 0; i < matrixSize; i++) {
+		b[i] = rand();
+		for (int j = 0; j < matrixSize; j++) {
 			A[i][j] = rand();
 		}
 	}
 
 	//-------------------------------------------------
 	auto start = clock();
-	auto result = Matrix::LUdecomposition(A);
+	auto result = Matrix::solveLU(A, b);
 	auto end = clock() - start;
 	std::cout << "LUP-decomposition procedure: " << end << " ms" << std::endl;
 
