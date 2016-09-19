@@ -1,16 +1,16 @@
 #include <iostream>
 #include <time.h>
 #include <algorithm>
-#include "Greedy.h"
+#include "Matrix.h"
 
 // --------------------------- LU-decomposition -------------------------------------------
 // Brief description: compute A = LU, where L - lower triangle, U - upper triangle matrices
 //-----------------------------------------------------------------------------------------
 // avg = teta (n ^ 3)
 //-----------------------------------------------------------------------------------------
-static std::pair<std::vector<std::vector<double>>, 
-	   std::vector<std::vector<double>>> LUdecomposition(std::vector<std::vector<double>> A) {
-
+std::pair<std::vector<std::vector<double>>, 
+std::vector<std::vector<double>>> Matrix::LUdecomposition(std::vector<std::vector<double>> A) {
+	
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -28,7 +28,7 @@ void launchAllMatrixAlgorithms() {
 
 	//-------------------------------------------------
 	auto start = clock();
-	
+	auto result = Matrix::LUdecomposition(A);
 	auto end = clock() - start;
 	std::cout << "LUP-decomposition procedure: " << end << " ms" << std::endl;
 
