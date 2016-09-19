@@ -10,7 +10,26 @@
 //-----------------------------------------------------------------------------------------
 std::pair<std::vector<std::vector<double>>, 
 std::vector<std::vector<double>>> Matrix::LUdecomposition(std::vector<std::vector<double>> A) {
-	
+	const int n = A.size();
+	decltype(A) L(n, std::vector<double>(0));
+	decltype(A) U(n, std::vector<double>(0));
+
+	for (int k = 0; k < n; k++) {
+		U[k][k] = A[k][k];
+
+		for (int i = k + 1; i < n; i++) {
+			L[i][k] = A[i][k] / A[k][k];
+			U[k][i] = A[k][i];
+		}
+
+		for (int i = k + 1; i < n; i++) {
+			for (int j = k + 1; j < n; j++) {
+				A[i][j] = A[i][j] - L[i][k] * U[k][j];
+			}
+		}
+	}
+
+	return std::make_pair(L, U);
 }
 
 // ----------------- LAUNCHER ----------------------------
