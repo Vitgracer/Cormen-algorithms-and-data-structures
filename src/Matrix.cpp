@@ -19,6 +19,14 @@ static std::pair<std::vector<std::vector<double>>,
 // -------------------------------------------------------
 void launchAllMatrixAlgorithms() {
 	//-------------------------------------------------
+	std::vector<std::vector<double>> A(1000, std::vector<double>(0));
+	for (int i = 0; i < 1000; i++) {
+		for (int j = 0; j < 1000; j++) {
+			A[i][j] = rand();
+		}
+	}
+
+	//-------------------------------------------------
 	auto start = clock();
 	
 	auto end = clock() - start;
