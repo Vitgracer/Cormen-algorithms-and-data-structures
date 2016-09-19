@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MaximumSubarray.h"
 #include "Selection.h"
+#include "Matrix.h"
 #include "Greedy.h"
 #include "Sort.h"
 #include "DP.h"
@@ -21,6 +22,9 @@ int main() {
 
 	// launch all greedy algorithms 
 	launchAllGreedyAlgorithms();
+
+	//launch all Matrix algorithms 
+	launchAllMatrixAlgorithms();
 
 	return 0;
 }
