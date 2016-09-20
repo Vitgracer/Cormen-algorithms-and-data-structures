@@ -163,14 +163,23 @@ void launchAllMatrixAlgorithms() {
 	std::vector<double> b = {1,2,3,4};
 	decltype(b) gt = { 175.0 / 8, -13.0 / 4, 32, -13 };
 
-	//-------------------------------------------------
 	auto start = clock();
 	auto result = Matrix::solveLU(A, b);
 	auto end = clock() - start;
 	std::cout << "LUP-decomposition procedure: " << end << " ms" << std::endl;
+	
+	//-------------------------------------------------
+	std::vector<double> x = { -1, 1, 2, 3, 5 };
+	std::vector<double> y = { 2, 1, 1, 0, 3 };
+	decltype(b) gtLS = { 1.2, 0.757, 0.214};
+
+	auto startLS = clock();
+	auto resultLS = Matrix::leastSquaresFitting(x, y);
+	auto endLS = clock() - startLS;
+	std::cout << "Least-squares procedure: " << endLS << " ms" << std::endl;
 
 	//-------------------------------------------------
-	bool check = (result == gt);
+	bool check = (result == gt) && (resultLS == gtLS);
 
 	if (check) std::cout << "All Matrix algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;

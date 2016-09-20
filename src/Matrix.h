@@ -13,6 +13,9 @@ private:
 	static std::vector<std::vector<double>> transpose(std::vector<std::vector<double>> A);
 	static std::vector<std::vector<double>> multiply(std::vector<std::vector<double>> A, decltype(A) B);
 	static std::vector<std::vector<double>> inverse(std::vector<std::vector<double>> A);
+
+	// least squares 
+	static std::vector<double> leastSquaresFitting(std::vector<double> x, std::vector<double> y);
 public:
 	friend void launchAllMatrixAlgorithms();
 };
