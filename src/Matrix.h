@@ -12,6 +12,7 @@ private:
 	// Matrix operations 
 	static std::vector<std::vector<double>> transpose(std::vector<std::vector<double>> A);
 	static std::vector<std::vector<double>> multiply(std::vector<std::vector<double>> A, decltype(A) B);
+	static std::vector<std::vector<double>> inverse(std::vector<std::vector<double>> A);
 public:
 	friend void launchAllMatrixAlgorithms();
 };

@@ -121,6 +121,28 @@ std::vector<std::vector<double>> Matrix::multiply(std::vector<std::vector<double
 	return result;
 }
 
+// -------------------------------- INVERSE --------------------------
+// Brief description: matrix inverse, using LU-decomposition technique
+//--------------------------------------------------------------------
+// avg = teta (n ^ 3)
+//--------------------------------------------------------------------
+std::vector<std::vector<double>> Matrix::inverse(std::vector<std::vector<double>> A) {
+	const int n = A.size();
+	decltype(A) result;
+
+	// create In matrix 
+	decltype(A) ones = std::vector<std::vector<double>>(n, std::vector<double>(0, n));
+	for (int i = 0; i < n; i++) ones[i][i] = 1;
+
+	// apply LU-decomposition for each row 
+	for (int i = 0; i < n; i++) {
+		auto xCol = solveLU(A, ones[i]);
+		result.push_back(xCol);
+	}
+
+	return result;
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available matrix
 // algorithms and compare their timings in console output 
