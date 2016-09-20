@@ -76,6 +76,24 @@ std::vector<double> Matrix::solveLU(std::vector<std::vector<double>> A, std::vec
 	return x;
 }
 
+// ------------ TRANSPOSE -------------
+// Brief description: matrix transpose 
+//-------------------------------------
+// avg = teta (n ^ 2)
+//-------------------------------------
+std::vector<std::vector<double>> Matrix::transpose(std::vector<std::vector<double>> A) {
+	
+}
+
+// ----------------MULTIPLY ----------------
+// Brief description: matrix multiplication
+//------------------------------------------
+// avg = teta (n ^ 3)
+//------------------------------------------
+std::vector<std::vector<double>> Matrix::multiply(std::vector<std::vector<double>> A, decltype(A) B) {
+	
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available matrix
 // algorithms and compare their timings in console output 
