@@ -82,7 +82,16 @@ std::vector<double> Matrix::solveLU(std::vector<std::vector<double>> A, std::vec
 // avg = teta (n ^ 2)
 //-------------------------------------
 std::vector<std::vector<double>> Matrix::transpose(std::vector<std::vector<double>> A) {
-	
+	const int n = A.size();
+	decltype(A) result = std::vector<std::vector<double>>(n, std::vector<double>(0, n));
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			result[j][i] = A[i][j];
+		}
+	}
+
+	return result;
 }
 
 // ----------------MULTIPLY ----------------
