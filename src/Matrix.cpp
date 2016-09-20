@@ -83,11 +83,12 @@ std::vector<double> Matrix::solveLU(std::vector<std::vector<double>> A, std::vec
 // avg = teta (n ^ 2)
 //-------------------------------------
 std::vector<std::vector<double>> Matrix::transpose(std::vector<std::vector<double>> A) {
-	const int n = A.size();
-	decltype(A) result = std::vector<std::vector<double>>(n, std::vector<double>(0, n));
+	const int Ah = A.size();
+	const int Aw = A[0].size();
+	decltype(A) result = std::vector<std::vector<double>>(Aw, std::vector<double>(Ah, 0));
 
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
+	for (int i = 0; i < Ah; i++) {
+		for (int j = 0; j < Aw; j++) {
 			result[j][i] = A[i][j];
 		}
 	}
@@ -107,12 +108,12 @@ std::vector<std::vector<double>> Matrix::multiply(std::vector<std::vector<double
 	const int Bwidth = B[0].size();
 	const int Bheight = B.size();
 
-	decltype(A) result = std::vector<std::vector<double>>(Awidth, std::vector<double>(0, Bheight));
+	decltype(A) result = std::vector<std::vector<double>>(Aheight, std::vector<double>(Bwidth, 0));
 
 	if (Awidth != Bheight) return result;
 
-	for (int y = 0; y < Awidth; y++) {
-		for (int x = 0; x < Bheight; x++) {
+	for (int y = 0; y < Aheight; y++) {
+		for (int x = 0; x < Bwidth; x++) {
 			for (int k = 0; k < Awidth; k++) {
 				result[y][x] += A[y][k] * B[k][x];
 			}
@@ -132,7 +133,7 @@ std::vector<std::vector<double>> Matrix::inverse(std::vector<std::vector<double>
 	decltype(A) result;
 
 	// create In matrix 
-	decltype(A) ones = std::vector<std::vector<double>>(n, std::vector<double>(0, n));
+	decltype(A) ones = std::vector<std::vector<double>>(n, std::vector<double>(n, 0));
 	for (int i = 0; i < n; i++) ones[i][i] = 1;
 
 	// apply LU-decomposition for each row 
@@ -145,7 +146,7 @@ std::vector<std::vector<double>> Matrix::inverse(std::vector<std::vector<double>
 }
 
 std::vector<double> Matrix::leastSquaresFitting(std::vector<double> x, std::vector<double> y, int polynomialDegree = 3) {
-	auto A = std::vector<std::vector<double>>(x.size(), std::vector<double>(0, polynomialDegree));
+	auto A = std::vector<std::vector<double>>(x.size(), std::vector<double>(polynomialDegree, 0));
 
 	// generate A-matrix : f1(x1), f2(x1), ..., fm(x1)
 	//-------------------: f1(x2), f2(x2), ..., fm(x2)
@@ -153,7 +154,7 @@ std::vector<double> Matrix::leastSquaresFitting(std::vector<double> x, std::vect
 	//-------------------: f1(xn), f2(xn), ..., fm(xn)
 	for (int i = 0; i < x.size(); i++) {
 		for (int j = 0; j < polynomialDegree; j++) {
-			A[i][j] = pow(x[j], j);
+			A[i][j] = pow(x[i], j);
 		}
 	}
 
@@ -162,7 +163,8 @@ std::vector<double> Matrix::leastSquaresFitting(std::vector<double> x, std::vect
 	auto transposedA = transpose(A);
 	auto ATmulA = multiply(transposedA, A);
 	auto invATmulA = inverse(ATmulA);
-	auto result = solveLU(invATmulA, y);
+	auto Aplus = multiply(invATmulA, transposedA);
+	auto result = solveLU(Aplus, y);
 
 	return result;
 }
