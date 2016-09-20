@@ -15,7 +15,7 @@ private:
 	static std::vector<std::vector<double>> inverse(std::vector<std::vector<double>> A);
 
 	// least squares 
-	static std::vector<double> leastSquaresFitting(std::vector<double> x, std::vector<double> y);
+	static std::vector<double> leastSquaresFitting(std::vector<double> x, std::vector<double> y, int polynomialDegree);
 public:
 	friend void launchAllMatrixAlgorithms();
 };

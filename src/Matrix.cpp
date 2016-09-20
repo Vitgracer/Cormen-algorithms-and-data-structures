@@ -1,6 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <algorithm>
+#include <math.h>
 #include "Matrix.h"
 
 // --------------------------- LU-decomposition (p 860) -----------------------------------
@@ -143,8 +144,27 @@ std::vector<std::vector<double>> Matrix::inverse(std::vector<std::vector<double>
 	return result;
 }
 
-std::vector<double> Matrix::leastSquaresFitting(std::vector<double> x, std::vector<double> y) {
-	
+std::vector<double> Matrix::leastSquaresFitting(std::vector<double> x, std::vector<double> y, int polynomialDegree = 3) {
+	auto A = std::vector<std::vector<double>>(x.size(), std::vector<double>(0, polynomialDegree));
+
+	// generate A-matrix : f1(x1), f2(x1), ..., fm(x1)
+	//-------------------: f1(x2), f2(x2), ..., fm(x2)
+	//------------------------------------------------
+	//-------------------: f1(xn), f2(xn), ..., fm(xn)
+	for (int i = 0; i < x.size(); i++) {
+		for (int j = 0; j < polynomialDegree; j++) {
+			A[i][j] = pow(x[j], j);
+		}
+	}
+
+	// Least-Squares A+ pseudoinverse matrix: C = A+ y, 
+	// where A+ = (AT A) ^ (-1) AT
+	auto transposedA = transpose(A);
+	auto ATmulA = multiply(transposedA, A);
+	auto invATmulA = inverse(ATmulA);
+	auto result = solveLU(invATmulA, y);
+
+	return result;
 }
 
 // ----------------- LAUNCHER ----------------------------
