@@ -100,7 +100,25 @@ std::vector<std::vector<double>> Matrix::transpose(std::vector<std::vector<doubl
 // avg = teta (n ^ 3)
 //------------------------------------------
 std::vector<std::vector<double>> Matrix::multiply(std::vector<std::vector<double>> A, decltype(A) B) {
-	
+	const int Awidth = A[0].size();
+	const int Aheight = A.size();
+
+	const int Bwidth = B[0].size();
+	const int Bheight = B.size();
+
+	decltype(A) result = std::vector<std::vector<double>>(Awidth, std::vector<double>(0, Bheight));
+
+	if (Awidth != Bheight) return result;
+
+	for (int y = 0; y < Awidth; y++) {
+		for (int x = 0; x < Bheight; x++) {
+			for (int k = 0; k < Awidth; k++) {
+				result[y][x] += A[y][k] * B[k][x];
+			}
+		}
+	}
+
+	return result;
 }
 
 // ----------------- LAUNCHER ----------------------------
