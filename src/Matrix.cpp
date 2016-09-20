@@ -143,6 +143,10 @@ std::vector<std::vector<double>> Matrix::inverse(std::vector<std::vector<double>
 	return result;
 }
 
+std::vector<double> Matrix::leastSquaresFitting(std::vector<double> x, std::vector<double> y) {
+	
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available matrix
 // algorithms and compare their timings in console output 
