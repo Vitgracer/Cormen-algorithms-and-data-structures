@@ -1,6 +1,7 @@
 #include <iostream>
 #include "MaximumSubarray.h"
 #include "Selection.h"
+#include "Substring.h"
 #include "Matrix.h"
 #include "Greedy.h"
 #include "Sort.h"
@@ -25,6 +26,9 @@ int main() {
 
 	//launch all Matrix algorithms 
 	launchAllMatrixAlgorithms();
+
+	//launch all Substring algorithms 
+	launchAllSubstringAlgorithms();
 
 	return 0;
 }
