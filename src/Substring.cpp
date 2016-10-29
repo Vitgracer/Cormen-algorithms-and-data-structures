@@ -8,10 +8,21 @@
 // Brief description: the simpliest algorithm for string matching
 // ---------------------------------------------------------------
 // previous processing time: 0 
-// comparison time: O ( (n - m + 1) * m )
+// comparison time: O( (n - m + 1) * m )
 //---------------------------------------------------------
 int Substring::naiveStringMatcher(std::vector<int>& T, std::vector<int>& P) {
-	return 0;
+
+	for (int i = 0; i < T.size() - P.size(); i++) {
+		for (int j = 0; j < P.size(); j++) {
+			if (P[j] == T[i + j]) {
+				if (j == P.size() - 1) return i;
+				continue;
+			}
+			else break;
+		}
+	}
+
+	return -1;
 }
 
 // ----------------- LAUNCHER ----------------------------
