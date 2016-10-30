@@ -1,8 +1,14 @@
 #include <vector>
 
+struct Point {
+	int x;
+	int y;
+};
+
 class Geometry {
 private:
-	static bool segmentsIntersect(int p1, int p2, int p3, int p4);
+	static int direction(Point p1, Point p2, Point p3);
+	static bool segmentsIntersect(Point p1, Point p2, Point p3, Point p4);
 public:
 	friend void launchAllGeometryAlgorithms();
 };
