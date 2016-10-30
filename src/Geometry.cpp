@@ -48,13 +48,16 @@ void launchAllGeometryAlgorithms() {
 	//-------------------------------------------------
 	Point p1 = { 0, 0 }; Point p2 = { 2, 0 };
 	Point p3 = { 1, 1 }; Point p4 = { 1, -1 };
+	Point p5 = { 2, 1 };
 
 	auto isStart = clock();
-	bool isIntersect = Geometry::segmentsIntersect(p1, p2, p3, p4);
+	bool isIntersect1 = Geometry::segmentsIntersect(p1, p2, p3, p4);
+	bool isIntersect2 = Geometry::segmentsIntersect(p1, p2, p3, p5);
 	auto isEnd = clock() - isStart;
 	std::cout << "Segments intersection: " << isEnd << " ms" << std::endl;
 
-	bool check = isIntersect;
+	bool check = (isIntersect1 == true) && 
+				 (isIntersect2 == false);
 	
 	if (check) std::cout << "All geometry algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
