@@ -41,6 +41,14 @@ bool Geometry::segmentsIntersect(Point p1, Point p2, Point p3, Point p4) {
 	else return false;
 }
 
+// -------------------------- CHECK-ANGLE ----------------------
+// Brief description: if p3 turn to let regars to p1-p2 - false, 
+// else - true 
+// --------------------------------------------------------------
+static bool checkAngle(Point p1, Point p2, Point p3) {
+
+}
+
 // ----------------- GRAHAM-SCAN (p 1077) ----------------------
 // Brief description: find convex-hull using Graham scan 
 // -------------------------------------------------------------
@@ -97,13 +105,13 @@ std::vector<Point> Geometry::GrahamScan(std::vector<Point> inputPoints) {
 
 	// remove duplicates 
 	decltype(sortedInputPoints) filtratedInputPoints(0, std::pair<Point, double>({ 0,0 }, 0));;
-	for (int i = 0; i < sortedInputPoints.size() - 1; i++) {
+	for (int i = 0; i < sortedInputPoints.size(); i++) {
 		
 		int j = i;
 		double maxDist = 0;
 		auto maxPoint = std::pair<Point, double>({ 0,0 }, 0);
 
-		while (sortedInputPoints[j].second == sortedInputPoints[j + 1].second) {
+		while (i < sortedInputPoints.size() - 1 && sortedInputPoints[j].second == sortedInputPoints[j + 1].second) {
 			auto p0 = inputPoints[minLeftInd];
 			auto p1 = sortedInputPoints[j].first;
 			auto p2 = sortedInputPoints[j + 1].first;
@@ -128,7 +136,23 @@ std::vector<Point> Geometry::GrahamScan(std::vector<Point> inputPoints) {
 		if (maxDist == 0) filtratedInputPoints.push_back(sortedInputPoints[i]);
 		else filtratedInputPoints.push_back(maxPoint);
 	}
-	return { {0,0} };
+
+	// Graham algorithm
+	if (filtratedInputPoints.size() < 2) return{ {0,0} };
+	else {
+		std::vector<Point> S = std::vector<Point>(0, { 0,0 });
+		S.push_back(inputPoints[minLeftInd]);
+		S.push_back(filtratedInputPoints[0].first);
+		S.push_back(filtratedInputPoints[1].first);
+		
+		for (int i = 2; i < filtratedInputPoints.size(); i++) {
+			while (checkAngle(S[0], S[1], filtratedInputPoints[i])) {
+				S.pop_back();
+			}
+			S.push_back(filtratedInputPoints[i]);
+		}
+	}
+	return S;
 }
 
 // ----------------- LAUNCHER -----------------------------
