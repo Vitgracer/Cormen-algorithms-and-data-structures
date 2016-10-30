@@ -45,8 +45,14 @@ bool Geometry::segmentsIntersect(Point p1, Point p2, Point p3, Point p4) {
 // Brief description: if p3 turn to let regars to p1-p2 - false, 
 // else - true 
 // --------------------------------------------------------------
-static bool checkAngle(Point p1, Point p2, Point p3) {
-
+bool Geometry::checkAngle(Point p0, Point p1, Point p2) {
+	if ((p2.x - p0.x) * (p1.y - p0.y) - (p1.x - p0.x) * (p2.y - p0.y) < 0) {
+		return false; // turn left
+	}
+	else
+	{
+		return true; // turn right
+	}
 }
 
 // ----------------- GRAHAM-SCAN (p 1077) ----------------------
@@ -138,18 +144,18 @@ std::vector<Point> Geometry::GrahamScan(std::vector<Point> inputPoints) {
 	}
 
 	// Graham algorithm
+	std::vector<Point> S = std::vector<Point>(0, { 0,0 });
 	if (filtratedInputPoints.size() < 2) return{ {0,0} };
 	else {
-		std::vector<Point> S = std::vector<Point>(0, { 0,0 });
 		S.push_back(inputPoints[minLeftInd]);
 		S.push_back(filtratedInputPoints[0].first);
 		S.push_back(filtratedInputPoints[1].first);
 		
 		for (int i = 2; i < filtratedInputPoints.size(); i++) {
-			while (checkAngle(S[0], S[1], filtratedInputPoints[i])) {
+			while (checkAngle(S[S.size() - 2], S[S.size() - 1], filtratedInputPoints[i].first)) {
 				S.pop_back();
 			}
-			S.push_back(filtratedInputPoints[i]);
+			S.push_back(filtratedInputPoints[i].first);
 		}
 	}
 	return S;
@@ -183,7 +189,8 @@ void launchAllGeometryAlgorithms() {
 
 	//-------------------------------------------------
 	bool check = (isIntersect1 == true) &&
-		         (isIntersect2 == false);
+		         (isIntersect2 == false) && 
+				 (convexHull.size() == grAnswer.size());
 	
 	if (check) std::cout << "All geometry algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
