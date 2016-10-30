@@ -40,6 +40,15 @@ bool Geometry::segmentsIntersect(Point p1, Point p2, Point p3, Point p4) {
 	else return false;
 }
 
+// ----------------- GRAHAM-SCAN (p 1077) ----------------------
+// Brief description: find convex-hull using Graham scan 
+// -------------------------------------------------------------
+// avg = teta(n * log(n) )
+// -------------------------------------------------------------
+std::vector<Point> Geometry::GrahamScan(std::vector<Point> inputPoints) {
+	return{ {} };
+}
+
 // ----------------- LAUNCHER -----------------------------
 // Brief description: use all available geometry algorithms
 // and compare their timings in console output 
@@ -56,8 +65,20 @@ void launchAllGeometryAlgorithms() {
 	auto isEnd = clock() - isStart;
 	std::cout << "Segments intersection: " << isEnd << " ms" << std::endl;
 
+	//-------------------------------------------------
+	std::vector<Point> grAnswer = { { 0, 10 },{ 10, 10 },{ 10, 0 },{ 0, 0 } };
+	std::vector<Point> inputPoints = grAnswer;
+	for (int i = 0; i < 10; i++) inputPoints.push_back( {1 + std::rand() % 9,1 +  std::rand() % 9 });
+
+	auto grStart = clock();
+	std::vector<Point> convexHull = Geometry::GrahamScan(inputPoints);
+	auto grEnd = clock() - grStart;
+	std::cout << "Graham Scan: " << grEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (isIntersect1 == true) && 
-				 (isIntersect2 == false);
+				 (isIntersect2 == false) && 
+		         (convexHull == grAnswer);
 	
 	if (check) std::cout << "All geometry algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
