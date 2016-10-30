@@ -2,46 +2,30 @@
 #include <algorithm>
 #include <climits>
 #include <time.h>
-#include "Substring.h"
+#include "Geometry.h"
 
-// ---------------------- NAIVE-STRING-MATCHER -------------------
-// Brief description: the simpliest algorithm for string matching
-// ---------------------------------------------------------------
-// previous processing time: 0 
-// comparison time: O( (n - m + 1) * m )
-//---------------------------------------------------------
-int Substring::naiveStringMatcher(std::vector<int>& T, std::vector<int>& P) {
-
-	for (int i = 0; i < T.size() - P.size(); i++) {
-		for (int j = 0; j < P.size(); j++) {
-			if (P[j] == T[i + j]) {
-				if (j == P.size() - 1) return i;
-				continue;
-			}
-			else break;
-		}
-	}
-
-	return -1;
+// ---------------------- SEGMENTS-INTERSECT -----------------------
+// Brief description: find out if 2 segmens p1p2 and p3p4 intersects 
+// -----------------------------------------------------------------
+bool Geometry::segmentsIntersect(int p1, int p2, int p3, int p4) {
+	return true;
 }
 
-// ----------------- LAUNCHER ----------------------------
-// Brief description: use all available string matching 
-// algorithms and compare their timings in console output 
+// ----------------- LAUNCHER -----------------------------
+// Brief description: use all available geometry algorithms
+// and compare their timings in console output 
 // -------------------------------------------------------
-void launchAllSubstringAlgorithms() {
+void launchAllGeometryAlgorithms() {
 	//-------------------------------------------------
-	std::vector<int> T = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	std::vector<int> P = { 4, 5, 6, 7, 8, 9 };
+	int p1 = 0; int p2 = 2;
+	int p3 = 0; int p4 = 0;
+	auto isStart = clock();
+	bool isIntersect = Geometry::segmentsIntersect(p1, p2, p3, p4);
+	auto isEnd = clock() - isStart;
+	std::cout << "Segments intersection: " << isEnd << " ms" << std::endl;
 
-	//-------------------------------------------------
-	auto nStart = clock();
-	int nOutput = Substring::naiveStringMatcher(T, P);
-	auto nEnd = clock() - nStart;
-	std::cout << "Naive string matching: " << nEnd << " ms" << std::endl;
-
-	bool check = nOutput;
+	bool check = isIntersect;
 	
-	if (check) std::cout << "All substring algorithms are correct" << std::endl << std::endl;
+	if (check) std::cout << "All geometry algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }

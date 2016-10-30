@@ -1,8 +1,8 @@
 #include <vector>
 
-class Substring {
+class Geometry {
 private:
-	static int naiveStringMatcher(std::vector<int>& T, std::vector<int>& P);
+	static bool segmentsIntersect(int p1, int p2, int p3, int p4);
 public:
-	friend void launchAllSubstringAlgorithms();
+	friend void launchAllGeometryAlgorithms();
 };
