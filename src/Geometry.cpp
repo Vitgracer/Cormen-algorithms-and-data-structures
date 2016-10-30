@@ -95,6 +95,39 @@ std::vector<Point> Geometry::GrahamScan(std::vector<Point> inputPoints) {
 		sortedInputPoints[minInd] = temp;
 	}
 
+	// remove duplicates 
+	decltype(sortedInputPoints) filtratedInputPoints(0, std::pair<Point, double>({ 0,0 }, 0));;
+	for (int i = 0; i < sortedInputPoints.size() - 1; i++) {
+		
+		int j = i;
+		double maxDist = 0;
+		auto maxPoint = std::pair<Point, double>({ 0,0 }, 0);
+
+		while (sortedInputPoints[j].second == sortedInputPoints[j + 1].second) {
+			auto p0 = inputPoints[minLeftInd];
+			auto p1 = sortedInputPoints[j].first;
+			auto p2 = sortedInputPoints[j + 1].first;
+			double dist1 = sqrt((p1.x - p0.x)*(p1.x - p0.x) + (p1.y - p0.y)*(p1.y - p0.y));
+			double dist2 = sqrt((p2.x - p0.x)*(p2.x - p0.x) + (p2.y - p0.y)*(p2.y - p0.y));
+			
+			if (dist1 >= dist2) {
+				if (dist1 > maxDist) {
+					maxDist = dist1;
+					maxPoint = sortedInputPoints[j];
+				}
+			}
+			else {
+				if (dist2 > maxDist) {
+					maxDist = dist2;
+					maxPoint = sortedInputPoints[j + 1];
+				}
+			}
+			j++;
+			i = j;
+		}
+		if (maxDist == 0) filtratedInputPoints.push_back(sortedInputPoints[i]);
+		else filtratedInputPoints.push_back(maxPoint);
+	}
 	return { {0,0} };
 }
 
