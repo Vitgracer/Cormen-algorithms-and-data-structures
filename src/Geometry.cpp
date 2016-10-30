@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <climits>
 #include <time.h>
+#include <math.h>
 #include "Geometry.h"
 
 // ---------------------- DIRECTION --------------------------------
@@ -65,7 +66,34 @@ std::vector<Point> Geometry::GrahamScan(std::vector<Point> inputPoints) {
 			}
 		}
 	}
-	int a = 2;
+	
+	// calculcate polar angles 
+	std::vector<std::pair<Point, double>> sortedInputPoints(0, std::pair<Point, double>({0,0},0));
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (i == minLeftInd) continue;
+		double angle = atan((inputPoints[i].y - inputPoints[minLeftInd].y) / (double)
+							(inputPoints[i].x - inputPoints[minLeftInd].x));
+		sortedInputPoints.push_back(std::make_pair(inputPoints[i], angle));
+	}
+
+	// sort vector with angle criterian and remove similar angles 
+	// (leave only point with max distance to p0)
+	// using selection sort
+	for (int i = 0; i < sortedInputPoints.size() - 1; i++) {
+		double minVal = DBL_MAX;
+		int minInd = 0;
+
+		for (int j = i; j < sortedInputPoints.size(); j++) {
+			if (sortedInputPoints[j].second < minVal) {
+				minVal = sortedInputPoints[j].second;
+				minInd = j;
+			}
+		}
+
+		auto temp = sortedInputPoints[i];
+		sortedInputPoints[i] = sortedInputPoints[minInd];
+		sortedInputPoints[minInd] = temp;
+	}
 
 	return { {0,0} };
 }
