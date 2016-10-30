@@ -46,6 +46,27 @@ bool Geometry::segmentsIntersect(Point p1, Point p2, Point p3, Point p4) {
 // avg = teta(n * log(n) )
 // -------------------------------------------------------------
 std::vector<Point> Geometry::GrahamScan(std::vector<Point> inputPoints) {
+	
+	// find point with the lowest y-coordinate (and left, if it's not only)
+	int minY = INT_MAX;
+	
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (inputPoints[i].y < minY) minY = inputPoints[i].y;
+	}
+	
+	// find left 
+	int minLeft = INT_MAX;
+	int minLeftInd = INT_MAX;
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (inputPoints[i].y == minY) {
+			if (inputPoints[i].x < minLeft) {
+				minLeft = inputPoints[i].x;
+				minLeftInd = i;
+			}
+		}
+	}
+	int a = 2;
+
 	return { {0,0} };
 }
 
