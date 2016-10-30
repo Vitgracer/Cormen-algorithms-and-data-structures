@@ -12,7 +12,16 @@ int Geometry::direction(Point pi, Point pj, Point pk) {
 	return ((pk.x - pi.x) * (pj.y - pi.y) - (pj.x - pi.x) * (pk.y - pi.y));
 }
 
-// ---------------------- SEGMENTS-INTERSECT -----------------------
+// ---------------------- ON-SEGMENT --------------------------------
+// Brief description: define if the point pk lies on the segment pi-pj
+// ------------------------------------------------------------------
+bool Geometry::onSegment(Point pi, Point pj, Point pk) {
+	if ((std::min(pi.x, pj.x) < pk.x && std::max(pi.x, pj.x) > pk.x) &&
+		(std::min(pi.y, pj.y) < pk.y && std::max(pi.y, pj.y) > pk.y)) return true;
+	else return false;
+}
+
+// --------------------- SEGMENTS-INTERSECT (p 1064) ---------------
 // Brief description: find out if 2 segmens p1p2 and p3p4 intersects 
 // -----------------------------------------------------------------
 bool Geometry::segmentsIntersect(Point p1, Point p2, Point p3, Point p4) {
@@ -24,6 +33,11 @@ bool Geometry::segmentsIntersect(Point p1, Point p2, Point p3, Point p4) {
 	if ((((d1 > 0) && (d2 < 0)) || ((d1 < 0) && (d2 > 0))) &&
 		(((d3 > 0) && (d4 < 0)) || ((d3 < 0) && (d4 > 0)))) return true;
 
+	else if (d1 == 0 && onSegment(p3, p4, p1)) return true;
+	else if (d2 == 0 && onSegment(p3, p4, p2)) return true;
+	else if (d3 == 0 && onSegment(p1, p2, p3)) return true;
+	else if (d4 == 0 && onSegment(p1, p2, p4)) return true;
+	else return false;
 }
 
 // ----------------- LAUNCHER -----------------------------

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "MaximumSubarray.h"
+#include "Geometry.h"
 #include "Selection.h"
 #include "Substring.h"
 #include "Matrix.h"
@@ -29,6 +30,9 @@ int main() {
 
 	//launch all Substring algorithms 
 	launchAllSubstringAlgorithms();
+
+	//launch all Geometry algorithms 
+	launchAllGeometryAlgorithms();
 
 	return 0;
 }
