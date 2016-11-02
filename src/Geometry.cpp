@@ -91,9 +91,12 @@ float Geometry::calcPolarAngle(Point main, Point current) {
 // ----------------- FIND-CLOSEST-POINT-- ----------------------------
 // Brief description: find next point to inputPointInd for Jarvis scan
 // -------------------------------------------------------------------
-Point Geometry::findPointWithMinPolarAngle(std::vector<Point> inputPoints, int inputPointInd) {
+void Geometry::findPointWithMinPolarAngle(std::vector<Point> inputPoints, std::vector<Point>& answer, int inputPointInd, int startInd) {
 	Point mainPoint = inputPoints[inputPointInd];
+	answer.push_back(mainPoint);
+
 	double minAngle = DBL_MAX;
+	double minInd = 0;
 	Point resultPoint = mainPoint;
 
 	for (int i = 0; i < inputPoints.size(); i++) {
@@ -107,6 +110,11 @@ Point Geometry::findPointWithMinPolarAngle(std::vector<Point> inputPoints, int i
 			resultPoint = currentPoint;
 		}
 	}
+
+	if (resultPoint.x == inputPoints[startInd].x && 
+		resultPoint.y == inputPoints[startInd].y) return;
+
+	findPointWithMinPolarAngle(inputPoints, answer, minInd, startInd);
 }
 
 // ----------------- JARVIS-SCAN (p 1083) ----------------------
@@ -136,10 +144,9 @@ std::vector<Point> Geometry::JarvisScan(std::vector<Point> inputPoints) {
 
 	// vector with result convex hull points 
 	std::vector<Point> answer(0, { 0,0 });
-	answer.push_back(inputPoints[minLeftInd]);
 	swap(inputPoints, minLeftInd, 0);
 	
-	findPointWithMinPolarAngle(inputPoints, 0);
+	findPointWithMinPolarAngle(inputPoints, answer, 0, 0);
 	
 	return answer;
 }
