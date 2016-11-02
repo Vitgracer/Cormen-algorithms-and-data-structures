@@ -3,8 +3,10 @@
 #include <climits>
 #include <time.h>
 #include <math.h>
+#include "Sort.h"
 #include "Geometry.h"
 
+#define PI 3.1415
 // ---------------------- DIRECTION --------------------------------
 // Brief description: define if pk lies from the left or right side
 // regarding to pi-pj
@@ -55,6 +57,58 @@ bool Geometry::checkAngle(Point p0, Point p1, Point p2) {
 	}
 }
 
+// ---------------------- SWAP ----------------
+// Brief description: replace i and j elements
+// --------------------------------------------
+void swap(std::vector<Point>& A, int i, int j) {
+	Point tmp = A[i];
+	A[i] = A[j];
+	A[j] = tmp;
+}
+
+float Geometry::calcPolarAngle(Point main, Point current) {
+	int ySign = current.y - main.y;
+	int xSign = current.x - main.x;
+	double angle = atan(abs(ySign) / (double)abs(xSign));
+
+	if (xSign > 0 && ySign > 0) {
+		return angle;
+	}
+
+	if (xSign < 0 && ySign > 0) {
+		return PI - angle;
+	}
+
+	if (xSign < 0 && ySign < 0) {
+		return PI + angle;
+	}
+
+	if (xSign > 0 && ySign < 0) {
+		return 2 * PI - angle;
+	}
+}
+
+// ----------------- FIND-CLOSEST-POINT-- ----------------------------
+// Brief description: find next point to inputPointInd for Jarvis scan
+// -------------------------------------------------------------------
+Point Geometry::findPointWithMinPolarAngle(std::vector<Point> inputPoints, int inputPointInd) {
+	Point mainPoint = inputPoints[inputPointInd];
+	double minAngle = DBL_MAX;
+	Point resultPoint = mainPoint;
+
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (i == inputPointInd) continue;
+
+		Point currentPoint = inputPoints[i];
+		double curAngle = calcPolarAngle(mainPoint, currentPoint);
+
+		if (curAngle < minAngle) {
+			minAngle = curAngle;
+			resultPoint = currentPoint;
+		}
+	}
+}
+
 // ----------------- JARVIS-SCAN (p 1083) ----------------------
 // Brief description: find convex-hull using Jarvis scan 
 // -------------------------------------------------------------
@@ -79,7 +133,15 @@ std::vector<Point> Geometry::JarvisScan(std::vector<Point> inputPoints) {
 			}
 		}
 	}
-	return std::vector<Point>(0, {0,0});
+
+	// vector with result convex hull points 
+	std::vector<Point> answer(0, { 0,0 });
+	answer.push_back(inputPoints[minLeftInd]);
+	swap(inputPoints, minLeftInd, 0);
+	
+	findPointWithMinPolarAngle(inputPoints, 0);
+	
+	return answer;
 }
 
 // ----------------- GRAHAM-SCAN (p 1077) ----------------------

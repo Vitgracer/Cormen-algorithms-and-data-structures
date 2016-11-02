@@ -18,6 +18,8 @@ private:
 
 	// Jarvis scan 
 	static std::vector<Point> JarvisScan(std::vector<Point> inputPoints);
+	static Point findPointWithMinPolarAngle(std::vector<Point> inputPoints, int inputPointInd);
+	static float calcPolarAngle(Point main, Point current);
 public:
 	friend void launchAllGeometryAlgorithms();
 };
