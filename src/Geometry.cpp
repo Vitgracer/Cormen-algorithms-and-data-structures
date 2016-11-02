@@ -3,8 +3,10 @@
 #include <climits>
 #include <time.h>
 #include <math.h>
+#include "Sort.h"
 #include "Geometry.h"
 
+#define PI 3.1416
 // ---------------------- DIRECTION --------------------------------
 // Brief description: define if pk lies from the left or right side
 // regarding to pi-pj
@@ -53,6 +55,113 @@ bool Geometry::checkAngle(Point p0, Point p1, Point p2) {
 	{
 		return true; // turn right
 	}
+}
+
+// ---------------------- SWAP ----------------
+// Brief description: replace i and j elements
+// --------------------------------------------
+void swap(std::vector<Point>& A, int i, int j) {
+	Point tmp = A[i];
+	A[i] = A[j];
+	A[j] = tmp;
+}
+
+float Geometry::calcPolarAngle(Point main, Point current) {
+	int ySign = current.y - main.y;
+	int xSign = current.x - main.x;
+	double angle = atan(abs(ySign) / (double)abs(xSign));
+
+	if (xSign >= 0 && ySign >= 0) {
+		return angle;
+	}
+
+	if (xSign <= 0 && ySign >= 0) {
+		return PI - angle;
+	}
+
+	if (xSign <= 0 && ySign <= 0) {
+		return PI + angle;
+	}
+
+	if (xSign >= 0 && ySign <= 0) {
+		return 2 * PI - angle;
+	}
+}
+
+// ----------------- DOES-EXISTS-IN-ANS-------------------------------
+// Brief description: check if point exists in the vector with answer
+// -------------------------------------------------------------------
+bool Geometry::doesExistsInAnswer(std::vector<Point>& answer, std::vector<Point> inputPoints, int ind) {
+	for (int i = 0; i < answer.size(); i++) {
+		if (inputPoints[ind].x == answer[i].x &&
+			inputPoints[ind].y == answer[i].y) return true;
+	}
+	return false;
+}
+
+// ----------------- FIND-CLOSEST-POINT-- ----------------------------
+// Brief description: find next point to inputPointInd for Jarvis scan
+// -------------------------------------------------------------------
+void Geometry::findPointWithMinPolarAngle(std::vector<Point> inputPoints, std::vector<Point>& answer, int inputPointInd, int startInd) {
+	Point mainPoint = inputPoints[inputPointInd];
+
+	double minAngle = DBL_MAX;
+	int minInd = 0;
+	Point resultPoint = mainPoint;
+
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (i == inputPointInd || doesExistsInAnswer(answer, inputPoints, i)) continue;
+
+		Point currentPoint = inputPoints[i];
+		double curAngle = calcPolarAngle(mainPoint, currentPoint);
+
+		if (curAngle < minAngle) {
+			minAngle = curAngle;
+			resultPoint = currentPoint;
+			minInd = i;
+		}
+	}
+
+	answer.push_back(resultPoint);
+
+	if (resultPoint.x == inputPoints[startInd].x && 
+		resultPoint.y == inputPoints[startInd].y) return;
+
+	findPointWithMinPolarAngle(inputPoints, answer, minInd, startInd);
+}
+
+// ----------------- JARVIS-SCAN (p 1083) ----------------------
+// Brief description: find convex-hull using Jarvis scan 
+// -------------------------------------------------------------
+// avg = teta( n * h ), h - the amount of vertices	
+// -------------------------------------------------------------
+std::vector<Point> Geometry::JarvisScan(std::vector<Point> inputPoints) {
+	// find point with the lowest y-coordinate (and left, if it's not only)
+	int minY = INT_MAX;
+
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (inputPoints[i].y < minY) minY = inputPoints[i].y;
+	}
+
+	// find left 
+	int minLeft = INT_MAX;
+	int minLeftInd = INT_MAX;
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (inputPoints[i].y == minY) {
+			if (inputPoints[i].x < minLeft) {
+				minLeft = inputPoints[i].x;
+				minLeftInd = i;
+			}
+		}
+	}
+
+	// vector with result convex hull points 
+	std::vector<Point> answer(0, { 0,0 });
+	swap(inputPoints, minLeftInd, 0);
+	
+	findPointWithMinPolarAngle(inputPoints, answer, 0, 0);
+	
+	return answer;
 }
 
 // ----------------- GRAHAM-SCAN (p 1077) ----------------------
@@ -188,9 +297,20 @@ void launchAllGeometryAlgorithms() {
 	std::cout << "Graham Scan: " << grEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	std::vector<Point> jAnswer = { { 0, 10 },{ 10, 10 },{ 10, 0 },{ 0, 0 } };
+	std::vector<Point> jInputPoints = jAnswer;
+	for (int i = 0; i < 10; i++) jInputPoints.push_back({ 1 + std::rand() % 9,1 + std::rand() % 9 });
+
+	auto jStart = clock();
+	auto jConvexHull = Geometry::JarvisScan(jInputPoints);
+	auto jEnd = clock() - jStart;
+	std::cout << "Jarvis Scan: " << jEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (isIntersect1 == true) &&
-		         (isIntersect2 == false) && 
-				 (convexHull.size() == grAnswer.size());
+		         (isIntersect2 == false) &&
+		         (convexHull.size() == grAnswer.size()) &&
+		         (jConvexHull.size() == jAnswer.size());
 	
 	if (check) std::cout << "All geometry algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
