@@ -15,6 +15,9 @@ private:
 	// Graham scan 
 	static bool checkAngle(Point p1, Point p2, Point p3);
 	static std::vector<Point> GrahamScan(std::vector<Point> inputPoints);
+
+	// Jarvis scan 
+	static std::vector<Point> JarvisScan(std::vector<Point> inputPoints);
 public:
 	friend void launchAllGeometryAlgorithms();
 };

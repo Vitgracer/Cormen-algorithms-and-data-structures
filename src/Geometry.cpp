@@ -55,6 +55,33 @@ bool Geometry::checkAngle(Point p0, Point p1, Point p2) {
 	}
 }
 
+// ----------------- JARVIS-SCAN (p 1083) ----------------------
+// Brief description: find convex-hull using Jarvis scan 
+// -------------------------------------------------------------
+// avg = teta( n * h ), h - the amount of vertices	
+// -------------------------------------------------------------
+std::vector<Point> Geometry::JarvisScan(std::vector<Point> inputPoints) {
+	// find point with the lowest y-coordinate (and left, if it's not only)
+	int minY = INT_MAX;
+
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (inputPoints[i].y < minY) minY = inputPoints[i].y;
+	}
+
+	// find left 
+	int minLeft = INT_MAX;
+	int minLeftInd = INT_MAX;
+	for (int i = 0; i < inputPoints.size(); i++) {
+		if (inputPoints[i].y == minY) {
+			if (inputPoints[i].x < minLeft) {
+				minLeft = inputPoints[i].x;
+				minLeftInd = i;
+			}
+		}
+	}
+	return std::vector<Point>(0, {0,0});
+}
+
 // ----------------- GRAHAM-SCAN (p 1077) ----------------------
 // Brief description: find convex-hull using Graham scan 
 // -------------------------------------------------------------
@@ -188,9 +215,20 @@ void launchAllGeometryAlgorithms() {
 	std::cout << "Graham Scan: " << grEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	std::vector<Point> jAnswer = { { 0, 10 },{ 10, 10 },{ 10, 0 },{ 0, 0 } };
+	std::vector<Point> jInputPoints = jAnswer;
+	for (int i = 0; i < 10; i++) jInputPoints.push_back({ 1 + std::rand() % 9,1 + std::rand() % 9 });
+
+	auto jStart = clock();
+	auto jConvexHull = Geometry::JarvisScan(jInputPoints);
+	auto jEnd = clock() - jStart;
+	std::cout << "Jarvis Scan: " << jEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (isIntersect1 == true) &&
-		         (isIntersect2 == false) && 
-				 (convexHull.size() == grAnswer.size());
+		         (isIntersect2 == false) &&
+		         (convexHull.size() == grAnswer.size()) &&
+		         (jConvexHull.size() == jAnswer.size());
 	
 	if (check) std::cout << "All geometry algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
