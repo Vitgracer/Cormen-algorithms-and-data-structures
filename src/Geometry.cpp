@@ -6,7 +6,7 @@
 #include "Sort.h"
 #include "Geometry.h"
 
-#define PI 3.1415
+#define PI 3.1416
 // ---------------------- DIRECTION --------------------------------
 // Brief description: define if pk lies from the left or right side
 // regarding to pi-pj
@@ -71,21 +71,32 @@ float Geometry::calcPolarAngle(Point main, Point current) {
 	int xSign = current.x - main.x;
 	double angle = atan(abs(ySign) / (double)abs(xSign));
 
-	if (xSign > 0 && ySign > 0) {
+	if (xSign >= 0 && ySign >= 0) {
 		return angle;
 	}
 
-	if (xSign < 0 && ySign > 0) {
+	if (xSign <= 0 && ySign >= 0) {
 		return PI - angle;
 	}
 
-	if (xSign < 0 && ySign < 0) {
+	if (xSign <= 0 && ySign <= 0) {
 		return PI + angle;
 	}
 
-	if (xSign > 0 && ySign < 0) {
+	if (xSign >= 0 && ySign <= 0) {
 		return 2 * PI - angle;
 	}
+}
+
+// ----------------- DOES-EXISTS-IN-ANS-------------------------------
+// Brief description: check if point exists in the vector with answer
+// -------------------------------------------------------------------
+bool Geometry::doesExistsInAnswer(std::vector<Point>& answer, std::vector<Point> inputPoints, int ind) {
+	for (int i = 0; i < answer.size(); i++) {
+		if (inputPoints[ind].x == answer[i].x &&
+			inputPoints[ind].y == answer[i].y) return true;
+	}
+	return false;
 }
 
 // ----------------- FIND-CLOSEST-POINT-- ----------------------------
@@ -93,14 +104,13 @@ float Geometry::calcPolarAngle(Point main, Point current) {
 // -------------------------------------------------------------------
 void Geometry::findPointWithMinPolarAngle(std::vector<Point> inputPoints, std::vector<Point>& answer, int inputPointInd, int startInd) {
 	Point mainPoint = inputPoints[inputPointInd];
-	answer.push_back(mainPoint);
 
 	double minAngle = DBL_MAX;
-	double minInd = 0;
+	int minInd = 0;
 	Point resultPoint = mainPoint;
 
 	for (int i = 0; i < inputPoints.size(); i++) {
-		if (i == inputPointInd) continue;
+		if (i == inputPointInd || doesExistsInAnswer(answer, inputPoints, i)) continue;
 
 		Point currentPoint = inputPoints[i];
 		double curAngle = calcPolarAngle(mainPoint, currentPoint);
@@ -108,8 +118,11 @@ void Geometry::findPointWithMinPolarAngle(std::vector<Point> inputPoints, std::v
 		if (curAngle < minAngle) {
 			minAngle = curAngle;
 			resultPoint = currentPoint;
+			minInd = i;
 		}
 	}
+
+	answer.push_back(resultPoint);
 
 	if (resultPoint.x == inputPoints[startInd].x && 
 		resultPoint.y == inputPoints[startInd].y) return;
