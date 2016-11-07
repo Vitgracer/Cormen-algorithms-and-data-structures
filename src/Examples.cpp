@@ -26,7 +26,30 @@ void Examples::IosifTask(int M, int N) {
 }
 
 void launchAllExamples() {
+	////////////////////////////////////////////////////////////////////////////////////
 	std::cout << "Iosif task: " << std::endl;
 	Examples::IosifTask(8, 9);
+	////////////////////////////////////////////////////////////////////////////////////
+	link testLink = new node(1, 0);
+	testLink->next = testLink;
+	std::cout << "Empty link: ";
+	li::show(testLink);
+	
+	li::insert(testLink, new node(2, 0));
+	testLink = li::next(testLink);
+	li::insert(testLink, new node(3, 0));
+	testLink = li::next(testLink);
+	li::insert(testLink, new node(4, 0));
+	testLink = li::next(testLink);
+	li::insert(testLink, new node(5, 0));
+	testLink = li::next(testLink);
+	std::cout << std::endl << "Insert: ";
+	li::show(testLink);
+	
+	li::deleteNode(testLink);
+	std::cout << std::endl << "Delete testLink link: ";
+	li::show(testLink);
+	////////////////////////////////////////////////////////////////////////////////////
+
 	std::cout << "All data structures examples were launched!" << std::endl << std::endl;
 }
