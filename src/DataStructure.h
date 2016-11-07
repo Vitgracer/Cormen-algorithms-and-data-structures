@@ -12,6 +12,7 @@ typedef link Node;
 namespace li {
 	void deleteNode(Node n);
 	void insert(Node src, Node ins);
+	link reverse(link x);
 	Node next(Node n);
 	Item item(Node n);
 	void show(Node n);

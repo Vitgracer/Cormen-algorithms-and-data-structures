@@ -49,6 +49,11 @@ void launchAllExamples() {
 	li::deleteNode(testLink);
 	std::cout << std::endl << "Delete testLink link: ";
 	li::show(testLink);
+
+	testLink = li::next(testLink);
+	testLink = li::reverse(testLink);
+	std::cout << std::endl << "reverse testLink link: ";
+	li::show(testLink);
 	////////////////////////////////////////////////////////////////////////////////////
 
 	std::cout << "All data structures examples were launched!" << std::endl << std::endl;
