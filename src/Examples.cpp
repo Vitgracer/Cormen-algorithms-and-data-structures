@@ -22,7 +22,7 @@ void Examples::IosifTask(int M, int N) {
 		}
 		x->next = x->next->next;
 	}
-	std::cout << x->item;
+	std::cout << x->item << std::endl;
 }
 
 void launchAllExamples() {
