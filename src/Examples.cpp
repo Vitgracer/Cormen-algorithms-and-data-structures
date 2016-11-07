@@ -52,8 +52,7 @@ void launchAllExamples() {
 
 	testLink = li::next(testLink);
 	testLink = li::reverse(testLink);
-	std::cout << std::endl << "reverse testLink link: ";
-	li::show(testLink);
+	std::cout << std::endl << "reverse testLink link is performed.";
 	////////////////////////////////////////////////////////////////////////////////////
 
 	std::cout << "All data structures examples were launched!" << std::endl << std::endl;

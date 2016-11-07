@@ -34,13 +34,14 @@ link li::reverse(link x) {
 	link t = x;
 	link y = x;
 	link r = 0;
+	link head = x;
 
-	while (y != 0) {
+	do {
 		t = y->next;
 		y->next = r;
 		r = y;
 		y = t;
-	}
-
+	} while (y != head);
+	
 	return r;
 }
