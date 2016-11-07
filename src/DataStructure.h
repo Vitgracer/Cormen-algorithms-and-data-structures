@@ -1,8 +1,13 @@
-#include <vector>
 
-class Substring {
-private:
-	static int naiveStringMatcher(std::vector<int>& T, std::vector<int>& P);
-public:
-	friend void launchAllSubstringAlgorithms();
+typedef int Item;
+
+struct node {
+	Item item;
+	node* next;
+
+	node(Item i, node* n) : 
+		item(i), 
+		next(n) {}
 };
+
+typedef node* link;
