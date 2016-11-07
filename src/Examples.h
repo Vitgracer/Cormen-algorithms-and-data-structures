@@ -1,13 +1,6 @@
-
-typedef int Item;
-
-struct node {
-	Item item;
-	node* next;
-
-	node(Item i, node* n) : 
-		item(i), 
-		next(n) {}
+class Examples {
+private:
+	static void IosifTask(int M, int N);
+public:
+	friend void launchAllExamples();
 };
-
-typedef node* link;

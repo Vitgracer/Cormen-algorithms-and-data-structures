@@ -1,4 +1,3 @@
-
 typedef int Item;
 
 struct node {
