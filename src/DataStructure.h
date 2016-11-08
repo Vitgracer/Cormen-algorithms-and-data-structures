@@ -1,3 +1,6 @@
+/////////////////////////
+// ---- LINKED-LIST -----
+/////////////////////////
 struct node {
 	int item;
 	node* next;
@@ -15,7 +18,10 @@ namespace li {
 	int item(Node n);
 	void show(Node n);
 }
- 
+
+/////////////////////////
+// ------ STACK --------
+/////////////////////////
 template <class Item>
 class Stack {
 	Stack(int);
