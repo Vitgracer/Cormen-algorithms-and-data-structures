@@ -1,47 +1,47 @@
 #include <iostream>
-#include <algorithm>
-#include <climits>
-#include <time.h>
-#include "Substring.h"
+#include "DataStructure.h"
 
-// ---------------------- NAIVE-STRING-MATCHER -------------------
-// Brief description: the simpliest algorithm for string matching
-// ---------------------------------------------------------------
-// previous processing time: 0 
-// comparison time: O( (n - m + 1) * m )
-//---------------------------------------------------------
-int Substring::naiveStringMatcher(std::vector<int>& T, std::vector<int>& P) {
+node::node(Item i, node* n) : item(i), next(n) {}
 
-	for (int i = 0; i < T.size() - P.size(); i++) {
-		for (int j = 0; j < P.size(); j++) {
-			if (P[j] == T[i + j]) {
-				if (j == P.size() - 1) return i;
-				continue;
-			}
-			else break;
-		}
-	}
-
-	return -1;
+void li::deleteNode(Node n) {
+	n->next = n->next->next;
 }
 
-// ----------------- LAUNCHER ----------------------------
-// Brief description: use all available string matching 
-// algorithms and compare their timings in console output 
-// -------------------------------------------------------
-void launchAllSubstringAlgorithms() {
-	//-------------------------------------------------
-	std::vector<int> T = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	std::vector<int> P = { 4, 5, 6, 7, 8, 9 };
+void li::insert(Node src, Node ins) {
+	ins->next = src->next;
+	src->next = ins;
+}
 
-	//-------------------------------------------------
-	auto nStart = clock();
-	int nOutput = Substring::naiveStringMatcher(T, P);
-	auto nEnd = clock() - nStart;
-	std::cout << "Naive string matching: " << nEnd << " ms" << std::endl;
+Node li::next(Node n) {
+	return n->next;
+}
 
-	bool check = nOutput;
+Item li::item(Node n) {
+	return n->item;
+}
+
+void li::show(Node n) {
+	// consider we have 0 on the finished Node 
+	Node head = n;
+	Node t = n;
+	do {
+		std::cout << item(t) << "\t";
+		t = t->next;
+	} while (t != head);
+}
+
+link li::reverse(link x) {
+	link t = x;
+	link y = x;
+	link r = 0;
+	link head = x;
+
+	do {
+		t = y->next;
+		y->next = r;
+		r = y;
+		y = t;
+	} while (y != head);
 	
-	if (check) std::cout << "All substring algorithms are correct" << std::endl << std::endl;
-	else std::cout << "Error!" << std::endl << std::endl;
+	return r;
 }

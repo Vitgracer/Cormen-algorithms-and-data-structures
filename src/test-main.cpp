@@ -7,6 +7,7 @@
 #include "Greedy.h"
 #include "Sort.h"
 #include "DP.h"
+#include "Examples.h"
 
 int main() {
 	// compare sorting algorithms 
@@ -33,6 +34,9 @@ int main() {
 
 	//launch all Geometry algorithms 
 	launchAllGeometryAlgorithms();
+
+	// launch all Examples based on data structures 
+	launchAllExamples();
 
 	return 0;
 }
