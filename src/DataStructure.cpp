@@ -1,7 +1,7 @@
 #include <iostream>
 #include "DataStructure.h"
 
-node::node(Item i, node* n) : item(i), next(n) {}
+node::node(int i, node* n) : item(i), next(n) {}
 
 void li::deleteNode(Node n) {
 	n->next = n->next->next;
@@ -16,7 +16,7 @@ Node li::next(Node n) {
 	return n->next;
 }
 
-Item li::item(Node n) {
+int li::item(Node n) {
 	return n->item;
 }
 
