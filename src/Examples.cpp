@@ -26,7 +26,18 @@ void Examples::IosifTask(int M, int N) {
 }
 
 int Examples::PostfixExpressionCalculation(const char* expression, int len) {
-	return 0;
+	Stack<int> save(len);
+
+	for (int i = 0; i < len; i++) {
+		if (expression[i] == '+') save.push(save.pop() + save.pop());
+		if (expression[i] == '*') save.push(save.pop() * save.pop());
+
+		if (expression[i] >= '0' && expression[i] <= '9') save.push((int)(expression[i] - '0'));
+		/*while (expression[i] >= '0' && expression[i] <= '9') {
+			save.push(a[i]);
+		}*/
+	}
+	return save.pop();
 }
 
 void launchAllExamples() {
