@@ -48,22 +48,3 @@ link li::reverse(link x) {
 	
 	return r;
 }
-
-/////////////////////////
-// ------ STACK --------
-/////////////////////////
-template<class Item> 
-Stack<Item>::Stack(int i) : data(new Item[i]), N(0) {}
-
-template<class Item>
-int Stack<Item>::empty() const { return N == 0; }
-
-template<class Item>
-void Stack<Item>::push(Item item) {
-	data[N++] = item;
-}
-
-template<class Item> 
-Item Stack<Item>::pop() {
-	return data[N--];
-}

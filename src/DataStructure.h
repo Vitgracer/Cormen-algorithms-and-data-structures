@@ -28,8 +28,8 @@ private:
 	Item* data;
 	int N;
 public:
-	Stack(int);
-	int empty() const;
-	void push(Item);
-	Item pop();
+	Stack(int maxSize) : data(new Item[maxSize]), N(0) {};
+	int empty() const { return N == 0; }
+	void push(Item item) { data[N++] = item; }
+	Item pop() { return data[N--]; }
 };
