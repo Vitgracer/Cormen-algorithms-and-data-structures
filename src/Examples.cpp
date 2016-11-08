@@ -25,6 +25,10 @@ void Examples::IosifTask(int M, int N) {
 	std::cout << x->item << std::endl;
 }
 
+int Examples::PostfixExpressionCalculation(const char* expression, int len) {
+	return 0;
+}
+
 void launchAllExamples() {
 	////////////////////////////////////////////////////////////////////////////////////
 	std::cout << "Iosif task: " << std::endl;
@@ -59,6 +63,10 @@ void launchAllExamples() {
 	st.pop();
 	st.pop();
 	std::cout << std::endl << "Stack is checked";
+	////////////////////////////////////////////////////////////////////////////////////
+	int result = Examples::PostfixExpressionCalculation("598+46**7+*", 11);
+	bool check = result == 2075;
 	
-	std::cout << "All data structures examples were launched!" << std::endl << std::endl;
+	if (check) std::cout << "All data structures examples were launched!" << std::endl << std::endl;
+	else std::cout << "Error!" << std::endl << std::endl;
 }
