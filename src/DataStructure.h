@@ -24,8 +24,12 @@ namespace li {
 /////////////////////////
 template <class Item>
 class Stack {
+private:
+	Item* data;
+	int N;
+public:
 	Stack(int);
-	int empty();
+	int empty() const;
 	void push(Item);
 	Item pop();
 };
