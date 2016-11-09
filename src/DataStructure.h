@@ -68,7 +68,7 @@ public:
 	int empty() const { return head == 0; }
 	void put(Item item) { 
 		link t = tail;
-		tail = new node(x, 0);
+		tail = new node(item, 0);
 		if (head == 0) {
 			head = tail;
 		}
@@ -78,6 +78,7 @@ public:
 	}
 	
 	Item get() {
+		using namespace li;
 		Item v = item(head);
 		link t = next(head);
 		delete head;
