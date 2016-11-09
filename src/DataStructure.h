@@ -32,4 +32,5 @@ public:
 	int empty() const { return N == 0; }
 	void push(Item item) { data[N++] = item; }
 	Item pop() { return data[--N]; }
+	int getSize() { return N; }
 };

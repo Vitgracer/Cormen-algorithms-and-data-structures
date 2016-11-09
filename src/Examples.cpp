@@ -36,6 +36,26 @@ int Examples::PostfixExpressionCalculation(const char* expression, int len) {
 	return save.pop();
 }
 
+char* Examples::convertInfixToPostfix(const char* expression) {
+	const int expressionSize = strlen(expression);
+	Stack<char> save(expressionSize);
+	Stack<char> result(expressionSize);
+
+	for (int i = 0; i < expressionSize; i++) {
+		if (expression[i] >= '0' && expression[i] <= '9') result.push((int)(expression[i] - '0'));
+		if (expression[i] == '+' || expression[i] == '*') save.push(expression[i]);
+		if (expression[i] == ')') result.push(save.pop());
+	}
+
+	const int resultStackSize = result.getSize();
+	char* resultChar = new char[resultStackSize];
+	for (int i = resultStackSize - 1; i >= 0 ; i--) {
+		resultChar[i] = result.pop();
+	}
+
+	return resultChar;
+}
+
 void launchAllExamples() {
 	////////////////////////////////////////////////////////////////////////////////////
 	std::cout << "Iosif task: " << std::endl;
@@ -70,11 +90,16 @@ void launchAllExamples() {
 	st.pop();
 	st.pop();
 	std::cout << std::endl << "Stack is checked";
+	
 	////////////////////////////////////////////////////////////////////////////////////
 	int result = Examples::PostfixExpressionCalculation("598+46**7+*", 11);
-	bool check = result == 2075;
 	std::cout << std::endl << "Prefix calculation was performed.";
 	
+	char* resultConvert = Examples::convertInfixToPostfix("(5*(((9+8)*(4*6))+7))");
+	std::cout << std::endl << "Prefix calculation was performed.";
+	bool check = (result == 2075) && 
+			     (strcmp("598+46**7+*", resultConvert));
+	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }
