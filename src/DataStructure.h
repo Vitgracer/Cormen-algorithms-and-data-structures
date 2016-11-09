@@ -34,3 +34,23 @@ public:
 	Item pop() { return data[--N]; }
 	int getSize() { return N; }
 };
+
+////////////////////////////////////////////
+// ------ STACK based on linked list--------
+////////////////////////////////////////////
+template <class Item>
+class llStack {
+private:
+	link head;
+public:
+	llStack() : head(0) {}
+	int empty() const { return head == 0; }
+	void push(Item item) { head = new node(item, head); }
+	Item pop() {
+		Item v = item(head);
+		link t = next(head);
+		delete head;
+		head = t;
+		return v;
+	}
+};
