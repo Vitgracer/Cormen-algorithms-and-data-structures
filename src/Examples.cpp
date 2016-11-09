@@ -31,11 +31,7 @@ int Examples::PostfixExpressionCalculation(const char* expression, int len) {
 	for (int i = 0; i < len; i++) {
 		if (expression[i] == '+') save.push(save.pop() + save.pop());
 		if (expression[i] == '*') save.push(save.pop() * save.pop());
-
 		if (expression[i] >= '0' && expression[i] <= '9') save.push((int)(expression[i] - '0'));
-		/*while (expression[i] >= '0' && expression[i] <= '9') {
-			save.push(a[i]);
-		}*/
 	}
 	return save.pop();
 }
@@ -77,7 +73,8 @@ void launchAllExamples() {
 	////////////////////////////////////////////////////////////////////////////////////
 	int result = Examples::PostfixExpressionCalculation("598+46**7+*", 11);
 	bool check = result == 2075;
+	std::cout << std::endl << "Prefix calculation was performed.";
 	
-	if (check) std::cout << "All data structures examples were launched!" << std::endl << std::endl;
+	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }
