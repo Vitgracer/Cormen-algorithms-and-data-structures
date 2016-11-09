@@ -97,8 +97,17 @@ void launchAllExamples() {
 	
 	char* resultConvert = Examples::convertInfixToPostfix("(5*(((9+8)*(4*6))+7))");
 	std::cout << std::endl << "Prefix calculation was performed.";
+
 	bool check = (result == 2075) && 
 			     (strcmp("598+46**7+*", resultConvert));
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	llStack<int> stll;
+	for (int i = 0; i < 5; i++) stll.push(i);
+	stll.pop();
+	stll.pop();
+	std::cout << std::endl << "Stack based on linked list is checked";
+
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;

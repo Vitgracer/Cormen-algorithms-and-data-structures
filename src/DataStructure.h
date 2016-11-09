@@ -47,6 +47,7 @@ public:
 	int empty() const { return head == 0; }
 	void push(Item item) { head = new node(item, head); }
 	Item pop() {
+		using namespace li;
 		Item v = item(head);
 		link t = next(head);
 		delete head;
