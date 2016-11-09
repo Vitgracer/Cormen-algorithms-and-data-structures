@@ -55,3 +55,33 @@ public:
 		return v;
 	}
 };
+
+/////////////////////////
+// ------ QUEUE --------
+/////////////////////////
+template<class Item> 
+class Queue {
+private:
+	link head, tail;
+public:
+	Queue() : head(0) {}
+	int empty() const { return head == 0; }
+	void put(Item item) { 
+		link t = tail;
+		tail = new node(x, 0);
+		if (head == 0) {
+			head = tail;
+		}
+		else {
+			t->next = tail;
+		}
+	}
+	
+	Item get() {
+		Item v = item(head);
+		link t = next(head);
+		delete head;
+		head = t;
+		return v;
+	}
+};
