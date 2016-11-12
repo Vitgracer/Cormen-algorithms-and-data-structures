@@ -116,6 +116,13 @@ void launchAllExamples() {
 	std::cout << std::endl << "Queue is checked.";
 
 	////////////////////////////////////////////////////////////////////////////////////
+	QueueArray<int> q1(10);
+	for (int i = 0; i < 5; i++) q1.put(i);
+	q1.get();
+	q1.get();
+	std::cout << std::endl << "Queue based on array is checked.";
+
+	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }

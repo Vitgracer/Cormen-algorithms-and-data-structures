@@ -86,3 +86,31 @@ public:
 		return v;
 	}
 };
+
+///////////////////////////////////////
+// ------ QUEUE based on array --------
+///////////////////////////////////////
+template <class Item>
+class QueueArray {
+private:
+	Item* data;
+	int tail;
+	int head;
+	int N;
+public:
+	QueueArray(int maxN) 
+		: data(new Item[maxN])
+		, N(maxN + 1)
+		, head(N)
+		, tail(0) {}
+
+	int empty() const { return head % N == tail; }
+	void put(Item item) {
+		data[tail++] = item;
+		tail = tail % N;
+	}
+	Item get() {
+		head = head % N;
+		return data[head++];
+	}
+};
