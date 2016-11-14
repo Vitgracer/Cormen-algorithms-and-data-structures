@@ -172,7 +172,7 @@ int DP::findFibonacciTopDown(int N) {
 // avg = O( exp( n ) )
 // --------------------------------------------------------------
 int DP::knap(int cap) {
-
+	return 0;
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -234,6 +234,13 @@ void launchDPAlgorithms() {
 	auto fiDPResult = DP::findFibonacciTopDown(fibInput);
 	auto fiDPEnd = clock() - fiDPStart;
 	std::cout << "Fibonacci top-down DP method: " << fiDPEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	const int knapSize = 17;
+	auto knStart = clock();
+	auto knResult = DP::knap(knapSize);
+	auto knEnd = clock() - knStart;
+	std::cout << "Knap task resursion method: " << knEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
 	bool check = (crResult == crmResult) &&

@@ -21,6 +21,8 @@ private:
 	static int findFibonacciTopDown(int N);
 
 	// knap problem 
+	static struct Item { int size; int val; };
+	std::vector<Item> capItems = { {3, 4}, {4,5}, {7,10}, {8,11}, {9, 13} };
 	static int knap(int cap);
 public:
 	friend void launchDPAlgorithms();
