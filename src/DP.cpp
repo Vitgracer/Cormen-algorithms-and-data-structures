@@ -129,6 +129,8 @@ void printLCS(std::vector<std::vector<int>> b, std::vector<int> X, int i, int j)
 //---------------------- FIBONACCI-ITERATIVE (S 202)-----------
 // Brief description: find Fibonacci seq using iteration method
 // ------------------------------------------------------------
+// avg = O( n )
+// -----------------------------------------------------
 int DP::findFibonacciIter(int N) {
 	std::vector<int> result = {0, 1};
 	for (int i = 2; i <= N; i++) {
@@ -140,6 +142,8 @@ int DP::findFibonacciIter(int N) {
 //---------------------- FIBONACCI-RECURSIVE (S 202)-----------
 // Brief description: find Fibonacci seq using recursive method
 // ------------------------------------------------------------
+// avg = exp(n)
+// -----------------------------------------------------
 int DP::findFibonacciRec(int N) {
 	if (N < 1) return 0;
 	if (N == 1) return 1;
@@ -188,7 +192,7 @@ void launchDPAlgorithms() {
 	std::cout << "LCS-length DP procedure: " << lcsEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
-	const int fibInput = 2000;
+	const int fibInput = 30;
 	auto fiStart = clock();
 	auto fiResult = DP::findFibonacciIter(fibInput);
 	auto fiEnd = clock() - fiStart;
