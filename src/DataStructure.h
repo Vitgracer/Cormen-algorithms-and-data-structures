@@ -55,3 +55,62 @@ public:
 		return v;
 	}
 };
+
+/////////////////////////
+// ------ QUEUE --------
+/////////////////////////
+template<class Item> 
+class Queue {
+private:
+	link head, tail;
+public:
+	Queue() : head(0) {}
+	int empty() const { return head == 0; }
+	void put(Item item) { 
+		link t = tail;
+		tail = new node(item, 0);
+		if (head == 0) {
+			head = tail;
+		}
+		else {
+			t->next = tail;
+		}
+	}
+	
+	Item get() {
+		using namespace li;
+		Item v = item(head);
+		link t = next(head);
+		delete head;
+		head = t;
+		return v;
+	}
+};
+
+///////////////////////////////////////
+// ------ QUEUE based on array --------
+///////////////////////////////////////
+template <class Item>
+class QueueArray {
+private:
+	Item* data;
+	int tail;
+	int head;
+	int N;
+public:
+	QueueArray(int maxN) 
+		: data(new Item[maxN])
+		, N(maxN + 1)
+		, head(N)
+		, tail(0) {}
+
+	int empty() const { return head % N == tail; }
+	void put(Item item) {
+		data[tail++] = item;
+		tail = tail % N;
+	}
+	Item get() {
+		head = head % N;
+		return data[head++];
+	}
+};
