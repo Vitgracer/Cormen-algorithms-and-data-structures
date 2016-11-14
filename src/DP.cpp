@@ -150,6 +150,18 @@ int DP::findFibonacciRec(int N) {
 	return DP::findFibonacciRec(N - 1) + DP::findFibonacciRec(N - 2);
 }
 
+//---------------------- FIBONACCI-TOP-DOWN (S 203)--------------
+// Brief description: find Fibonacci seq using top-down DP method
+// --------------------------------------------------------------
+// avg = O( n )
+// -----------------------------------------------------
+int DP::findFibonacciTopDown(int N) {
+	static std::vector<int> knownN = { 0, 1 };
+	if (N < knownN.size()) return knownN[N];
+	
+	knownN.push_back(DP::findFibonacciTopDown(N - 1) + DP::findFibonacciTopDown(N - 2));
+	return knownN[knownN.size() - 1];
+}
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available dynamic programming 
 // algorithms and compare their timings in console output 
@@ -205,9 +217,16 @@ void launchDPAlgorithms() {
 	std::cout << "Fibonacci recursive: " << fiRecEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto fiDPStart = clock();
+	auto fiDPResult = DP::findFibonacciTopDown(fibInput);
+	auto fiDPEnd = clock() - fiDPStart;
+	std::cout << "Fibonacci top-down DP method: " << fiDPEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (crResult == crmResult) &&
 			     (crResult == bucrResult) && 
-				 (fiRecResult == fiResult);
+				 (fiRecResult == fiResult) &&
+				 (fiDPResult == fiResult);
 
 	if (check) std::cout << "All DP algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
