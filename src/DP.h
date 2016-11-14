@@ -14,6 +14,9 @@ private:
 
 	// find longest common subsequence 
 	static std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>> LCSlength(std::vector<int>& X, std::vector<int>& Y);
+
+	// Fibonacci 
+	static std::vector<int> findFibonacciIter(int N);
 public:
 	friend void launchDPAlgorithms();
 };

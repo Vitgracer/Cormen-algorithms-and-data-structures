@@ -126,6 +126,14 @@ void printLCS(std::vector<std::vector<int>> b, std::vector<int> X, int i, int j)
 	else if (b[i][j] == -3) printLCS(b, X, i, j - 1);
 }
 
+std::vector<int> DP::findFibonacciIter(int N) {
+	std::vector<int> result = {0, 1};
+	for (int i = 2; i <= N; i++) {
+		result.push_back(result[i - 1] + result[i - 2]);
+	}
+	return result;
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available dynamic programming 
 // algorithms and compare their timings in console output 
@@ -166,6 +174,13 @@ void launchDPAlgorithms() {
 	std::cout << std::endl << "GT result: " << "1 2 1 0" << std::endl;
 	auto lcsEnd = clock() - lcsStart;
 	std::cout << "LCS-length DP procedure: " << lcsEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	const int fibInput = 2000;
+	auto fiStart = clock();
+	auto fiResult = DP::findFibonacciIter(fibInput);
+	auto fiEnd = clock() - fiStart;
+	std::cout << "Fibonacci iteration: " << fiEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
 	bool check = (crResult == crmResult) &&
