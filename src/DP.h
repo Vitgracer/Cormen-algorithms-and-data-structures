@@ -19,6 +19,9 @@ private:
 	static int findFibonacciIter(int N);
 	static int findFibonacciRec(int N);
 	static int findFibonacciTopDown(int N);
+
+	// knap problem 
+	static int knap(int cap);
 public:
 	friend void launchDPAlgorithms();
 };

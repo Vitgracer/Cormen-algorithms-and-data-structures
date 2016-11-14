@@ -142,7 +142,7 @@ int DP::findFibonacciIter(int N) {
 //---------------------- FIBONACCI-RECURSIVE (S 202)-----------
 // Brief description: find Fibonacci seq using recursive method
 // ------------------------------------------------------------
-// avg = exp(n)
+// avg = O( exp(n) )
 // -----------------------------------------------------
 int DP::findFibonacciRec(int N) {
 	if (N < 1) return 0;
@@ -154,7 +154,7 @@ int DP::findFibonacciRec(int N) {
 // Brief description: find Fibonacci seq using top-down DP method
 // --------------------------------------------------------------
 // avg = O( n )
-// -----------------------------------------------------
+// --------------------------------------------------------------
 int DP::findFibonacciTopDown(int N) {
 	static std::vector<int> knownN = { 0, 1 };
 	if (N < knownN.size()) return knownN[N];
@@ -162,6 +162,19 @@ int DP::findFibonacciTopDown(int N) {
 	knownN.push_back(DP::findFibonacciTopDown(N - 1) + DP::findFibonacciTopDown(N - 2));
 	return knownN[knownN.size() - 1];
 }
+
+
+//---------------------- KNAP (S 204)--------------------------------
+// Brief description: we have N kinds of things with different 
+// weights and wealth. M - capacity of our knap. Need to find things
+// combination to put in knap to maximize wealth.
+// ------------------------------------------------------------------
+// avg = O( exp( n ) )
+// --------------------------------------------------------------
+int DP::knap(int cap) {
+
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available dynamic programming 
 // algorithms and compare their timings in console output 
