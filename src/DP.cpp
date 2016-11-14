@@ -126,12 +126,24 @@ void printLCS(std::vector<std::vector<int>> b, std::vector<int> X, int i, int j)
 	else if (b[i][j] == -3) printLCS(b, X, i, j - 1);
 }
 
-std::vector<int> DP::findFibonacciIter(int N) {
+//---------------------- FIBONACCI-ITERATIVE (S 202)-----------
+// Brief description: find Fibonacci seq using iteration method
+// ------------------------------------------------------------
+int DP::findFibonacciIter(int N) {
 	std::vector<int> result = {0, 1};
 	for (int i = 2; i <= N; i++) {
 		result.push_back(result[i - 1] + result[i - 2]);
 	}
-	return result;
+	return result[result.size() - 1];
+}
+
+//---------------------- FIBONACCI-RECURSIVE (S 202)-----------
+// Brief description: find Fibonacci seq using recursive method
+// ------------------------------------------------------------
+int DP::findFibonacciRec(int N) {
+	if (N < 1) return 0;
+	if (N == 1) return 1;
+	return DP::findFibonacciRec(N - 1) + DP::findFibonacciRec(N - 2);
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -183,8 +195,15 @@ void launchDPAlgorithms() {
 	std::cout << "Fibonacci iteration: " << fiEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto fiRecStart = clock();
+	auto fiRecResult = DP::findFibonacciRec(fibInput);
+	auto fiRecEnd = clock() - fiRecStart;
+	std::cout << "Fibonacci recursive: " << fiRecEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (crResult == crmResult) &&
-			     (crResult == bucrResult);
+			     (crResult == bucrResult) && 
+				 (fiRecResult == fiResult);
 
 	if (check) std::cout << "All DP algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
