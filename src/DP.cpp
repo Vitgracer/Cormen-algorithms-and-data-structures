@@ -166,13 +166,28 @@ int DP::findFibonacciTopDown(int N) {
 
 //---------------------- KNAP (S 204)--------------------------------
 // Brief description: we have N kinds of things with different 
-// weights and wealth. M - capacity of our knap. Need to find things
+// weights and wealth. W - capacity of our knap. Need to find things
 // combination to put in knap to maximize wealth.
 // ------------------------------------------------------------------
 // avg = O( exp( n ) )
 // --------------------------------------------------------------
-int DP::knap(int cap) {
-	return 0;
+std::vector<DP::Item> DP::items = { { 3, 4 },{ 4,5 },{ 7,10 },{ 8,11 },{ 9, 13 } };
+int DP::knap(int W, int n) {
+	// Base Case
+	if (n == 0 || W == 0)
+		return 0;
+
+	// If weight of the nth item is more than Knapsack capacity W, then
+	// this item cannot be included in the optimal solution
+	if (items[n - 1].size > W)
+		return knap(W, n - 1);
+
+	// Return the maximum of two cases: 
+	// (1) nth item included 
+	// (2) not included
+	else return std::max(items[n - 1].val + knap(W - items[n - 1].size, n - 1),
+		knap(W, n - 1)
+	);
 }
 
 // ----------------- LAUNCHER ----------------------------
@@ -238,7 +253,7 @@ void launchDPAlgorithms() {
 	//-------------------------------------------------
 	const int knapSize = 17;
 	auto knStart = clock();
-	auto knResult = DP::knap(knapSize);
+	auto knResult = DP::knap(knapSize, DP::items.size());
 	auto knEnd = clock() - knStart;
 	std::cout << "Knap task resursion method: " << knEnd << " ms" << std::endl;
 
