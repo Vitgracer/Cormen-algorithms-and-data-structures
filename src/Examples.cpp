@@ -151,7 +151,7 @@ void launchAllExamples() {
 	int biCount = biTree::count(bTree);
 	int biHeight = biTree::height(bTree);
 
-	check = check * (biCount == 7) * (biHeight == 3);
+	check = check * (biCount == 7) * (biHeight == 2);
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
