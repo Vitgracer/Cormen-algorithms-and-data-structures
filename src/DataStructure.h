@@ -79,7 +79,7 @@ public:
 	
 	Item get() {
 		using namespace li;
-		Item v = item(head);
+		Item v = head->item;
 		link t = next(head);
 		delete head;
 		head = t;
@@ -114,3 +114,24 @@ public:
 		return data[head++];
 	}
 };
+
+///////////////////////////////////////
+// ------ BINARY-TREE ----------------
+///////////////////////////////////////
+struct BinaryTree {
+	int item;
+	BinaryTree* l;
+	BinaryTree* r;
+
+	BinaryTree(int in, BinaryTree* nodeL, BinaryTree* nodeR);
+};
+typedef BinaryTree* BinaryTreeLink;
+
+namespace biTree {
+	void traverse(BinaryTreeLink h);
+	void traverseStack(BinaryTreeLink h);
+	void levelTraverseQueue(BinaryTreeLink h);
+	void visit(BinaryTreeLink h);
+	int count(BinaryTreeLink h);
+	int height(BinaryTreeLink h);
+}
