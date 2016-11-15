@@ -114,3 +114,18 @@ public:
 		return data[head++];
 	}
 };
+
+///////////////////////////////////////
+// ------ BINARY-TREE ----------------
+///////////////////////////////////////
+struct BinaryTree {
+	int item;
+	BinaryTree* l;
+	BinaryTree* r;
+};
+typedef BinaryTree* BinaryTreeLink;
+
+namespace biTree {
+	void traverse(BinaryTreeLink h);
+	void visit(BinaryTreeLink h);
+}
