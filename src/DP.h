@@ -24,6 +24,7 @@ private:
 	static struct Item { int size; int val; };
 	static std::vector<Item> items; 
 	static int knap(int cap, int n);
+	static int knapDP(int cap, int n);
 public:
 	friend void launchDPAlgorithms();
 };
