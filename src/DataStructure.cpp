@@ -52,6 +52,11 @@ link li::reverse(link x) {
 ///////////////////////////////////////
 // ------ BINARY-TREE ----------------
 ///////////////////////////////////////
+BinaryTree::BinaryTree(int in, BinaryTree* nodeL, BinaryTree* nodeR) 
+	: item(in)
+	, l(nodeL)
+	, r(nodeR) {}
+
 void biTree::visit(BinaryTreeLink h) {
 	std::cout << h->item << std::endl;
 }

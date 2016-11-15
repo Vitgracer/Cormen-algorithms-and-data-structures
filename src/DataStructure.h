@@ -122,6 +122,8 @@ struct BinaryTree {
 	int item;
 	BinaryTree* l;
 	BinaryTree* r;
+
+	BinaryTree(int in, BinaryTree* nodeL, BinaryTree* nodeR);
 };
 typedef BinaryTree* BinaryTreeLink;
 
