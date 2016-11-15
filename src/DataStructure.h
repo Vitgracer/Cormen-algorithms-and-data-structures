@@ -132,4 +132,6 @@ namespace biTree {
 	void traverseStack(BinaryTreeLink h);
 	void levelTraverseQueue(BinaryTreeLink h);
 	void visit(BinaryTreeLink h);
+	int count(BinaryTreeLink h);
+	int height(BinaryTreeLink h);
 }

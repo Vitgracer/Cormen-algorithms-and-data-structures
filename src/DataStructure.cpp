@@ -93,3 +93,16 @@ void biTree::levelTraverseQueue(BinaryTreeLink h) {
 		if (h->l != 0) queue.put(h->l);
 	}
 }
+
+int biTree::count(BinaryTreeLink h) {
+	if (h == 0) return 0;
+	return count(h->l) + count(h->r) + 1;
+}
+
+int biTree::height(BinaryTreeLink h) {
+	if (h == 0) return -1;
+	int u = height(h->l);
+	int v = height(h->r);
+	if (u > v) return u + 1;
+	else return v + 1;
+}
