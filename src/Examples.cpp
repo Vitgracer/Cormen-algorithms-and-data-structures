@@ -123,7 +123,7 @@ void launchAllExamples() {
 	std::cout << std::endl << "Queue based on array is checked.";
 
 	////////////////////////////////////////////////////////////////////////////////////
-	std::cout << std::endl << "Start binary tree traversal";
+	std::cout << std::endl << "Start binary tree traversal: ";
 	BinaryTreeLink bTree = new BinaryTree(0, 0, 0);
 	BinaryTree left = BinaryTree(1, 0, 0);
 	BinaryTree right = BinaryTree(2, 0, 0);
@@ -140,6 +140,13 @@ void launchAllExamples() {
 	biTree::traverse(bTree);
 	std::cout << std::endl << "Binary tree traversed";
 
+	std::cout << std::endl << "Start binary tree traversal based on stack: ";
+	biTree::traverseStack(bTree);
+	std::cout << std::endl << "Binary tree traversed";
+
+	std::cout << std::endl << "Start binary tree traversal based on queue (by levels): ";
+	biTree::levelTraverseQueue(bTree);
+	std::cout << std::endl << "Binary tree traversed";
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;

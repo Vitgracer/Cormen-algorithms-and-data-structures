@@ -67,3 +67,29 @@ void biTree::traverse(BinaryTreeLink h) {
 	traverse(h->l);
 	traverse(h->r);
 }
+
+void biTree::traverseStack(BinaryTreeLink h) {
+	Stack<BinaryTreeLink> stack(10);
+	stack.push(h);
+
+	while (!stack.empty())
+	{
+		auto h = stack.pop();
+		visit(h);
+		if (h->r != 0) stack.push(h->r);
+		if (h->l != 0) stack.push(h->l);
+	}
+}
+
+void biTree::levelTraverseQueue(BinaryTreeLink h) {
+	QueueArray<BinaryTreeLink> queue(10);
+	queue.put(h);
+
+	while (!queue.empty())
+	{
+		auto h = queue.get();
+		visit(h);
+		if (h->r != 0) queue.put(h->r);
+		if (h->l != 0) queue.put(h->l);
+	}
+}

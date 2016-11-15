@@ -79,7 +79,7 @@ public:
 	
 	Item get() {
 		using namespace li;
-		Item v = item(head);
+		Item v = head->item;
 		link t = next(head);
 		delete head;
 		head = t;
@@ -129,5 +129,7 @@ typedef BinaryTree* BinaryTreeLink;
 
 namespace biTree {
 	void traverse(BinaryTreeLink h);
+	void traverseStack(BinaryTreeLink h);
+	void levelTraverseQueue(BinaryTreeLink h);
 	void visit(BinaryTreeLink h);
 }
