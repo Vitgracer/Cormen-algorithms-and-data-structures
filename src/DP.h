@@ -14,6 +14,17 @@ private:
 
 	// find longest common subsequence 
 	static std::pair<std::vector<std::vector<int>>, std::vector<std::vector<int>>> LCSlength(std::vector<int>& X, std::vector<int>& Y);
+
+	// Fibonacci 
+	static int findFibonacciIter(int N);
+	static int findFibonacciRec(int N);
+	static int findFibonacciTopDown(int N);
+
+	// knap problem 
+	static struct Item { int size; int val; };
+	static std::vector<Item> items; 
+	static int knap(int cap, int n);
+	static int knapDP(int cap, int n);
 public:
 	friend void launchDPAlgorithms();
 };

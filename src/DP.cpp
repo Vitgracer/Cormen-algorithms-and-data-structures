@@ -126,6 +126,104 @@ void printLCS(std::vector<std::vector<int>> b, std::vector<int> X, int i, int j)
 	else if (b[i][j] == -3) printLCS(b, X, i, j - 1);
 }
 
+//---------------------- FIBONACCI-ITERATIVE (S 202)-----------
+// Brief description: find Fibonacci seq using iteration method
+// ------------------------------------------------------------
+// avg = O( n )
+// -----------------------------------------------------
+int DP::findFibonacciIter(int N) {
+	std::vector<int> result = {0, 1};
+	for (int i = 2; i <= N; i++) {
+		result.push_back(result[i - 1] + result[i - 2]);
+	}
+	return result[result.size() - 1];
+}
+
+//---------------------- FIBONACCI-RECURSIVE (S 202)-----------
+// Brief description: find Fibonacci seq using recursive method
+// ------------------------------------------------------------
+// avg = O( exp(n) )
+// -----------------------------------------------------
+int DP::findFibonacciRec(int N) {
+	if (N < 1) return 0;
+	if (N == 1) return 1;
+	return DP::findFibonacciRec(N - 1) + DP::findFibonacciRec(N - 2);
+}
+
+//---------------------- FIBONACCI-TOP-DOWN (S 203)--------------
+// Brief description: find Fibonacci seq using top-down DP method
+// --------------------------------------------------------------
+// avg = O( n )
+// --------------------------------------------------------------
+int DP::findFibonacciTopDown(int N) {
+	static std::vector<int> knownN = { 0, 1 };
+	if (N < knownN.size()) return knownN[N];
+	
+	knownN.push_back(DP::findFibonacciTopDown(N - 1) + DP::findFibonacciTopDown(N - 2));
+	return knownN[knownN.size() - 1];
+}
+
+
+//---------------------- KNAP (S 204)--------------------------------
+// Brief description: we have N kinds of things with different 
+// weights and wealth. W - capacity of our knap. Need to find things
+// combination to put in knap to maximize wealth.
+// ------------------------------------------------------------------
+// avg = O( exp( n ) )
+// link: http://www.geeksforgeeks.org/dynamic-programming-set-10-0-1-knapsack-problem/
+// --------------------------------------------------------------
+std::vector<DP::Item> DP::items = { { 3, 4 },{ 4,5 },{ 7,10 },{ 8,11 },{ 9, 13 } };
+int DP::knap(int W, int n) {
+	// Base Case
+	if (n == 0 || W == 0)
+		return 0;
+
+	// If weight of the nth item is more than Knapsack capacity W, then
+	// this item cannot be included in the optimal solution
+	if (items[n - 1].size > W)
+		return knap(W, n - 1);
+
+	// Return the maximum of two cases: 
+	// (1) nth item included 
+	// (2) not included
+	else return std::max(items[n - 1].val + knap(W - items[n - 1].size, n - 1),
+		knap(W, n - 1)
+	);
+}
+
+//---------------------- KNAP - DP --------------------------------
+// Brief description: we have N kinds of things with different 
+// weights and wealth. W - capacity of our knap. Need to find things
+// combination to put in knap to maximize wealth.
+// ------------------------------------------------------------------
+// link: http://www.programminglogic.com/knapsack-problem-dynamic-programming-algorithm/
+// --------------------------------------------------------------
+int DP::knapDP(int W, int n) {
+	static std::vector<std::vector<int>> known(1000, std::vector<int>(1000, 0));
+	
+	if (known[W][n] != 0)
+		return known[W][n];
+
+	// Base Case
+	if (n == 0 || W == 0)
+		return 0;
+
+	// If weight of the nth item is more than Knapsack capacity W, then
+	// this item cannot be included in the optimal solution
+	if (items[n - 1].size > W)
+		return knap(W, n - 1);
+
+	// Return the maximum of two cases: 
+	// (1) nth item included 
+	// (2) not included
+	else {
+		int take = items[n - 1].val + knap(W - items[n - 1].size, n - 1);
+		int donTake = knap(W, n - 1);
+		known[W][n] = std::max(take, donTake);
+		return known[W][n];
+	}
+}
+
 // ----------------- LAUNCHER ----------------------------
 // Brief description: use all available dynamic programming 
 // algorithms and compare their timings in console output 
@@ -168,8 +266,45 @@ void launchDPAlgorithms() {
 	std::cout << "LCS-length DP procedure: " << lcsEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	const int fibInput = 30;
+	auto fiStart = clock();
+	auto fiResult = DP::findFibonacciIter(fibInput);
+	auto fiEnd = clock() - fiStart;
+	std::cout << "Fibonacci iteration: " << fiEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	auto fiRecStart = clock();
+	auto fiRecResult = DP::findFibonacciRec(fibInput);
+	auto fiRecEnd = clock() - fiRecStart;
+	std::cout << "Fibonacci recursive: " << fiRecEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	auto fiDPStart = clock();
+	auto fiDPResult = DP::findFibonacciTopDown(fibInput);
+	auto fiDPEnd = clock() - fiDPStart;
+	std::cout << "Fibonacci top-down DP method: " << fiDPEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	const int knapSize = 17;
+	auto knStart = clock();
+	auto knResult = 0;
+	for (int i = 0; i < 10; i++) knResult = DP::knap(knapSize, DP::items.size());
+	auto knEnd = clock() - knStart;
+	std::cout << "Knap task resursion method: " << knEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
+	auto knDPStart = clock();
+	auto knDPResult = 0;
+	for (int i = 0; i < 10; i++) knDPResult = DP::knapDP(knapSize, DP::items.size());
+	auto knDPEnd = clock() - knDPStart;
+	std::cout << "Knap task resursion DP method: " << knDPEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (crResult == crmResult) &&
-			     (crResult == bucrResult);
+			     (crResult == bucrResult) && 
+				 (fiRecResult == fiResult) &&
+				 (fiDPResult == fiResult) && 
+				 (knResult == knDPResult);
 
 	if (check) std::cout << "All DP algorithms are correct" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
