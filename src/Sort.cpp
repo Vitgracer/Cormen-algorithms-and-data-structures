@@ -84,23 +84,21 @@ void Sort::bubbleSort(std::vector<int>& A) {
 // avg = teta(n^2)
 // worst = teta(n^2)
 //------------------------------------------------------------------ 
-void Sort::selectionSort(std::vector<int>& A) {
+template <class Item>
+void Sort::selectionSort(std::vector<Item>& A) {
 	for (int i = 0; i < A.size() - 1; i++) {
-		int minVal = INT_MAX;
-		int minInd = 0;
+		int minInd = i;
 		
-		for (int j = i; j < A.size(); j++) {
-			if (A[j] < minVal) {
-				minVal = A[j];
+		for (int j = i + 1; j < A.size(); j++) {
+			if (A[j] < A[minInd]) {
 				minInd = j;
 			}
 		}
-
-		int temp = A[i];
-		A[i] = minVal;
-		A[minInd] = temp;
+		swap(A, i, minInd);
 	}
 }
+
+template void Sort::selectionSort<int>(std::vector<int>& A);
 
 //--------ADDITIONAL FUNCTION FOR MERGE-SORT (p 54)--------
 // Brief description: allows to join two sorted vectors to 
