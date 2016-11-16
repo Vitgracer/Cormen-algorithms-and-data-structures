@@ -36,9 +36,7 @@ void Sort::insertionSort(std::vector<int>& A) {
 // --------------------SHELL SORT (S 258)--------------------------
 // Brief description: insertion sort improvement using dynamic step
 // ----------------------------------------------------------------
-// best = teta(n) 
-// avg = teta(n^2)
-// worst = teta(n^2) 
+// worst = teta(n^(3 / 2)) 
 //link: http://cybern.ru/sortirovka-shella-cpp.html
 //-----------------------------------------------------------------
 void Sort::ShellSort(std::vector<int>& A) {
