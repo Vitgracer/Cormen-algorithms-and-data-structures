@@ -33,6 +33,29 @@ void Sort::insertionSort(std::vector<int>& A) {
 	}
 }
 
+// --------------------SHELL SORT (S 258)--------------------------
+// Brief description: insertion sort improvement using dynamic step
+// ----------------------------------------------------------------
+// best = teta(n) 
+// avg = teta(n^2)
+// worst = teta(n^2) 
+//link: http://cybern.ru/sortirovka-shella-cpp.html
+//-----------------------------------------------------------------
+void Sort::ShellSort(std::vector<int>& A) {
+	int step = A.size() / 2;
+	while (step > 0) {
+		for (int i = 0; i < A.size() - step; i++)
+		{
+			int j = i;
+			while (j >= 0 && A[j] > A[j + step]) {
+				swap(A, j, j + step);
+				j--;
+			}
+		}
+		step = step / 2; 
+	}
+}
+
 // ---------------INSERTION SORT (RECURSIVE)--------
 // Brief description: insertion sort using recursion 
 // -------------------------------------------------
@@ -377,12 +400,20 @@ void launchAllSortingAlgorithms() {
 	std::cout << "Counting sort: " << countEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto shStart = clock();
+	auto sh = A;
+	Sort::ShellSort(sh);
+	auto shEnd = clock() - shStart;
+	std::cout << "Shell sort: " << shEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (sel == ins) && 
 				 (sel == mer) && 
 				 (sel == bub) &&
 				 (sel == pyr) &&
 				 (sel == qui) &&
 				 (sel == count) &&
+				 (sel == sh) &&
 				 (sel == insR);
 	
 	if (check) std::cout << "All sortings algorithms are correct" << std::endl << std::endl;
