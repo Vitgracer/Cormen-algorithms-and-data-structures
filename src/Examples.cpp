@@ -153,6 +153,18 @@ void launchAllExamples() {
 
 	check = check * (biCount == 7) * (biHeight == 2);
 	////////////////////////////////////////////////////////////////////////////////////
+
+	PriorityQueue<int> qP(10);
+	qP.insert(12);
+	qP.insert(2);
+	qP.insert(15);
+	qP.insert(8);
+	qP.getMax();
+	qP.getMax();
+	qP.insert(3);
+	std::cout << std::endl << "Priority queue based on array is checked.";
+
+	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }

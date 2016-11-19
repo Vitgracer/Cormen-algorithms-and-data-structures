@@ -33,6 +33,27 @@ void Sort::insertionSort(std::vector<int>& A) {
 	}
 }
 
+// --------------------SHELL SORT (S 258)--------------------------
+// Brief description: insertion sort improvement using dynamic step
+// ----------------------------------------------------------------
+// worst = teta(n^(3 / 2)) 
+//link: http://cybern.ru/sortirovka-shella-cpp.html
+//-----------------------------------------------------------------
+void Sort::ShellSort(std::vector<int>& A) {
+	int step = A.size() / 2;
+	while (step > 0) {
+		for (int i = 0; i < A.size() - step; i++)
+		{
+			int j = i;
+			while (j >= 0 && A[j] > A[j + step]) {
+				swap(A, j, j + step);
+				j--;
+			}
+		}
+		step = step / 2; 
+	}
+}
+
 // ---------------INSERTION SORT (RECURSIVE)--------
 // Brief description: insertion sort using recursion 
 // -------------------------------------------------
@@ -84,23 +105,21 @@ void Sort::bubbleSort(std::vector<int>& A) {
 // avg = teta(n^2)
 // worst = teta(n^2)
 //------------------------------------------------------------------ 
-void Sort::selectionSort(std::vector<int>& A) {
+template <class Item>
+void Sort::selectionSort(std::vector<Item>& A) {
 	for (int i = 0; i < A.size() - 1; i++) {
-		int minVal = INT_MAX;
-		int minInd = 0;
+		int minInd = i;
 		
-		for (int j = i; j < A.size(); j++) {
-			if (A[j] < minVal) {
-				minVal = A[j];
+		for (int j = i + 1; j < A.size(); j++) {
+			if (A[j] < A[minInd]) {
 				minInd = j;
 			}
 		}
-
-		int temp = A[i];
-		A[i] = minVal;
-		A[minInd] = temp;
+		swap(A, i, minInd);
 	}
 }
+
+template void Sort::selectionSort<int>(std::vector<int>& A);
 
 //--------ADDITIONAL FUNCTION FOR MERGE-SORT (p 54)--------
 // Brief description: allows to join two sorted vectors to 
@@ -379,12 +398,20 @@ void launchAllSortingAlgorithms() {
 	std::cout << "Counting sort: " << countEnd << " ms" << std::endl;
 
 	//-------------------------------------------------
+	auto shStart = clock();
+	auto sh = A;
+	Sort::ShellSort(sh);
+	auto shEnd = clock() - shStart;
+	std::cout << "Shell sort: " << shEnd << " ms" << std::endl;
+
+	//-------------------------------------------------
 	bool check = (sel == ins) && 
 				 (sel == mer) && 
 				 (sel == bub) &&
 				 (sel == pyr) &&
 				 (sel == qui) &&
 				 (sel == count) &&
+				 (sel == sh) &&
 				 (sel == insR);
 	
 	if (check) std::cout << "All sortings algorithms are correct" << std::endl << std::endl;

@@ -6,7 +6,10 @@ private:
 	static void bubbleSort(std::vector<int>& A);
 	static void insertionSort(std::vector<int>& A);
 	static void insertionSortRecursive(std::vector<int>& A, int n);
-	static void selectionSort(std::vector<int>& A);
+	static void ShellSort(std::vector<int>& A);
+
+	template <class Item>
+	static void selectionSort(std::vector<Item>& A);
 
 	// merge-sort 
 	static void merge(std::vector<int>& A, int p, int q, int r);

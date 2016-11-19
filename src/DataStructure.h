@@ -1,3 +1,9 @@
+template<class Item> 
+void exch(Item& A, Item&B) {
+	Item t = A;
+	A = B;
+	B = t;
+}
 /////////////////////////
 // ---- LINKED-LIST -----
 /////////////////////////
@@ -115,6 +121,27 @@ public:
 	}
 };
 
+///////////////////////////////////////
+// ------ PRIORITY-QUEUE --------------
+///////////////////////////////////////
+template <class Item>
+class PriorityQueue {
+private:
+	Item* pq;
+	int N;
+public:
+	PriorityQueue(int maxN) : pq(new Item[maxN]), N(0) {}
+	int empty() const { return N == 0; }
+	void insert(Item item) { pq[N++] = item; }
+	Item getMax() {
+		int maxInd = 0;
+		for (int i = 1; i < N; i++) {
+			if (pq[maxInd] < pq[i]) maxInd = i;
+		}
+		exch(pq[maxInd], pq[N - 1]);
+		return pq[--N];
+	}
+};
 ///////////////////////////////////////
 // ------ BINARY-TREE ----------------
 ///////////////////////////////////////
