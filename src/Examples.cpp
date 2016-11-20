@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Examples.h"
 #include "DataStructure.h"
+#include "Search.h"
 
 //---------------------- IOSIF-TASK (Sedjvik p 94) --------------------
 // Brief description: task to check advantages of forward lists 
@@ -152,8 +153,8 @@ void launchAllExamples() {
 	int biHeight = biTree::height(bTree);
 
 	check = check * (biCount == 7) * (biHeight == 2);
-	////////////////////////////////////////////////////////////////////////////////////
 
+	////////////////////////////////////////////////////////////////////////////////////
 	PriorityQueue<int> qP(10);
 	qP.insert(12);
 	qP.insert(2);
@@ -163,6 +164,25 @@ void launchAllExamples() {
 	qP.getMax();
 	qP.insert(3);
 	std::cout << std::endl << "Priority queue based on array is checked.";
+
+	////////////////////////////////////////////////////////////////////////////////////
+	STarray<Item, Key> starray(10);
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((starray.search(v.key()).null())) continue;
+		starray.insert(v);
+	}
+	int stArrayCount = starray.count();
+	//starray.remove()
+	/*qP.insert(12);
+	qP.insert(2);
+	qP.insert(15);
+	qP.insert(8);
+	qP.getMax();
+	qP.getMax();
+	qP.insert(3);
+	std::cout << std::endl << "Priority queue based on array is checked.";*/
 
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
