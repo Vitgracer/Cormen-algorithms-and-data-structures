@@ -17,18 +17,18 @@ public:
 	}
 };
 
-/////////////////////////////////////////
-//--- SYMBOL-TABLE (based on array)-----
-/////////////////////////////////////////
+/////////////////////////////////////////////////
+//--- SYMBOL-TABLE (based on array) (S 448)-----
+/////////////////////////////////////////////////
 template <class Item, class Key>
-class STarray {
+class STdistributed {
 private:
 	Item nullItem;
 	Item* st;
 	int M;
 	int size;
 public:
-	STarray(int maxN) 
+	STdistributed(int maxN) 
 		: M(nullItem.key())
 		, size(maxN)
 		, st(new Item[size]) { 

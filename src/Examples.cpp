@@ -166,20 +166,20 @@ void launchAllExamples() {
 	std::cout << std::endl << "Priority queue based on array is checked.";
 
 	////////////////////////////////////////////////////////////////////////////////////
-	STarray<Item, Key> starray(100);
+	STdistributed<Item, Key> stdistributed(100);
 	for (int i = 0; i < 100; i++) {
 		Item v;
 		v.rand();
-		if ((starray.search(v.key()).null())) starray.insert(v);
+		if ((stdistributed.search(v.key()).null())) stdistributed.insert(v);
 	}
-	int stArrayCount = starray.count();
+	int STdistributedCount = stdistributed.count();
 	Item itemRemove;
 	itemRemove.rand();
-	starray.remove(itemRemove);
+	stdistributed.remove(itemRemove);
 	itemRemove.rand();
-	starray.remove(itemRemove);
-	stArrayCount = starray.count();	
-	std::cout << std::endl << "Symbol table based on array is checked.";
+	stdistributed.remove(itemRemove);
+	STdistributedCount = stdistributed.count();	
+	std::cout << std::endl << "Distributed search: symbol table based on array is checked.";
 
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
