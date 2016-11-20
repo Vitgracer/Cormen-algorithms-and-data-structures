@@ -182,6 +182,16 @@ void launchAllExamples() {
 	std::cout << std::endl << "Distributed search: symbol table based on array is checked.";
 
 	////////////////////////////////////////////////////////////////////////////////////
+	STsequental<Item, Key> stseq(100);
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((stseq.search(v.key()).null())) stseq.insert(v);
+	}
+	int STseqCount = stseq.count();
+	std::cout << std::endl << "Sequental search: symbol table based on array is checked.";
+
+	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }

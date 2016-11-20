@@ -19,6 +19,7 @@ public:
 
 /////////////////////////////////////////////////
 //--- SYMBOL-TABLE (based on array) (S 448)-----
+//------------ distributed search --------------
 /////////////////////////////////////////////////
 template <class Item, class Key>
 class STdistributed {
@@ -52,6 +53,43 @@ public:
 			if (!st[i].null())
 				if (k-- == 0) return st[i];
 		}
+		return nullItem;
+	}
+};
+
+/////////////////////////////////////////////////
+//--- SYMBOL-TABLE (based on array) (S 450)-----
+//--------sequental search, ordered array-------
+/////////////////////////////////////////////////
+template <class Item, class Key>
+class STsequental {
+private:
+	Item nullItem;
+	Item* st;
+	int N;
+public:
+	STsequental(int maxN)
+		: N(0)
+		, st(new Item[maxN + 1]) {
+		for (int i = 0; i < N; i++) {
+			st[i] = Item();
+		}
+	}
+
+	int count() const { return N; }
+	void insert(Item x) { 
+		int i = N++;
+		Key v = x.key();
+		while (i > 0 && v < st[i - 1].key()) {
+			st[i] = st[i - 1];
+			i--;
+		}
+		st[i] = x;
+	}
+
+	Item search(Key v) const { 
+		for (int i = 0; i < N; i++) 
+			if (v == st[i].key()) return st[i];
 		return nullItem;
 	}
 };
