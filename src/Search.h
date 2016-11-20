@@ -20,12 +20,31 @@ public:
 /////////////////////////////////////////
 //--- SYMBOL-TABLE (based on array)-----
 /////////////////////////////////////////
-template <class Item>
 class STarray {
 private:
 	Item nullItem;
 	Item* st;
-	int m;
+	int M;
 public:
-	ST()
+	STarray() 
+		: M(nullItem.key())
+		, st(new Item[M]) {}
+	
+	int count() const {
+		int n = 0; 
+		for (int i = 0; i < M; i++) {
+			if (!st[i].null()) n++;
+		}
+		return n;
+	}
+	void insert(Item x) { st[x.key()] = x; }
+	Item search(Key v) const { return st[v]; }
+	void remove(Item x) { st[x.key()] = nullItem; }
+	Item select(int k) {
+		for (int i = 0; i < M; i++) {
+			if (!st[i].null())
+				if (k-- == 0) return st[i];
+		}
+		return nullItem;
+	}
 };
