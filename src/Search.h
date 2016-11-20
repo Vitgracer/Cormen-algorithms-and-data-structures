@@ -31,7 +31,11 @@ public:
 	STarray(int maxN) 
 		: M(nullItem.key())
 		, size(maxN)
-		, st(new Item[size]) {}
+		, st(new Item[size]) { 
+		for (int i = 0; i < size; i++) {
+			st[i] = Item();
+		}
+	}
 	
 	int count() const {
 		int n = 0; 
