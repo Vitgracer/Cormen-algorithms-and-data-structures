@@ -93,3 +93,45 @@ public:
 		return nullItem;
 	}
 };
+
+///////////////////////////////////////////////////////
+//--- SYMBOL-TABLE (based on linked list) (S 452)-----
+//------------------unordered array-------------------
+///////////////////////////////////////////////////////
+template <class Item, class Key>
+class STll {
+private:
+	Item nullItem;
+	struct node {
+		Item item;
+		node* next;
+
+		node (Item inItem, node* inNext) 
+			: item(inItem)
+			, next(inNext) {}
+	};
+	typedef node* link;
+
+	int N;
+	link head;
+
+	Item searchR(link t, Key v) {
+		if (t == 0) return nullItem;
+		if (t->item.key() == v) return t->item;
+		return searchR(t->next, v);
+	}
+public:
+	STll(int maxN)
+		: N(0)
+		, head(0) { }
+
+	int count() const { return N; }
+	void insert(Item x) {
+		head = new node(x, head);
+		N++;
+	}
+
+	Item search(Key v) {
+		return searchR(head, v);
+	}
+};

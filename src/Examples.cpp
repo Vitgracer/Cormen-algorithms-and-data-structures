@@ -192,6 +192,17 @@ void launchAllExamples() {
 	std::cout << std::endl << "Sequental search: symbol table based on array is checked.";
 
 	////////////////////////////////////////////////////////////////////////////////////
+	STll<Item, Key> st_ll(100);
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((st_ll.search(v.key()).null())) st_ll.insert(v);
+	}
+	int st_llCount = st_ll.count();
+	std::cout << std::endl << "Symbol table based on linked list is checked.";
+
+
+	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }
