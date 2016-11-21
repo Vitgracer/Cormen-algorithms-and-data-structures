@@ -150,3 +150,21 @@ public:
 		return searchR(head, v);
 	}
 };
+
+/////////////////////////////////////////////////
+//--- BINARY-SEARCH-TREE (BST) (S 462) ---------
+/////////////////////////////////////////////////
+template <class Item, class Key> 
+class BST {
+private:
+	struct node {
+		Item item;
+		node* l;
+		node* r;
+
+		node(Item inItem)
+			: item(inItem)
+			, l(0)
+			, r(0) {}
+	};
+};
