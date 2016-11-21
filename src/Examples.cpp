@@ -211,6 +211,7 @@ void launchAllExamples() {
 		v.rand();
 		if ((bst.search(v.key()).null())) bst.insert(v);
 	}
+	Item BSTsearchItem = bst.search(94);
 	std::cout << std::endl << "BST: symbol table based on BST is checked. Insertion and search are successful.";
 
 	////////////////////////////////////////////////////////////////////////////////////

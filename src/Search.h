@@ -179,7 +179,7 @@ private:
 		else
 			return searchR(treeNode->r, inputKey);
 	}
-	void insertR(link treeNode, Item inputItem) {
+	void insertR(link& treeNode, Item inputItem) {
 		if (treeNode == 0) {
 			treeNode = new node(inputItem);
 			return;
