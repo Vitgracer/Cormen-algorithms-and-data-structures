@@ -198,9 +198,40 @@ private:
 		std::cout << treenode->item.key() << "\t";
 		showR(treenode->r);
 	}
+	void rotR(link& treeNode) {
+		link x = treeNode->l;
+		treeNode->l = x->r;
+		x->r = treeNode;
+		treeNode = x;
+	}
+
+	void rotL(link& treeNode) {
+		link x = treeNode->r;
+		treeNode->r = x->l;
+		x->l = treeNode;
+		treeNode = x;
+	}
+
+	void insertToVertex(link treeNode, Item inputItem) {
+		if (treeNode == 0) {
+			treeNode = new node(inputItem);
+			return;
+		}
+		Key currentKey = treeNode->item.key();
+		if (inputItem.key() < currentKey) {
+			insertToVertex(treeNode->l, inputItem);
+			rotR(treeNode);
+		}
+		else {
+			insertToVertex(treeNode->r, inputItem);
+			rotL(treeNode);
+		}
+	}
+
 public:
 	BST() : head(0) {}
 	Item search(Key inputKey) { return searchR(head, inputKey); }
 	void insert(Item inputItem) { insertR(head, inputItem); }
+	void insertV(Item inputItem) { insertToVertex(head, inputItem); }
 	void show() { showR(head); }
 };
