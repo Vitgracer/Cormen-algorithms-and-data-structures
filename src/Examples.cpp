@@ -212,6 +212,8 @@ void launchAllExamples() {
 		if ((bst.search(v.key()).null())) bst.insert(v);
 	}
 	Item BSTsearchItem = bst.search(94);
+	std::cout << std::endl << "Sorted BST: \n";
+	bst.show();
 	std::cout << std::endl << "BST: symbol table based on BST is checked. Insertion and search are successful.";
 
 	////////////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <iostream>
 
 static int maxKey = 1000;
 typedef int Key;
@@ -190,8 +191,16 @@ private:
 		else
 			return insertR(treeNode->r, inputItem);
 	}
+
+	void showR(link treenode) {
+		if (treenode == 0) return;
+		showR(treenode->l);
+		std::cout << treenode->item.key() << "\t";
+		showR(treenode->r);
+	}
 public:
 	BST() : head(0) {}
 	Item search(Key inputKey) { return searchR(head, inputKey); }
 	void insert(Item inputItem) { insertR(head, inputItem); }
+	void show() { showR(head); }
 };
