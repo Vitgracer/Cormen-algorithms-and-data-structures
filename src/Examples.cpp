@@ -189,6 +189,9 @@ void launchAllExamples() {
 		if ((stseq.search(v.key()).null())) stseq.insert(v);
 	}
 	int STseqCount = stseq.count();
+	Item elementSearch = stseq.search(43);
+	Item elementBinSearch = stseq.Bsearch(43);
+	check *= (elementSearch.key() == elementBinSearch.key());
 	std::cout << std::endl << "Sequental search: symbol table based on array is checked.";
 
 	////////////////////////////////////////////////////////////////////////////////////

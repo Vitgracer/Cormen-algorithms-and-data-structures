@@ -67,6 +67,17 @@ private:
 	Item nullItem;
 	Item* st;
 	int N;
+	Item binarySearch(int l, int r, Key v) {
+		if (l > r) return nullItem;
+		int m = (l + r) / 2;
+		if (v == st[m].key()) return st[m];
+		if (l == r) return nullItem;
+		if (v < st[m].key())
+			return binarySearch(0, m - 1, v);
+		else
+			return binarySearch(m + 1, r, v);
+
+	}
 public:
 	STsequental(int maxN)
 		: N(0)
@@ -91,6 +102,10 @@ public:
 		for (int i = 0; i < N; i++) 
 			if (v == st[i].key()) return st[i];
 		return nullItem;
+	}
+
+	Item Bsearch(Key v) {
+		return binarySearch(0, N - 1, v);
 	}
 };
 
