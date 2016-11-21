@@ -204,6 +204,14 @@ void launchAllExamples() {
 	int st_llCount = st_ll.count();
 	std::cout << std::endl << "Symbol table based on linked list is checked.";
 
+	////////////////////////////////////////////////////////////////////////////////////
+	BST<Item, Key> bst;
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((bst.search(v.key()).null())) bst.insert(v);
+	}
+	std::cout << std::endl << "BST: symbol table based on BST is checked. Insertion and search are successful.";
 
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;

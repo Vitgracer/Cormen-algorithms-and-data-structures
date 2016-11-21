@@ -172,26 +172,26 @@ private:
 	Item nullitem;
 	Item searchR(link treeNode, Key inputKey) {
 		if (treeNode == 0) return nullitem;
-		Key currentKey = treeNode->key();
+		Key currentKey = treeNode->item.key();
 		if (currentKey == inputKey) return treeNode->item;
 		if (inputKey < currentKey)
 			return searchR(treeNode->l, inputKey);
 		else
-			return searchR(treenode->r, inputKey);
+			return searchR(treeNode->r, inputKey);
 	}
 	void insertR(link treeNode, Item inputItem) {
 		if (treeNode == 0) {
 			treeNode = new node(inputItem);
 			return;
 		}
-		Key currentKey = treeNode->key();
+		Key currentKey = treeNode->item.key();
 		if (inputItem.key() < currentKey)
-			return insertR(treeNode->left, inputItem);
+			return insertR(treeNode->l, inputItem);
 		else
-			return insertR(treeNode->right, inputItem);
+			return insertR(treeNode->r, inputItem);
 	}
 public:
 	BST() : head(0) {}
-	Item search(Item inputItem) { return searchR(head, inputItem); }
+	Item search(Key inputKey) { return searchR(head, inputKey); }
 	void insert(Item inputItem) { insertR(head, inputItem); }
 };
