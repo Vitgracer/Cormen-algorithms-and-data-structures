@@ -167,4 +167,15 @@ private:
 			, l(0)
 			, r(0) {}
 	};
+	typedef node* link;
+	Item nullitem;
+	Item searchR(link treeNode, Key inputKey) {
+		if (treeNode == 0) return nullitem;
+		Key currentKey = treeNode->key();
+		if (currentKey == inputKey) return treeNode->item;
+		if (inputKey < currentKey)
+			return searchR(treeNode->l, inputKey);
+		else
+			return searchR(treenode->r, inputKey);
+	}
 };
