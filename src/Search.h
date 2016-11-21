@@ -168,6 +168,7 @@ private:
 			, r(0) {}
 	};
 	typedef node* link;
+	link head;
 	Item nullitem;
 	Item searchR(link treeNode, Key inputKey) {
 		if (treeNode == 0) return nullitem;
@@ -178,4 +179,19 @@ private:
 		else
 			return searchR(treenode->r, inputKey);
 	}
+	void insertR(link treeNode, Item inputItem) {
+		if (treeNode == 0) {
+			treeNode = new node(inputItem);
+			return;
+		}
+		Key currentKey = treeNode->key();
+		if (inputItem.key() < currentKey)
+			return insertR(treeNode->left, inputItem);
+		else
+			return insertR(treeNode->right, inputItem);
+	}
+public:
+	BST() : head(0) {}
+	Item search(Item inputItem) { return searchR(head, inputItem); }
+	void insert(Item inputItem) { insertR(head, inputItem); }
 };
