@@ -216,9 +216,9 @@ void launchAllExamples() {
 	bst.show();
 
 	std::cout << std::endl << "BST: symbol table based on BST is checked. Insertion and search are successful.";
-	//Item v;
-	//v.rand();
-	//if ((bst.search(v.key()).null())) bst.insertV(v);
+	Item v;
+	v.rand();
+	if ((bst.search(v.key()).null())) bst.insertV(v);
 
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;

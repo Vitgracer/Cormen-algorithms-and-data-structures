@@ -212,7 +212,7 @@ private:
 		treeNode = x;
 	}
 
-	void insertToVertex(link treeNode, Item inputItem) {
+	void insertToVertex(link& treeNode, Item inputItem) {
 		if (treeNode == 0) {
 			treeNode = new node(inputItem);
 			return;
