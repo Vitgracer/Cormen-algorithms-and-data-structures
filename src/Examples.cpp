@@ -219,6 +219,17 @@ void launchAllExamples() {
 	Item v;
 	v.rand();
 	if ((bst.search(v.key()).null())) bst.insertV(v);
+	std::cout << std::endl << "BST: symbol table based on BST is checked. Insertion to vertex is successful.";
+
+	BST<Item, Key> bst2;
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((bst2.search(v.key()).null())) bst2.insert(v);
+	}
+
+	bst.join(bst2);
+	std::cout << std::endl << "BST: symbol table based on BST is checked. Joining is successful.";
 
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
