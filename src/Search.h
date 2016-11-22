@@ -245,3 +245,33 @@ public:
 	void show() { showR(head); }
 	void join(BST<Item, Key>& b) { head = joinR(head, b.head); }
 };
+
+/////////////////////////////////////////////////
+//------------- SKIP-LIST (S 521) ---------------
+/////////////////////////////////////////////////
+template <class Item> 
+class SkipList {
+private:
+	struct node {
+		Item item;
+		node** next;
+		int sz;
+
+		node(Item inItem, int inSz)
+			: item(inItem)
+			, sz(inSz)
+			, next(new node*[inSz]) {
+			for (int i = 0; i < inSz; i++) {
+				next[i] = 0;
+			}
+		}
+	};
+	typedef node* link;
+	link head;
+	Item nullitem;
+	int lgN;
+public:
+	SkipList(int lgnMax) 
+		: head(new node(nullitem, lgnMax))
+		, lgN(0) {}
+};
