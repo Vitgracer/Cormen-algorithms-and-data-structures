@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Examples.h"
 #include "DataStructure.h"
+#include "Search.h"
 
 //---------------------- IOSIF-TASK (Sedjvik p 94) --------------------
 // Brief description: task to check advantages of forward lists 
@@ -152,8 +153,8 @@ void launchAllExamples() {
 	int biHeight = biTree::height(bTree);
 
 	check = check * (biCount == 7) * (biHeight == 2);
-	////////////////////////////////////////////////////////////////////////////////////
 
+	////////////////////////////////////////////////////////////////////////////////////
 	PriorityQueue<int> qP(10);
 	qP.insert(12);
 	qP.insert(2);
@@ -163,6 +164,72 @@ void launchAllExamples() {
 	qP.getMax();
 	qP.insert(3);
 	std::cout << std::endl << "Priority queue based on array is checked.";
+
+	////////////////////////////////////////////////////////////////////////////////////
+	STdistributed<Item, Key> stdistributed(100);
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((stdistributed.search(v.key()).null())) stdistributed.insert(v);
+	}
+	int STdistributedCount = stdistributed.count();
+	Item itemRemove;
+	itemRemove.rand();
+	stdistributed.remove(itemRemove);
+	itemRemove.rand();
+	stdistributed.remove(itemRemove);
+	STdistributedCount = stdistributed.count();	
+	std::cout << std::endl << "Distributed search: symbol table based on array is checked.";
+
+	////////////////////////////////////////////////////////////////////////////////////
+	STsequental<Item, Key> stseq(100);
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((stseq.search(v.key()).null())) stseq.insert(v);
+	}
+	int STseqCount = stseq.count();
+	Item elementSearch = stseq.search(43);
+	Item elementBinSearch = stseq.Bsearch(43);
+	check *= (elementSearch.key() == elementBinSearch.key());
+	std::cout << std::endl << "Sequental search: symbol table based on array is checked.";
+
+	////////////////////////////////////////////////////////////////////////////////////
+	STll<Item, Key> st_ll(100);
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((st_ll.search(v.key()).null())) st_ll.insert(v);
+	}
+	int st_llCount = st_ll.count();
+	std::cout << std::endl << "Symbol table based on linked list is checked.";
+
+	////////////////////////////////////////////////////////////////////////////////////
+	BST<Item, Key> bst;
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((bst.search(v.key()).null())) bst.insert(v);
+	}
+	Item BSTsearchItem = bst.search(94);
+	std::cout << std::endl << "Sorted BST: \n";
+	bst.show();
+
+	std::cout << std::endl << "BST: symbol table based on BST is checked. Insertion and search are successful.";
+	Item v;
+	v.rand();
+	if ((bst.search(v.key()).null())) bst.insertV(v);
+	std::cout << std::endl << "BST: symbol table based on BST is checked. Insertion to vertex is successful.";
+
+	BST<Item, Key> bst2;
+	for (int i = 0; i < 100; i++) {
+		Item v;
+		v.rand();
+		if ((bst2.search(v.key()).null())) bst2.insert(v);
+	}
+
+	bst.join(bst2);
+	std::cout << std::endl << "BST: symbol table based on BST is checked. Joining is successful.";
 
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
