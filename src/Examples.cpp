@@ -232,6 +232,9 @@ void launchAllExamples() {
 	std::cout << std::endl << "BST: symbol table based on BST is checked. Joining is successful.";
 
 	////////////////////////////////////////////////////////////////////////////////////
+	//SkipList<Item> skiplist(30);
+
+	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }

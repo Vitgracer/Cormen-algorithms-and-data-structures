@@ -270,8 +270,20 @@ private:
 	link head;
 	Item nullitem;
 	int lgN;
+	
+	Item searchR(link linkNode, Key v, int k) {
+		if (linkNode == 0) return nullitem;
+		if (v == linkNode->item.key()) return linkNode->item;
+		link levelLink = linkNode->next[k];
+		if ((levelLink == 0) || (v < levelLink.key())) {
+			if (k == 0) return nullitem;
+			return searchR(linkNode, v, k - 1);
+		}
+		return searchR(levelLink, v, k - 1);
+	}
 public:
 	SkipList(int lgnMax) 
 		: head(new node(nullitem, lgnMax))
 		, lgN(0) {}
+	Item search(Key v) { return searchR(head, v, lgN); }
 };
