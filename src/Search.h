@@ -228,10 +228,20 @@ private:
 		}
 	}
 
+	link joinR(link a, link b) {
+		if (b == 0) return a;
+		if (a == 0) return b;
+		insertV(b, a->item);
+		b->l = joinR(a->l, b->l);
+		b->r = joinR(a->r, b->r);
+		delete a;
+		return b;
+	}
 public:
 	BST() : head(0) {}
 	Item search(Key inputKey) { return searchR(head, inputKey); }
 	void insert(Item inputItem) { insertR(head, inputItem); }
 	void insertV(Item inputItem) { insertToVertex(head, inputItem); }
 	void show() { showR(head); }
+	void join(BST<Item, Key>& b) { head = joinR(head, b.head); }
 };
