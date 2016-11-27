@@ -319,6 +319,17 @@ public:
 	
 	int count() const { return N; }
 	void insert(Item item) {
-
+		int i = hash(item.key(), M);
+		while (!st[i].null()) i = (i + 1) % M;
+		st[i] = item;
+		N++;
+	}
+	void search(Key v) {
+		int i = hash(v, M);
+		while (!st[i].null()) {
+			if (v == st[i].key()) return st[i];
+			else i = (i + 1) % M;
+		}
+		return nullitem;
 	}
 };
