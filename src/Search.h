@@ -287,3 +287,26 @@ public:
 		, lgN(0) {}
 	Item search(Key v) { return searchR(head, v, lgN); }
 };
+
+///////////////////////////////////////////////////////////
+//------------- HASH-TABLE (LINEAR PROBING) ---------------
+///////////////////////////////////////////////////////////
+template <class Item, class Key>
+class HashTable {
+private:
+	Item* st;
+	int N, M;
+	Item nullitem;
+public:
+	HashTable(int maxN) 
+		: N(0)
+		, M(2 * maxN)
+		, st(new Item[M]) {
+		for (int i = 0; i < M; i++) st[i] = nullitem;
+	}
+	
+	int count() const { return N; }
+	void insert(Item item) {
+
+	}
+};
