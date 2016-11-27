@@ -235,6 +235,15 @@ void launchAllExamples() {
 	//SkipList<Item> skiplist(30);
 
 	////////////////////////////////////////////////////////////////////////////////////
+	HashTable<ItemHash, char> hashTable(10);
+	for (int i = 0; i < 10; i++) {
+		ItemHash v;
+		v.rand();
+		if ((hashTable.search(v.key()).null())) hashTable.insert(v);
+	}
+	std::cout << std::endl << "Hash-table insert and search is successfull. ";
+
+	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
 }

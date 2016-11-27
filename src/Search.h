@@ -18,6 +18,21 @@ public:
 	}
 };
 
+class ItemHash {
+private:
+	char keyval;
+	float info;
+public:
+	ItemHash() : keyval(0), info(0) {}
+	char key() const { return keyval; }
+	int null() const { return keyval == 0; }
+	void rand() {
+		keyval = 100 * ::rand() / RAND_MAX;
+		info = 1.0 * ::rand() / RAND_MAX;
+	}
+};
+
+
 /////////////////////////////////////////////////
 //--- SYMBOL-TABLE (based on array) (S 448)-----
 //------------ distributed search --------------
@@ -286,4 +301,52 @@ public:
 		: head(new node(nullitem, lgnMax))
 		, lgN(0) {}
 	Item search(Key v) { return searchR(head, v, lgN); }
+};
+
+///////////////////////////////////////////////////////////
+//--------------------- HASH-FUNCTION ---------------------
+///////////////////////////////////////////////////////////
+int hash(char* v, int M) {
+	int h = 0; 
+	int a = 127;
+	for (; *v != 0; v++) {
+		h = (a * h + *v) % M;
+	}
+	return h;
+}
+
+///////////////////////////////////////////////////////////
+//------------- HASH-TABLE (LINEAR PROBING) ---------------
+///////////////////////////////////////////////////////////
+template <class Item, class Key>
+class HashTable {
+private:
+	Item* st;
+	int N, M;
+	Item nullitem;
+public:
+	HashTable(int maxN) 
+		: N(0)
+		, M(2 * maxN)
+		, st(new Item[M]) {
+		for (int i = 0; i < M; i++) st[i] = nullitem;
+	}
+	
+	int count() const { return N; }
+	void insert(Item item) {
+		char tempVal = item.key();
+		int i = hash(&tempVal, M);
+		while (!st[i].null()) i = (i + 1) % M;
+		st[i] = item;
+		N++;
+	}
+
+	Item search(Key v) {
+		int i = hash(&v, M);
+		while (!st[i].null()) {
+			if (v == st[i].key()) return st[i];
+			else i = (i + 1) % M;
+		}
+		return nullitem;
+	}
 };
