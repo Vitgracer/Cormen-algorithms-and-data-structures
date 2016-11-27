@@ -324,7 +324,8 @@ public:
 		st[i] = item;
 		N++;
 	}
-	void search(Key v) {
+
+	Item search(Key v) {
 		int i = hash(v, M);
 		while (!st[i].null()) {
 			if (v == st[i].key()) return st[i];
