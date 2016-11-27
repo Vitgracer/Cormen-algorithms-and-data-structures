@@ -18,6 +18,21 @@ public:
 	}
 };
 
+class ItemHash {
+private:
+	char keyval;
+	float info;
+public:
+	ItemHash() : keyval(0), info(0) {}
+	char key() const { return keyval; }
+	int null() const { return keyval == 0; }
+	void rand() {
+		keyval = 100 * ::rand() / RAND_MAX;
+		info = 1.0 * ::rand() / RAND_MAX;
+	}
+};
+
+
 /////////////////////////////////////////////////
 //--- SYMBOL-TABLE (based on array) (S 448)-----
 //------------ distributed search --------------
@@ -319,14 +334,15 @@ public:
 	
 	int count() const { return N; }
 	void insert(Item item) {
-		int i = hash(item.key(), M);
+		char tempVal = item.key();
+		int i = hash(&tempVal, M);
 		while (!st[i].null()) i = (i + 1) % M;
 		st[i] = item;
 		N++;
 	}
 
 	Item search(Key v) {
-		int i = hash(v, M);
+		int i = hash(&v, M);
 		while (!st[i].null()) {
 			if (v == st[i].key()) return st[i];
 			else i = (i + 1) % M;
