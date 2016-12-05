@@ -1,3 +1,5 @@
+#include <vector>
+
 ///////////////////////////////////////
 // ------------- GRAPH ---------------
 ///////////////////////////////////////
@@ -30,3 +32,18 @@ public:
 		bool end();
 	};
 };
+
+template <class Graph> 
+std::vector<Edge> edges(GRAPH& G) {
+	int E = 0;
+	vector<Edge> a(G.E());
+	for (int v = 0; v < G.V(); v++) {
+		typename Graph::adjIterator A(G, v);
+		for (int w = A.beg(); w != A.end(); w = A.nxt()) {
+			if (G.directed() || v < w) {
+				a[E++] = Edge(v, w);
+			}
+		}
+	}
+	return a;
+}
