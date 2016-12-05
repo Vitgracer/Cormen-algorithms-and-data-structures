@@ -34,7 +34,7 @@ public:
 };
 
 template <class Graph> 
-std::vector<Edge> edges(GRAPH& G) {
+std::vector<Edge> edges(Graph& G) {
 	int E = 0;
 	vector<Edge> a(G.E());
 	for (int v = 0; v < G.V(); v++) {
