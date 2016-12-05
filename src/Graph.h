@@ -47,3 +47,23 @@ std::vector<Edge> edges(GRAPH& G) {
 	}
 	return a;
 }
+
+template <class Graph>
+class IO {
+public:
+	static void show(Graph&);
+	static void scanEZ(Graph&);
+	static void scan(Graph&);
+};
+
+template <class Graph> 
+void IO<Graph>::show(const Graph& G) {
+	for (int s = 0; s < G.V(); s++) {
+		std::cout << s << " : ";
+		typename Graph::adjIterator(G, s);
+		for (int t = A.beg(); t != A.end(); t = A.nxt()) {
+			std::cout << t << " ";
+		}
+		std::cout << std::endl;
+	}
+}
