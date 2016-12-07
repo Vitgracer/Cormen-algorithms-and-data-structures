@@ -120,3 +120,31 @@ public:
 	class adjIterator;
 	friend class adjIterator;
 };
+
+class DenseGraph::adjIterator {
+private:
+	const DenseGraph& G;
+	int i;
+	int v;
+public:
+	adjIterator(const DenseGraph& GiN, int vIn) 
+		: G(GiN)
+		, v(vIn)
+		, i(-1) {}
+
+	int beg() { 
+		i = -1;
+		return nxt();
+	}
+
+	int nxt() {
+		for (i++; i < G.V(); i++) {
+			if (G.adj[v][i] == true) return i;
+			else return -1;
+		}
+	}
+
+	bool end() {
+		return i >= G.V();
+	}
+};
