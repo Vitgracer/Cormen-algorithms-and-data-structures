@@ -57,7 +57,7 @@ public:
 };
 
 template <class Graph> 
-void IO<Graph>::show(const Graph& G) {
+void IO<Graph>::show(Graph& G) {
 	for (int s = 0; s < G.V(); s++) {
 		std::cout << s << " : ";
 		typename Graph::adjIterator(G, s);
@@ -77,6 +77,9 @@ public:
 	bool connect(int, int);
 };
 
+//////////////////////////////////////////////////////////
+/////////////// Graph based on adjscency matrix //////////
+//////////////////////////////////////////////////////////
 class DenseGraph {
 private:
 	int Vcnt;
@@ -146,5 +149,78 @@ public:
 
 	bool end() {
 		return i >= G.V();
+	}
+};
+
+
+//////////////////////////////////////////////////////////
+/////////////// Graph based on adjacency list //////////
+//////////////////////////////////////////////////////////
+class SparseMultiGRAPH{
+private:
+	int Vcnt;
+	int Ecnt;
+	bool digraph;
+	struct node {
+		int v;
+		node* next;
+		
+		node(int inV, node* inNext)
+			: v(inV)
+			, next(inNext) {}
+	};
+	typedef node* link;
+	std::vector <link> adj;
+public:
+	SparseMultiGRAPH(int V, bool digraphIn = false)
+		: adj(V)
+		, Vcnt(V)
+		, Ecnt(0)
+		, digraph(digraphIn) {
+		adj.assign(V, 0);
+	}
+
+	int V() const { return Vcnt; }
+	int E() const { return Ecnt; }
+	int directed() const { return digraph; }
+
+	void insert(Edge e) {
+		int v = e.v;
+		int w = e.w;
+		adj[v] = new node(w, adj[v]);
+		if (!digraph) adj[w] =new node(v, adj[w]);
+		Ecnt++;
+	}
+
+	void remove(Edge e);
+	bool edge(int v, int w);
+
+	class adjIterator;
+	friend class adjIterator;
+};
+
+class SparseMultiGRAPH::adjIterator {
+private:
+	const SparseMultiGRAPH& G;
+	int v;
+	link t;
+public:
+	adjIterator(const SparseMultiGRAPH& GiN, int vIn)
+		: G(GiN)
+		, v(vIn)
+		, t(0) {}
+
+	int beg() {
+		t = G.adj[v];
+		return t ? t->v : -1;
+	}
+
+	int nxt() {
+		if (t) t = t->next;
+		return t ? t->v : -1;
+	}
+
+	bool end() {
+		return t == 0;
 	}
 };

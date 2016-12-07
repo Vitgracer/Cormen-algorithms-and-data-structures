@@ -2,6 +2,7 @@
 #include "Examples.h"
 #include "DataStructure.h"
 #include "Search.h"
+#include "Graph.h"
 
 //---------------------- IOSIF-TASK (Sedjvik p 94) --------------------
 // Brief description: task to check advantages of forward lists 
@@ -58,6 +59,7 @@ char* Examples::convertInfixToPostfix(const char* expression) {
 }
 
 void launchAllExamples() {
+#if 0
 	////////////////////////////////////////////////////////////////////////////////////
 	std::cout << "Iosif task: " << std::endl;
 	Examples::IosifTask(8, 9);
@@ -242,8 +244,22 @@ void launchAllExamples() {
 		if ((hashTable.search(v.key()).null())) hashTable.insert(v);
 	}
 	std::cout << std::endl << "Hash-table insert and search is successfull. ";
+#endif
+	////////////////////////////////////////////////////////////////////////////////////
+	DenseGraph G(10);
+	for (int i = 0; i < 10; i++) {
+		G.insert(Edge(i, 2));
+	}
 
+	SparseMultiGRAPH Gsp(10);
+	for (int i = 0; i < 10; i++) {
+		Gsp.insert(Edge(i, 2));
+	}
+
+	int a = 2;
+#if 0
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
+#endif
 }
