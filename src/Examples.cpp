@@ -256,10 +256,10 @@ void launchAllExamples() {
 		Gsp.insert(Edge(i, 2));
 	}
 
-	DenseGraph Grand(10);
+	DenseGraph Grand(4);
 	randG(Grand, 10);
-	sPATH(Grand, 0, 7);
-
+	sPATH<DenseGraph> sPath = sPATH<DenseGraph>(Grand, 0, 7);
+	bool path07 = sPath.exists();
 #if 0
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
