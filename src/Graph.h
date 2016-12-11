@@ -238,7 +238,7 @@ void randG(Graph& G, int E) {
 }
 
 //////////////////////////////////////////////////////////
-/////////////////////// DFS //////////////////////////////
+/////////////// DFS search simple path ///////////////////
 //////////////////////////////////////////////////////////
 template <class Graph> 
 class sPATH {
@@ -266,6 +266,40 @@ public:
 		, isPath(false)
 	{
 		isPath = search(vin, win);
+	}
+	bool exists() const { return isPath; }
+};
+
+//////////////////////////////////////////////////////////
+/////////////// DFS search Gamilton path /////////////////
+//////////////////////////////////////////////////////////
+template <class Graph>
+class gPATH {
+private:
+	const Graph& G;
+	bool isPath;
+	std::vector<int> visited;
+
+	bool search(int v, int w, int d) {
+		if (v == w) return (d == 0);
+		visited[v] = true;
+		typename Graph::adjIterator A(G, v);
+		for (int t = A.beg(); !A.end(); t = A.nxt()) {
+			if (!visited[t]) {
+				if (search(t, w, d - 1)) return true;
+			}
+		}
+		visited[v] = false;
+		return false;
+	}
+
+public:
+	gPATH(const Graph& Gin, int vin, int win, int din)
+		: G(Gin)
+		, visited(G.V(), false)
+		, isPath(false)
+	{
+		isPath = search(vin, win, din);
 	}
 	bool exists() const { return isPath; }
 };

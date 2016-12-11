@@ -260,6 +260,12 @@ void launchAllExamples() {
 	randG(Grand, 10);
 	sPATH<DenseGraph> sPath = sPATH<DenseGraph>(Grand, 0, 3);
 	bool path07 = sPath.exists();
+
+	DenseGraph Grand1(5);
+	randG(Grand1, 6);
+	gPATH<DenseGraph> gPath = gPATH<DenseGraph>(Grand1, 0, 2, 4);
+	bool path05 = sPath.exists();
+
 #if 0
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
