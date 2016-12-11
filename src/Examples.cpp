@@ -256,7 +256,10 @@ void launchAllExamples() {
 		Gsp.insert(Edge(i, 2));
 	}
 
+	DenseGraph Grand(10);
+	randG(G, 10);
 	int a = 2;
+
 #if 0
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
