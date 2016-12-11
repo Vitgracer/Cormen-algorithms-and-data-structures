@@ -258,7 +258,7 @@ void launchAllExamples() {
 
 	DenseGraph Grand(4);
 	randG(Grand, 10);
-	sPATH<DenseGraph> sPath = sPATH<DenseGraph>(Grand, 0, 7);
+	sPATH<DenseGraph> sPath = sPATH<DenseGraph>(Grand, 0, 3);
 	bool path07 = sPath.exists();
 #if 0
 	////////////////////////////////////////////////////////////////////////////////////

@@ -143,8 +143,8 @@ public:
 	int nxt() {
 		for (i++; i < G.V(); i++) {
 			if (G.adj[v][i] == true) return i;
-			else return -1;
 		}
+		return -1;
 	}
 
 	bool end() {
@@ -263,6 +263,7 @@ public:
 	sPATH(const Graph& Gin, int vin, int win)
 		: G(Gin)
 		, visited(G.V(), false)
+		, isPath(false)
 	{
 		isPath = search(vin, win);
 	}
