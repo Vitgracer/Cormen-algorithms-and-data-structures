@@ -236,3 +236,34 @@ void randG(Graph& G, int E) {
 		}
 	}
 }
+
+//////////////////////////////////////////////////////////
+/////////////////////// DFS //////////////////////////////
+//////////////////////////////////////////////////////////
+template <class Graph> 
+class sPATH {
+	const Graph& g;
+	bool isPath;
+	vector<int> visited;
+
+	bool search(int v, int w) {
+		if (v == w) return true;
+		visited[v] = true;
+		typename Graph::adjIterator A(G, v);
+		for (int t = A.beg(); !A.end(); t = A.nxt()) {
+			if (!visited[t]) {
+				if (search(t, w)) return true;
+			}
+		}
+		return false;
+	}
+
+public:
+	sPATH(const Graph& Gin, int vin, int win)
+		: G(Gin)
+		, visited(G.V(), false)
+		, isPath(false) {
+		isPath = search(v, w);
+	}
+	bool exists() const { return isPath; }
+};
