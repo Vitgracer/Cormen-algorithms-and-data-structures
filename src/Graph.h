@@ -242,9 +242,10 @@ void randG(Graph& G, int E) {
 //////////////////////////////////////////////////////////
 template <class Graph> 
 class sPATH {
-	const Graph& g;
+private:
+	const Graph& G;
 	bool isPath;
-	vector<int> visited;
+	std::vector<int> visited;
 
 	bool search(int v, int w) {
 		if (v == w) return true;
@@ -262,8 +263,8 @@ public:
 	sPATH(const Graph& Gin, int vin, int win)
 		: G(Gin)
 		, visited(G.V(), false)
-		, isPath(false) {
-		isPath = search(v, w);
+	{
+		isPath = search(vin, win);
 	}
 	bool exists() const { return isPath; }
 };

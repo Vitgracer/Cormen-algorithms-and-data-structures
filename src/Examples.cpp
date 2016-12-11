@@ -257,7 +257,8 @@ void launchAllExamples() {
 	}
 
 	DenseGraph Grand(10);
-	randG(G, 10);
+	randG(Grand, 10);
+	sPATH(Grand, 0, 7);
 
 #if 0
 	////////////////////////////////////////////////////////////////////////////////////
