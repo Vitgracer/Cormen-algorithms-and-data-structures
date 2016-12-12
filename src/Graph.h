@@ -303,3 +303,44 @@ public:
 	}
 	bool exists() const { return isPath; }
 };
+
+//////////////////////////////////////////////////////////
+/////////////// DFS drawing in 2 colours /////////////////
+//////////////////////////////////////////////////////////
+template <class Graph>
+class BI {
+private:
+	const Graph& G;
+	bool OK;
+	vector<int> vc;
+	bool dfs(int v, int c) {
+		vc[v] = (c + 1) % 2;
+		typename Graph::adjIterator A(G, v);
+		for (int t = A.beg(); !A.end(); t = A.nxt()) {
+			if (vc[t] == -1) {
+				if (!dfs(t), vc[v])) return false;
+			}
+			else if (vc[t] != c) return false;
+		}
+		return true;
+	}
+
+public:
+	BI(const Graph& Gin)
+		: G(Gin)
+		, OK(true)
+		, vc(G.V(), -1) {
+
+		for (int v = 0; v < G.V(); v++) {
+			if (vc[v] == -1) {
+				if (!dfs(v, 0)) {
+					OK = false;
+					return;
+				}
+			}
+		}
+	}
+	
+	bool bipartive() const { return OK; }
+	int color(int v) const { return vc[v]; }
+};
