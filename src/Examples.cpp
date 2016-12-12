@@ -2,6 +2,7 @@
 #include "Examples.h"
 #include "DataStructure.h"
 #include "Search.h"
+#include "Graph.h"
 
 //---------------------- IOSIF-TASK (Sedjvik p 94) --------------------
 // Brief description: task to check advantages of forward lists 
@@ -58,6 +59,7 @@ char* Examples::convertInfixToPostfix(const char* expression) {
 }
 
 void launchAllExamples() {
+#if 0
 	////////////////////////////////////////////////////////////////////////////////////
 	std::cout << "Iosif task: " << std::endl;
 	Examples::IosifTask(8, 9);
@@ -242,8 +244,31 @@ void launchAllExamples() {
 		if ((hashTable.search(v.key()).null())) hashTable.insert(v);
 	}
 	std::cout << std::endl << "Hash-table insert and search is successfull. ";
+#endif
+	////////////////////////////////////////////////////////////////////////////////////
+	DenseGraph G(10);
+	for (int i = 0; i < 10; i++) {
+		G.insert(Edge(i, 2));
+	}
 
+	SparseMultiGRAPH Gsp(10);
+	for (int i = 0; i < 10; i++) {
+		Gsp.insert(Edge(i, 2));
+	}
+
+	DenseGraph Grand(4);
+	randG(Grand, 10);
+	sPATH<DenseGraph> sPath = sPATH<DenseGraph>(Grand, 0, 3);
+	bool path07 = sPath.exists();
+
+	DenseGraph Grand1(5);
+	randG(Grand1, 6);
+	gPATH<DenseGraph> gPath = gPATH<DenseGraph>(Grand1, 0, 2, 4);
+	bool path05 = sPath.exists();
+
+#if 0
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
 	else std::cout << "Error!" << std::endl << std::endl;
+#endif
 }

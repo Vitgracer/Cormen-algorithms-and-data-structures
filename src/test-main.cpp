@@ -10,6 +10,7 @@
 #include "Examples.h"
 
 int main() {
+#if 0
 	// compare sorting algorithms 
 	launchAllSortingAlgorithms();
 
@@ -34,6 +35,8 @@ int main() {
 
 	//launch all Geometry algorithms 
 	launchAllGeometryAlgorithms();
+
+#endif
 
 	// launch all Examples based on data structures 
 	launchAllExamples();
