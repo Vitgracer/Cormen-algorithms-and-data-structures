@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Examples.h"
-#include "DataStructure.h"
 #include "Search.h"
 #include "Graph.h"
 
@@ -270,6 +269,10 @@ void launchAllExamples() {
 	randG(Grand2, 6);
 	BI<DenseGraph> bipart = BI<DenseGraph>(Grand2);
 	bool isBiaprtive = bipart.bipartive();
+
+	DenseGraph Grand3(5);
+	randG(Grand3, 6);
+	BFS<DenseGraph> bfs = BFS<DenseGraph>(Grand3);
 
 #if 0
 	////////////////////////////////////////////////////////////////////////////////////
