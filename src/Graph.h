@@ -1,4 +1,5 @@
 #include <vector>
+#include "DataStructure.h"
 
 ///////////////////////////////////////
 // ------------- GRAPH ---------------
@@ -302,4 +303,94 @@ public:
 		isPath = search(vin, win, din);
 	}
 	bool exists() const { return isPath; }
+};
+
+//////////////////////////////////////////////////////////
+/////////////// DFS drawing in 2 colours /////////////////
+//////////////////////////////////////////////////////////
+template <class Graph>
+class BI {
+private:
+	const Graph& G;
+	bool OK;
+	std::vector<int> vc;
+	bool dfs(int v, int c) {
+		vc[v] = (c + 1) % 2;
+		typename Graph::adjIterator A(G, v);
+		for (int t = A.beg(); !A.end(); t = A.nxt()) {
+			if (vc[t] == -1) {
+				if (!dfs(t, vc[v])) return false;
+			}
+			else if (vc[t] != c) return false;
+		}
+		return true;
+	}
+
+public:
+	BI(const Graph& Gin)
+		: G(Gin)
+		, OK(true)
+		, vc(G.V(), -1) {
+
+		for (int v = 0; v < G.V(); v++) {
+			if (vc[v] == -1) {
+				if (!dfs(v, 0)) {
+					OK = false;
+					return;
+				}
+			}
+		}
+	}
+	
+	bool bipartive() const { return OK; }
+	int color(int v) const { return vc[v]; }
+};
+
+template <class Graph> 
+class SEARCH {
+protected:
+	const Graph& G;
+	int cnt;
+	std::vector<int> ord;
+	virtual void searchC(Edge) = 0;
+	void search() {
+		for (int v = 0; v < G.V(); v++) {
+			if (ord[v] == -1) searchC(Edge(v, v));
+		}
+	}
+public:
+	SEARCH(const Graph& Gin) 
+		: G(Gin)
+		, ord(G.V(), -1)
+		, cnt(0) {}
+	int operator[](int v) const { return ord[v]; }
+};
+
+
+//////////////////////////////////////////////////////////
+/////////////// BFS based on queue ///////////////////////
+//////////////////////////////////////////////////////////
+template <class Graph> 
+class BFS : public SEARCH<Graph>
+{
+	std::vector<int> st;
+	void searchC(Edge e) {
+		QueueArray<Edge> Q(100);
+		Q.put(e);
+		while (!Q.empty()) {
+			if (ord[(e = Q.get()).w] == -1) {
+				int v = e.v;
+				int w = e.w;
+				ord[w] = cnt++;
+				st[w] = v;
+				typename Graph::adjIterator A(G, w);
+				for (int t = A.beg(); !A.end(); t = A.nxt()) {
+					if (ord[t] == -1) Q.put(Edge(w, t));
+				}
+			}
+		}
+	}
+public:
+	BFS(Graph& G) : SEARCH<Graph>(G), st(G.V(), -1) { search(); }
+	int ST(int v) const { return st[v]; }
 };
