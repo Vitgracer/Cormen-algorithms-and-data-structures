@@ -394,3 +394,39 @@ public:
 	BFS(Graph& G) : SEARCH<Graph>(G), st(G.V(), -1) { search(); }
 	int ST(int v) const { return st[v]; }
 };
+
+//////////////////////////////////////////////////////////////////////
+/////////////////////////// WEIGHTED GRAPHS //////////////////////////
+//////////////////////////////////////////////////////////////////////
+namespace wGr {
+	class Edge {
+	public:
+		Edge(int, int, double);
+		int v() const;
+		int w() const;
+		double wt() const;
+		bool from(int) const;
+		int other(int) const;
+	};
+
+	template <class Edge>
+	class GRAPH {
+	public:
+		GRAPH(int, bool);
+		~GRAPH();
+		int V() const;
+		int E() const;
+		bool directed() const;
+		int insert(Edge*);
+		int remove(Edge*);
+		Edge* edge(int, int);
+
+		class adjIteartor {
+		public:
+			adjIteartor(const GRAPH&, int);
+			Edge* beg();
+			Edge* nxt();
+			bool end();
+		};
+	};
+}
