@@ -274,6 +274,8 @@ void launchAllExamples() {
 	randG(Grand3, 6);
 	BFS<DenseGraph> bfs = BFS<DenseGraph>(Grand3);
 
+	wGr::DenseGraph<wGr::Edge> wGr1(5);
+
 #if 0
 	////////////////////////////////////////////////////////////////////////////////////
 	if (check) std::cout << std::endl << "All data structures examples were launched!" << std::endl << std::endl;
