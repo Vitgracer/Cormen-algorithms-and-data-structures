@@ -429,4 +429,79 @@ namespace wGr {
 			bool end();
 		};
 	};
+
+	// implementation based on adjacency matrix 
+	template <class Edge>
+	class DenseGraph {
+	private:
+		int Vcnt;
+		int Ecnt;
+		bool digraph;
+		std::vector<std::vector<Edge* >> adj;
+	public:
+		DenseGraph(int V, bool digraphIn = false)
+			: adj(V)
+			, Vcnt(V)
+			, Ecnt(0)
+			, digraph(digraphIn) {
+			for (int i = 0; i < V; i++) {
+				adj[i].assign(V, 0);
+			}
+		}
+		int V() const { return Vcnt; }
+		int E() const { return Ecnt; }
+		int directed() const { return digraph; }
+
+		void insert(Edge* e) {
+			int v = e->v();
+			int w = e->w();
+			if (adj[v][w] == 0) Ecnt++;
+			adj[v][w] = e;
+			if (!digraph) adj[w][v] = e;
+		}
+
+		void remove(Edge* e) {
+			int v = e->v();
+			int w = e->w();
+			if (adj[v][w] != 0) Ecnt--;
+			adj[v][w] = 0;
+			if (!digraph) adj[w][v] = 0;
+		}
+
+		Edge* edge(int v, int w) const {
+			return adj[v][w];
+		}
+
+		class adjIterator;
+		friend class adjIterator;
+	};
+
+	template <class Edge>
+	class DenseGraph<Edge>::adjIterator {
+	private:
+		const DenseGraph<Edge>& G;
+		int i;
+		int v;
+	public:
+		adjIterator(const DenseGraph<Edge>& GiN, int vIn)
+			: G(GiN)
+			, v(vIn)
+			, i(0) {}
+
+		Edge* beg() {
+			i = -1;
+			return nxt();
+		}
+
+		Edge* nxt() {
+			for (i++; i < G.V(); i++) {
+				if (G.edge(v,i)) return G.adj[v][i];
+			}
+			return 0;
+		}
+
+		bool end() const {
+			return i >= G.V();
+		}
+	};
 }
